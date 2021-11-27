@@ -1,0 +1,163 @@
+## Data structures {#part_22}
+
+The data we are going to work with is usually stored as a table or a vector of values. One of the basic operations on tables and vectors is selecting a subset of rows, columns or values. More information about various methods of data processing can be found in Section 2.5.
+
+### Vectors {#part_221}
+
+Vectors, or sequences of values of the same type, are the basic data structure in R. We can create sequences of numbers, strings, or logical values. For R, even a single number is a one-element vector.
+
+Vectors can be created from smaller vectors using the `c()` function.
+
+```{r}
+c(2, 3, 5, 7, 11, 13, 17)
+```
+
+One particular group of vectors are sequences of consecutive numbers. The easiest way to create such sequences is by using the `:` operator. 
+
+```{r}
+-3:3
+```
+
+If we need sequences of numbers with a step value other than 1, we may use the `seq()` function.
+
+```{r}
+seq(from = 0, to = 100, by = 11)
+```
+
+Many useful vectors are available in basic packages. Some examples are month names or subsequent letters.
+```{r}
+month.name
+LETTERS
+```
+
+#### Indexing vectors {#part_2211}
+
+You can use the `[]` operator to refer to the elements of a vector. Inside the square brackets, provide the vector of indices to read. Vector elements are numbered from `1`. We can easily show indexing by selecting a subset of letters from the `LETTERS` vector.
+```{r}
+LETTERS[ 5:10 ]
+LETTERS[ c(1, 2, 9:14) ]
+```
+
+The `length()` function returns the number of elements in a vector. For example, it may prove useful when we want to select every second element from the vector. In the code below, we use `seq()` to build a sequence of indices made up of every second letter from the `LETTERS` vector.
+```{r}
+every_second <- seq(from = 1, to = length(LETTERS), by = 2)
+LETTERS[ every_second ]
+```
+
+Indices also accept negative numbers. This way, we can select all values except those with the indices provided.
+```{r}
+month.name[ -(5:9) ]
+```
+
+Vector elements can be assigned names when constructing a vector with the `c()` function, or at a later time with the `names()` function. If a given vector has names, then its elements can be referred to with those names instead of the indices.
+```{r}
+value <- c(pawn = 1, knight = 3, bishop = 3,
+rook = 5, queen = 9, king = Inf)
+```
+
+Getting a subvector is not the only aim of indexing. Often enough, we want to change the order of elements in a vector. In the sample code below, we reverse the order of elements by providing a new set of indices.
+```{r}
+value[ 6:1 ]
+```
+
+Logical values are another useful method to select a subsequence of elements from a vector. The code below presents how we can choose all elements of a vector whose values are less than 6.
+```{r}
+value[ value < 6 ]
+```
+
+#### Changing vector elements {#part_2212}
+
+Vector indices are also useful when we only want to change some of the elements. We can choose a subset of vector elements, and then assign a value to it using the `<-` operator.
+In the example below, we change the value of the fourth and fifth elements of the `value` vector.
+```{r}
+value[ c(4,5) ] <- c(6,7)
+value
+```
+
+In order to add new elements to the vector, we can use the `c()` function.
+```{r}
+(value <- c(value, new_piece = 5))
+```
+
+### Data frames {#part_222}
+
+The most widely used data structure in data analysis is called a data frame. Each data frame is a set of columns (variables), and each column is a vector of equal length. Columns may have values of different types.
+We will show you how to work with data frames using a small dataset called `cats_birds`. The seven columns represent various traits of selected cats and birds.
+```{r, warning=FALSE, message=FALSE}
+library("PogromcyDanych")
+head(koty_ptaki)
+```
+
+#### Indexing data frames {#part_2221}
+
+Data frames are structured as two-dimensional tables. In order to specify their elements, we must provide both the row and the column. To that end, we can use the `[]` or `$` operators. The latter will be discussed at the end of the current section.
+
+When using the `[]` operator, we should separately specify the indices of rows and columns, and separate them with `","` (commas). If indices of rows or columns are not specified, then all rows/columns will be selected.
+
+The example below shows how to choose three rows from the `cats_birds` data frame.
+```
+cats_birds[ c(1, 3 , 5) , ]
+```
+
+We can use indices for both rows and columns at the same time.
+
+```
+cats_birds[ c(1, 3, 5) , 2:5]
+```
+
+Each dimension can be indexed using the same rules that are applied to vectors. This means that (1) logical conditions can be indices, (2) we can refer to names, and (3) we can use negative indices.
+
+In the example below, we only select animals that develop a velocity greater than 100 km/h. For each row that satisfies this condition, we show the species, velocity and length of the animal.
+```
+cats_birds[ cats_birds[,"velocity"] > 100,
+            c("species", "velocity", "length")]
+```
+
+Individual columns of the data frame are vectors. If we refer to a single column, we will get a vector instead of a data frame. This is a very convenient property which makes the code much shorter on many occasions. However, there are situations where this notation leads to mistakes, which is why we need to be careful when selecting a single column.
+
+We can choose a column by providing its number or name. The command below has the same meaning as `cats_birds[,4]`.
+```
+cats_birds[, "velocity"]
+```
+
+When we want to select a single column from a data frame, we can also use the `$` operator. It shortens the code by 4 characters. At the same time, it becomes much clearer that the result is a vector.
+
+After the `$` operator, we can provide a full variable name, or just a part of it. If we only provide a part of it, we will get a column whose name starts with the part we provide.
+```
+cats_birds$velocity
+```
+
+The `$` operator also comes in handy when we add a new column to our data frame. We can add a new column with the given name at the end of the given data frame. Below, we change the unit, bearing in mind that 1 mile/h = 1.6 km/h.
+```
+cats_birds$velocity_miles <- cats_birds$velocity * 1.6
+head(cats_birds, 2)
+```
+
+Another way to add a column is by using the `cbind()` or `data.frame()` function.
+
+The `rbind()` function binds two data frames row by row, thus allowing us to add new rows. The `dplyr` package provides quicker versions of both functions. Their names are `bind_cols()` and `bind_rows()`.
+
+### Lists {#part_223}
+
+The third most popular data structure used in R are lists. A list, just like a vector, is a sequence of values. Unlike a vector, however, a list can store elements of multiple types. A list element may be another complex structure, such as a data frame or another list.
+
+Lists are created with `list()`. The example below shows how to create a list that contains a vector with numbers, letters and logical values.
+```
+triplet <- list(numbers = 1:5, letters = LETTERS, logic = c(TRUE, TRUE, TRUE, FALSE))
+triplet
+```
+
+You can access list elements with `[[]]`. You can only select a single element.
+
+If a list has a name, its elements can be referred to with the `$` operator in a way similar to data frames. Internally, data frames are represented as lists of equally long vectors.
+```
+triple[[2]]
+triple[["logic"]]
+triple$numbers
+```
+
+Lists are very useful when we need to process multiple data sets or when we want to generate multiple models. Both data sets and models can become list elements.
+
+R contains many useful functions to work with lists. We will discuss them in Section 3.9.1.
+
+

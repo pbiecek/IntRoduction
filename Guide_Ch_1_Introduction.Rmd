@@ -1,0 +1,9 @@
+# Introduction {#part_1}
+
+> *One of the greatest advantages of R: getting your work done better and in less time.*
+>
+> --- Frank Harrell, Biostatistics, Vanderbilt University
+
+This chapter presents basic information related to R software and is aimed at readers who have never heard about R, do not know how to work with it, or are perhaps not sure whether R is worth the effort.
+
+We will begin by presenting the advantages of R. Next, we will discuss its history and development, followed by a presentation of what it feels like to work with R. We will use a simple example to show you how to read data, process it and create plots. After that, we will find out how to configure the environment and how to install its necessary components. Finally, we will list sources with further information related to R.

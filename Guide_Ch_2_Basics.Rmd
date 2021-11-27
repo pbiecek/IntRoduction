@@ -1,0 +1,7 @@
+# R Basics {#part_2}
+
+This chapter presents basic information necessary to start working with R. The first four sections introduce data loading from text files, discuss key data structures in R, and present selected descriptive statistics – both numerical and graphical. We will go back to data loading in Section 2.6, where we show how to load and save data in various formats.
+
+Next, we will discuss the `dplyr` and `tidyr` packages. They allow us to perform most transformations and data aggregations such as filtering, grouping and aggregate creation.
+The last subchapter discusses how we can create automatic reports. It shows how we can use the `knitr` package and RStudio to immediately create easily readable reports.
+

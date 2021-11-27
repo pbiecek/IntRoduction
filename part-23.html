@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.3 Descriptive statistics | IntRoduction to R</title>
+  <meta name="description" content="3.3 Descriptive statistics | IntRoduction to R" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.3 Descriptive statistics | IntRoduction to R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.3 Descriptive statistics | IntRoduction to R" />
+  
+  
+  
+
+<meta name="author" content="Translation of the first 80 pages from ,,Przewodnik po pakiecie R’’" />
+
+
+<meta name="date" content="2021-11-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="part-22.html"/>
+<link rel="next" href="part-24.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="about.html"><a href="about.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="part-1.html"><a href="part-1.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="part-11.html"><a href="part-11.html"><i class="fa fa-check"></i><b>2.1</b> Data science, or why we should learn R</a></li>
+<li class="chapter" data-level="2.2" data-path="part1-2.html"><a href="part1-2.html"><i class="fa fa-check"></i><b>2.2</b> What working with R looks like</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="part1-2.html"><a href="part1-2.html#part_121"><i class="fa fa-check"></i><b>2.2.1</b> Example: Poland in the FIFA ranking</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="part-13.html"><a href="part-13.html"><i class="fa fa-check"></i><b>2.3</b> Setting up the environment</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="part-13.html"><a href="part-13.html#part_131"><i class="fa fa-check"></i><b>2.3.1</b> Installing basic R environment</a></li>
+<li class="chapter" data-level="2.3.2" data-path="part-13.html"><a href="part-13.html#part_132"><i class="fa fa-check"></i><b>2.3.2</b> Installing RStudio</a></li>
+<li class="chapter" data-level="2.3.3" data-path="part-13.html"><a href="part-13.html#part_133"><i class="fa fa-check"></i><b>2.3.3</b> Installing additional packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="part-14.html"><a href="part-14.html"><i class="fa fa-check"></i><b>2.4</b> Further information</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="part-2.html"><a href="part-2.html"><i class="fa fa-check"></i><b>3</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="part-21.html"><a href="part-21.html"><i class="fa fa-check"></i><b>3.1</b> Loading data</a></li>
+<li class="chapter" data-level="3.2" data-path="part-22.html"><a href="part-22.html"><i class="fa fa-check"></i><b>3.2</b> Data structures</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="part-22.html"><a href="part-22.html#part_221"><i class="fa fa-check"></i><b>3.2.1</b> Vectors</a></li>
+<li class="chapter" data-level="3.2.2" data-path="part-22.html"><a href="part-22.html#part_222"><i class="fa fa-check"></i><b>3.2.2</b> Data frames</a></li>
+<li class="chapter" data-level="3.2.3" data-path="part-22.html"><a href="part-22.html#part_223"><i class="fa fa-check"></i><b>3.2.3</b> Lists</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="part-23.html"><a href="part-23.html"><i class="fa fa-check"></i><b>3.3</b> Descriptive statistics</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="part-23.html"><a href="part-23.html#part_231"><i class="fa fa-check"></i><b>3.3.1</b> Quantitative variables</a></li>
+<li class="chapter" data-level="3.3.2" data-path="part-23.html"><a href="part-23.html#part_232"><i class="fa fa-check"></i><b>3.3.2</b> Qualitative variables</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="part-24.html"><a href="part-24.html"><i class="fa fa-check"></i><b>3.4</b> Visual statistics</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="part-24.html"><a href="part-24.html#part_241"><i class="fa fa-check"></i><b>3.4.1</b> Bar plot, barplot() function</a></li>
+<li class="chapter" data-level="3.4.2" data-path="part-24.html"><a href="part-24.html#part_242"><i class="fa fa-check"></i><b>3.4.2</b> Histogram, hist() function</a></li>
+<li class="chapter" data-level="3.4.3" data-path="part-24.html"><a href="part-24.html#part_243"><i class="fa fa-check"></i><b>3.4.3</b> Box plot: boxplot()</a></li>
+<li class="chapter" data-level="3.4.4" data-path="part-24.html"><a href="part-24.html#part_244"><i class="fa fa-check"></i><b>3.4.4</b> Kernel density estimator, density() function</a></li>
+<li class="chapter" data-level="3.4.5" data-path="part-24.html"><a href="part-24.html#part_245"><i class="fa fa-check"></i><b>3.4.5</b> Scatter plot, scatterplot() function</a></li>
+<li class="chapter" data-level="3.4.6" data-path="part-24.html"><a href="part-24.html#part_246"><i class="fa fa-check"></i><b>3.4.6</b> Mosaic plot, mosaicplot() function</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="part-25.html"><a href="part-25.html"><i class="fa fa-check"></i><b>3.5</b> How to process data with the dplyr package</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="part-25.html"><a href="part-25.html#part_251"><i class="fa fa-check"></i><b>3.5.1</b> How to filter rows</a></li>
+<li class="chapter" data-level="3.5.2" data-path="part-25.html"><a href="part-25.html#part_252"><i class="fa fa-check"></i><b>3.5.2</b> How to choose columns</a></li>
+<li class="chapter" data-level="3.5.3" data-path="part-25.html"><a href="part-25.html#part_253"><i class="fa fa-check"></i><b>3.5.3</b> How to create and transform variables</a></li>
+<li class="chapter" data-level="3.5.4" data-path="part-25.html"><a href="part-25.html#part_254"><i class="fa fa-check"></i><b>3.5.4</b> How to sort rows</a></li>
+<li class="chapter" data-level="3.5.5" data-path="part-25.html"><a href="part-25.html#part_255"><i class="fa fa-check"></i><b>3.5.5</b> How to work with streams</a></li>
+<li class="chapter" data-level="3.5.6" data-path="part-25.html"><a href="part-25.html#part_256"><i class="fa fa-check"></i><b>3.5.6</b> How to compute aggregates/statistics in groups</a></li>
+<li class="chapter" data-level="3.5.7" data-path="part-25.html"><a href="part-25.html#part_257"><i class="fa fa-check"></i><b>3.5.7</b> Wide and long formats</a></li>
+<li class="chapter" data-level="3.5.8" data-path="part-25.html"><a href="part-25.html#part_258"><i class="fa fa-check"></i><b>3.5.8</b> Uniting/separating columns</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="part-26.html"><a href="part-26.html"><i class="fa fa-check"></i><b>3.6</b> How to load and save data in various formats</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="part-26.html"><a href="part-26.html#part_261"><i class="fa fa-check"></i><b>3.6.1</b> Loading data from text files</a></li>
+<li class="chapter" data-level="3.6.2" data-path="part-26.html"><a href="part-26.html#part_262"><i class="fa fa-check"></i><b>3.6.2</b> Loading data from text files</a></li>
+<li class="chapter" data-level="3.6.3" data-path="part-26.html"><a href="part-26.html#part_263"><i class="fa fa-check"></i><b>3.6.3</b> Saving data into text files</a></li>
+<li class="chapter" data-level="3.6.4" data-path="part-26.html"><a href="part-26.html#part_264"><i class="fa fa-check"></i><b>3.6.4</b> Loading and saving JSON data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">IntRoduction to R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="part_23" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Descriptive statistics</h2>
+<p>R is mainly used for data processing, analysis and visualisation. Subsequent parts of the present work are devoted to these three typical applications.</p>
+<p>Before we discuss those complex applications, we will present some basic cases here.
+Variables in data analyses are usually characterised according to the classification by Stanley Stevens:</p>
+<ul>
+<li>Qualitative variables (also referred to as factors or categorical variables) are variables which can take on a limited number of values (usually non-numerical). They can be further divided into the following groups:
+<ul>
+<li>Binary variables (also known as dichotomous or binomial variables), such as gender (female/male).</li>
+<li>Nominal variables (also known as unordered qualitative variables), such as car make: there is no specific order for car makes.</li>
+<li>Ordinal variables (also known as ordered qualitative variables), such as education (primary/secondary/tertiary).</li>
+</ul></li>
+<li>Quantitative variables, which can be further divided into:
+<ul>
+<li>Count variables (count of occurrences of a given phenomenon expressed as a natural number), such as the number of education years.</li>
+<li>Interval variables, measured on a scale where values can be subtracted, but not divided by each other, such as temperature in Celsius degrees, or A.D. year.</li>
+<li>Ratio variables, measured on a scale where proportions are kept. This means that values can be divided by one another and there is a clear definition of 0.0. Examples include temperature in Kelvin degrees or height in centimetres.</li>
+</ul></li>
+</ul>
+<p>In R, quantitative variables are represented with a numerical type called <code>numeric</code>. There are no separate types to describe numbers on a ratio scale or an interval scale.</p>
+<p>Qualitative data in R are represented with a type called <code>factor. factor</code> variables can be additionally marked as ordered. In such cases, they have an additional class called <code>ordered</code>.</p>
+<p>Binary variables can be represented with a logical type called <code>logical</code>. Table <a href="part-23.html#tab:tab01">3.1</a> presents some functions which calculate the most popular descriptive statistics. We will practice calculating descriptive statistics on a data set called <code>socData</code> from the <code>Przewodnik</code> package.</p>
+<pre><code>library(&quot;Przewodnik&quot;)
+head(socData, 4)</code></pre>
+<div id="part_231" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Quantitative variables</h3>
+<p>Let us take a look at the values in the <code>age</code> column. We can refer to that column with <code>socData$age</code>.</p>
+<p>Age is a quantitative ratio variable (ratios make sense in this case; for example, we can say that someone is twice as old as someone else).</p>
+<p>Our first question is: what are the lowest and greatest values that the <code>age</code> variable can take on? It is always a good idea to check boundary values as they may help us identify errors in data.</p>
+<pre><code>range(socData$age)</code></pre>
+<p>What is the mean age?</p>
+<pre><code>mean(socData$age)</code></pre>
+<p>And what is the trimmed mean calculated for the middle 60% of observations?</p>
+<pre><code>mean(socData$age, trim=0.2)</code></pre>
+<p>The median turns out to be close to the mean – that could mean there is no skewness.</p>
+<pre><code>median(socData$age)</code></pre>
+<p>We can use the <code>summary()</code> function to quickly calculate the most important characteristics. In the case of quantitative variables, the result is given as a vector with the following values: the minimum, maximum, mean, median, first and third quartiles (also called lower and upper quartiles).</p>
+<p>All of these values, apart from the mean, are always returned by the <code>fivenum()</code> function (the so-called five-number summary that divides the values observed into four equal parts). If there are missing observations in the variable, their count is also given.</p>
+<pre><code>summary(socData$age)</code></pre>
+<p>Standard deviation:</p>
+<pre><code>sd(socData$age)</code></pre>
+<p>Kurtosis / measure of tailedness:</p>
+<pre><code>kurtosis(socData$age)</code></pre>
+<p>Skewness:</p>
+<pre><code>skewness(socData$age)</code></pre>
+<p>Selected quantiles of the <code>age</code> variable:</p>
+<pre><code>quantile(socData$age, c(0.1, 0.25, 0.5, 0.75, 0.9))</code></pre>
+<p>One statistic which is frequently computed for multiple variables is called correlation. We can use the <code>cor()</code> function to calculate it. A correlation matrix is given below for three selected columns:</p>
+<pre><code>cor(socData[,c(1,6,7)])</code></pre>
+</div>
+<div id="part_232" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Qualitative variables</h3>
+<p>Let us now take a look at the <code>education</code> column. We can refer to it by typing <code>socData$education</code>.</p>
+<p>Education is a qualitative variable. It can take on four different values and there is a natural order for them.</p>
+<p>A contingency table is the most frequent statistic for qualitative variables. The example below uses the <code>table()</code> function:</p>
+<pre><code>table(socData$education)</code></pre>
+<p>This function defines a contingency table for one, two or more count variables. Contingency tables can also be obtained with <code>xtabs()</code> and <code>ftable()</code>.</p>
+<pre><code>table(socData$education, socData$employment)</code></pre>
+<p>In the case of qualitative variables, the <code>summary()</code> function has a similar effect to the <code>table()</code> function. The only difference is that <code>table()</code> ignores <code>NA</code> data, whereas <code>summary()</code> provides their count.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:tab01">Table 3.1: </span>Descriptive statistics for a vector or matrix
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Function
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+.
+</td>
+<td style="text-align:left;width: 35em; ">
+<span class="math inline">\(\texttt{base}\)</span> package
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{max()/min()}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Maximal/minimal value in the sample.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{mean()}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Arithmetic mean,<span class="math inline">\(\bar{x}=\sum_{i}x_i/n\)</span> <span class="math inline">\(\texttt{trim}\)</span> is an optional argument. When it is different than 0, a trimmed mean is calculated. A trimmed mean is calculated just like the arithmetic mean after removing <span class="math inline">\(200\% * \texttt{trim}\)</span> of edge observations.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{length()}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Count of elements in the sample.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{range()}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Variability range of the sample, calculated as <span class="math inline">\([\mbox{min}_i x_i,\mbox{max}_i x_i]\)</span>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+.
+</td>
+<td style="text-align:left;width: 35em; ">
+<span class="math inline">\(\texttt{stats}\)</span> package
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{weighted.mean}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Weighted mean, calculated as <span class="math inline">\(\frac{1}{n}\sum_i w_i x_i\)</span>. The weight vector <span class="math inline">\(w_i\)</span> is the second argument.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{median()}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Median (middle value).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{quantile()}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Q-quantile. The second argument of <span class="math inline">\(\texttt{quantile()}\)</span> is the vector of quantiles to find. This function implements 9 different algorithms to find quantiles, see the description of <span class="math inline">\(\texttt{type}\)</span> argument for more information.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{IQR()}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Interquartile range, i.e. the difference between the upper and lower quartile, <span class="math inline">\(IQR=q_{0.75}-q_{0.25}\)</span>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{var()}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Variation in the sample. The unbiased estimator of variance is calculated as <span class="math inline">\(S^2=\frac{1}{n-1}\sum_i (x-\bar{x})^2\)</span>. For two vectors, the covariance of these two vectors will be calculated. For a matrix, the covariance matrix for its columns will be calculated instead.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{sd()}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Standard deviation, calculated as <span class="math inline">\(\sqrt{S^2}\)</span>, where <span class="math inline">\(S^2\)</span> is the estimator of variance.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{cor()}\)</span>, <span class="math inline">\(\texttt{cov()}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Correlation and covariance matrix. The arguments may be a pair of vectors, or a matrix.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{mad()}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Median absolute deviation, calculated as <span class="math inline">\(1.4826*median(|x_i-median(x_i)|)\)</span>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+.
+</td>
+<td style="text-align:left;width: 35em; ">
+other packages
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{kurtosis()}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Kurtosis, measure of concentration, <span class="math inline">\(\frac{n\sum_i(x_i-\bar{x})^4}{(\sum_i(x_i-\bar{x})^2)^2}-3\)</span>. The normal distribution has a kurtosis of 0. This function comes from the <span class="math inline">\(\texttt{e1071}\)</span> package.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{skewness()}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Skewness, measure of asymmetry, <span class="math inline">\(\frac{\sqrt{n}\sum_i(x_i-\bar{x})^3}{(\sum_i(x_i-\bar{x})^2)^{3/2}}\)</span>. The symmetric distribution has a skewness of 0. This function comes from the <span class="math inline">\(\texttt{e1071}\)</span> package.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{geometric.mean()}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Geometric mean, calculated as <span class="math inline">\((\prod_ix_i)^{1/n}\)</span>. This function comes from the <span class="math inline">\(\texttt{psych}\)</span> package.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{harmonic.mean()}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Harmonic mean, calculated as <span class="math inline">\(n/\sum_ix_i^{-1}\)</span>. This function comes from the <span class="math inline">\(\texttt{psych}\)</span> package.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{moda()}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Mode, i.e. the most frequent value. This function comes from the <span class="math inline">\(\texttt{dprep}\)</span> package. In Linux, we can also use the <span class="math inline">\(\texttt{mod()}\)</span> function from <span class="math inline">\(\texttt{RVAideMemoire}\)</span>.
+</td>
+</tr>
+</tbody>
+</table>
+<pre><code>summary(socData$education)</code></pre>
+<p>The <code>summary()</code> function can also take an argument of <code>data.frame</code> type. In this case, summaries are given for each column of the data frame.</p>
+<pre><code>summary(socData[,1:4])</code></pre>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="part-22.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="part-24.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+},
+"search": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

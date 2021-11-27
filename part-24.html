@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.4 Visual statistics | IntRoduction to R</title>
+  <meta name="description" content="3.4 Visual statistics | IntRoduction to R" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.4 Visual statistics | IntRoduction to R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.4 Visual statistics | IntRoduction to R" />
+  
+  
+  
+
+<meta name="author" content="Translation of the first 80 pages from ,,Przewodnik po pakiecie R’’" />
+
+
+<meta name="date" content="2021-11-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="part-23.html"/>
+<link rel="next" href="part-25.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="about.html"><a href="about.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="part-1.html"><a href="part-1.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="part-11.html"><a href="part-11.html"><i class="fa fa-check"></i><b>2.1</b> Data science, or why we should learn R</a></li>
+<li class="chapter" data-level="2.2" data-path="part1-2.html"><a href="part1-2.html"><i class="fa fa-check"></i><b>2.2</b> What working with R looks like</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="part1-2.html"><a href="part1-2.html#part_121"><i class="fa fa-check"></i><b>2.2.1</b> Example: Poland in the FIFA ranking</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="part-13.html"><a href="part-13.html"><i class="fa fa-check"></i><b>2.3</b> Setting up the environment</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="part-13.html"><a href="part-13.html#part_131"><i class="fa fa-check"></i><b>2.3.1</b> Installing basic R environment</a></li>
+<li class="chapter" data-level="2.3.2" data-path="part-13.html"><a href="part-13.html#part_132"><i class="fa fa-check"></i><b>2.3.2</b> Installing RStudio</a></li>
+<li class="chapter" data-level="2.3.3" data-path="part-13.html"><a href="part-13.html#part_133"><i class="fa fa-check"></i><b>2.3.3</b> Installing additional packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="part-14.html"><a href="part-14.html"><i class="fa fa-check"></i><b>2.4</b> Further information</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="part-2.html"><a href="part-2.html"><i class="fa fa-check"></i><b>3</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="part-21.html"><a href="part-21.html"><i class="fa fa-check"></i><b>3.1</b> Loading data</a></li>
+<li class="chapter" data-level="3.2" data-path="part-22.html"><a href="part-22.html"><i class="fa fa-check"></i><b>3.2</b> Data structures</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="part-22.html"><a href="part-22.html#part_221"><i class="fa fa-check"></i><b>3.2.1</b> Vectors</a></li>
+<li class="chapter" data-level="3.2.2" data-path="part-22.html"><a href="part-22.html#part_222"><i class="fa fa-check"></i><b>3.2.2</b> Data frames</a></li>
+<li class="chapter" data-level="3.2.3" data-path="part-22.html"><a href="part-22.html#part_223"><i class="fa fa-check"></i><b>3.2.3</b> Lists</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="part-23.html"><a href="part-23.html"><i class="fa fa-check"></i><b>3.3</b> Descriptive statistics</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="part-23.html"><a href="part-23.html#part_231"><i class="fa fa-check"></i><b>3.3.1</b> Quantitative variables</a></li>
+<li class="chapter" data-level="3.3.2" data-path="part-23.html"><a href="part-23.html#part_232"><i class="fa fa-check"></i><b>3.3.2</b> Qualitative variables</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="part-24.html"><a href="part-24.html"><i class="fa fa-check"></i><b>3.4</b> Visual statistics</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="part-24.html"><a href="part-24.html#part_241"><i class="fa fa-check"></i><b>3.4.1</b> Bar plot, barplot() function</a></li>
+<li class="chapter" data-level="3.4.2" data-path="part-24.html"><a href="part-24.html#part_242"><i class="fa fa-check"></i><b>3.4.2</b> Histogram, hist() function</a></li>
+<li class="chapter" data-level="3.4.3" data-path="part-24.html"><a href="part-24.html#part_243"><i class="fa fa-check"></i><b>3.4.3</b> Box plot: boxplot()</a></li>
+<li class="chapter" data-level="3.4.4" data-path="part-24.html"><a href="part-24.html#part_244"><i class="fa fa-check"></i><b>3.4.4</b> Kernel density estimator, density() function</a></li>
+<li class="chapter" data-level="3.4.5" data-path="part-24.html"><a href="part-24.html#part_245"><i class="fa fa-check"></i><b>3.4.5</b> Scatter plot, scatterplot() function</a></li>
+<li class="chapter" data-level="3.4.6" data-path="part-24.html"><a href="part-24.html#part_246"><i class="fa fa-check"></i><b>3.4.6</b> Mosaic plot, mosaicplot() function</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="part-25.html"><a href="part-25.html"><i class="fa fa-check"></i><b>3.5</b> How to process data with the dplyr package</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="part-25.html"><a href="part-25.html#part_251"><i class="fa fa-check"></i><b>3.5.1</b> How to filter rows</a></li>
+<li class="chapter" data-level="3.5.2" data-path="part-25.html"><a href="part-25.html#part_252"><i class="fa fa-check"></i><b>3.5.2</b> How to choose columns</a></li>
+<li class="chapter" data-level="3.5.3" data-path="part-25.html"><a href="part-25.html#part_253"><i class="fa fa-check"></i><b>3.5.3</b> How to create and transform variables</a></li>
+<li class="chapter" data-level="3.5.4" data-path="part-25.html"><a href="part-25.html#part_254"><i class="fa fa-check"></i><b>3.5.4</b> How to sort rows</a></li>
+<li class="chapter" data-level="3.5.5" data-path="part-25.html"><a href="part-25.html#part_255"><i class="fa fa-check"></i><b>3.5.5</b> How to work with streams</a></li>
+<li class="chapter" data-level="3.5.6" data-path="part-25.html"><a href="part-25.html#part_256"><i class="fa fa-check"></i><b>3.5.6</b> How to compute aggregates/statistics in groups</a></li>
+<li class="chapter" data-level="3.5.7" data-path="part-25.html"><a href="part-25.html#part_257"><i class="fa fa-check"></i><b>3.5.7</b> Wide and long formats</a></li>
+<li class="chapter" data-level="3.5.8" data-path="part-25.html"><a href="part-25.html#part_258"><i class="fa fa-check"></i><b>3.5.8</b> Uniting/separating columns</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="part-26.html"><a href="part-26.html"><i class="fa fa-check"></i><b>3.6</b> How to load and save data in various formats</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="part-26.html"><a href="part-26.html#part_261"><i class="fa fa-check"></i><b>3.6.1</b> Loading data from text files</a></li>
+<li class="chapter" data-level="3.6.2" data-path="part-26.html"><a href="part-26.html#part_262"><i class="fa fa-check"></i><b>3.6.2</b> Loading data from text files</a></li>
+<li class="chapter" data-level="3.6.3" data-path="part-26.html"><a href="part-26.html#part_263"><i class="fa fa-check"></i><b>3.6.3</b> Saving data into text files</a></li>
+<li class="chapter" data-level="3.6.4" data-path="part-26.html"><a href="part-26.html#part_264"><i class="fa fa-check"></i><b>3.6.4</b> Loading and saving JSON data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">IntRoduction to R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="part_24" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Visual statistics</h2>
+<p>Below, we present the most popular plots used in data visualisation. Some less popular, yet equally interesting plots can be found in Section 5.5.</p>
+<p>The examples below use the <code>socData</code> dataset from the <code>Przewodnik</code> package.</p>
+<div id="part_241" class="section level3" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Bar plot, barplot() function</h3>
+<p>Bar plots are among the most popular data visualisation forms. When looking at the bars, we usually compare their relative length, which is why this data visualisation form is best suited for ratio variables.</p>
+<p>The <code>barplot()</code> function (see Figures 2.2 and 2.3) is used to present data as horizontal or vertical bars. We can use a vector of values, or a two-dimensional matrix as its argument.</p>
+<p>The <code>horiz</code> argument specifies whether bars should be drawn horizontally or vertically. The <code>las</code> argument denotes the direction in which axes descriptions should be written. The <code>legend()</code> function can be used to add a legend – more information can be found in Section 5.5.5.</p>
+<p>The <code>col</code> argument allows us to pick colours for bars and legends. If <code>add=TRUE</code> is selected, bars are added to the existing plot instead of creating a new one.</p>
+<p>The code below generates bars shown in Figures 2.2 and 2.3. The <code>table()</code> function calculates the frequency matrix, which is then drawn with <code>barplot()</code>.</p>
+<pre><code>library(&quot;Przewodnik&quot;)
+tab &lt;- table( socData$education )
+barplot(tab, horiz = TRUE, las = 1)
+tab2 &lt;- table( socData$sex, socData$education )
+barplot(tab2, las=1, beside = TRUE)
+legend(&quot;topright&quot;,c(&quot;female&quot;,&quot;male&quot;),fill=c(&quot;grey&quot;,&quot;black&quot;))</code></pre>
+</div>
+<div id="part_242" class="section level3" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Histogram, hist() function</h3>
+<p>A histogram is undoubtedly one of the most popular visual statistics which presents the distribution of values for quantitative variables.</p>
+<p>The <code>hist()</code> function (see Figures 2.4 and 2.5) is used to present the count of observations in certain ranges with bars. The first argument is a vector of numbers.</p>
+<p>The <code>breaks</code> argument specifies how the data is broken into intervals. It can be a single number that depicts how many intervals should be created, or a string with the name of the algorithm that sets the intervals (as described below). The <code>freq</code> and <code>probability</code> arguments are used to specify whether representations of frequencies or probability densities should be plotted. The <code>right</code> argument specifies whether intervals should be treated as left-open or right-open.</p>
+<p>If we do not specify the number of intervals, that number will be calculated based on the count of observations and the variance of our variable. To describe the number or width of the intervals, we can use the <code>breaks</code> argument. If we provide a single number as the argument, it will be treated as a suggestion as to the expected number of automatically created intervals (it is merely a suggestion, because <code>hist()</code> may slightly increase or decrease this number). If a vector of numbers is provided, it will be treated as a vector of points that separate the intervals (intervals do not need to be equally wide). If a string is provided as the argument, it will be interpreted as the name of the algorithm that should be used to specify the intervals (possible values are: <code>"Sturges"</code>, <code>"Scott"</code>, <code>"FD"</code> and <code>"Freedman-Diaconis"</code>).
+Below, we present two sample <code>hist()</code> function calls. You can see the results in Figures 2.4 and 2.5.
+We will start by presenting a histogram of the <code>age</code> variable. Since we have many rows in the data, we will suggest 15 intervals/boxes with the <code>breaks</code> argument. The other arguments in the code below describe the axes and the bar title.</p>
+<pre><code>hist(socData$age, breaks = 15, main=&quot;Age histogram&quot;, las=1,
+     ylab=&quot;Count&quot;, xlab=&quot;Age&quot;)</code></pre>
+<p>By changing the colours of borders and bars, we can obtain a visually appealing histogram. We can also change the vertical axis to present frequencies instead of counts.</p>
+<pre><code>hist(socData$age, breaks = 15, col=&quot;grey&quot;, border=&quot;white&quot;, las=1,
+     probability = TRUE, ylab=&quot;Frequency&quot;, xlab=&quot;Age&quot;)</code></pre>
+</div>
+<div id="part_243" class="section level3" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> Box plot: boxplot()</h3>
+<p>One advantage of histograms is that they make it easy to identify regions of high or low density of values. On the other hand, they make it difficult to compare observation groups, because each group contains much information.</p>
+<p>A box plot is a very popular way to compare distributions of values in groups.</p>
+<p>The <code>boxplot()</code> function (see Figures 2.6 and 2.7) is used to present the distribution of a random variable with boxes. A single plot may be used to present the results for multiple variables (in order to compare their distributions), or to visualise a single variable split into observation groups (to compare its distributions in the groups).</p>
+<p>The first argument of <code>boxplot()</code> denotes a vector, list of vectors, data frame, or formula with the variables that should appear in the box plot. Alternatively, multiple vectors of variables can be provided as subsequent arguments. If a vector of numbers is provided as an argument, a single box will be drawn. If multiple vectors are provided, multiple boxes will be drawn. If a formula that depicts the relation between a quantitative and qualitative variable is provided, a separate box will be created for each level of the qualitative variable.</p>
+<p>Other arguments of <code>boxplot()</code> are:</p>
+<ul>
+<li><p><code>range</code> - specifies the range of an interval; observations outside this interval are treated as outliers,</p></li>
+<li><p><code>varwidth</code> - specifies whether the width of the box should be proportional to the square root of the count of observations in the vector,</p></li>
+<li><p><code>outline</code> - specifies whether outliers should be drawn.</p></li>
+</ul>
+<p>Below, we present two examples of <code>boxplot()</code>. The results are shown in Figures 2.6 and 2.7.</p>
+<p>Further vectors of numbers can be provided as subsequent arguments of <code>boxplot()</code>. The <code>names</code> argument can be used to specify axes labels. The <code>horizontal</code> argument is used to rotate the plot.</p>
+<pre><code>boxplot(socData$diastolic.pressure, socData$systolic.pressure,
+        horizontal = TRUE, names = c(&quot;Systolic&quot;,&quot;Diastolic&quot;))</code></pre>
+<p>The first argument might be a formula. It is a convenient way to specify which groups should be compared. Below, we compare age within education groups. Additionally, with the <code>vardwith</code> argument, the box width reflects the count in the group that is compared.</p>
+<pre><code>boxplot(age~education, data = socData, varwidth=TRUE,
+        col=&quot;lightgrey&quot;, ylab=&quot;Age&quot;, las=1)</code></pre>
+<p>Box plots resemble boxes with whiskers, thus they are sometimes referred to as box-and-whisker plots. Almost all observations are located between the whiskers (apart from outliers). Outliers are considered observations that are further away from the quartiles than 1.5 IQR (1.5 is the default value of the <code>range</code> argument). The box specified by the quartiles contains 50% of all observations. The diagram below explains the meaning of each element.</p>
+</div>
+<div id="part_244" class="section level3" number="3.4.4">
+<h3><span class="header-section-number">3.4.4</span> Kernel density estimator, density() function</h3>
+<p>Both histograms and boxplots present value distributions for vectors of numbers. Two other statistics which are often used to that end are called the kernel density estimator (a smooth version of a histogram; calculated with the <code>density()</code> function) and empiric distribution function (calculated with the <code>ecdf()</code> function).</p>
+<p>The concept of kernel density estimation is to find the estimator of density in a given point based on the concentration of observations in its vicinity. The observations that lie closer to the point of interest influence the estimator with greater weights than those located further away. The template of weights is specified by a parameter called the kernel. Bandwidth, in turn, specifies which weights are considered close.</p>
+<p>The <code>density()</code> function (see Figures 2.8 and 2.9) finds the kernel density estimator for a vector of numbers. The first argument is the vector of values for which we want to calculate the density.</p>
+<p>The <code>from</code> and to arguments specify the beginning and end of the range in which the density is calculated. The n argument denotes the number of points in which the density value should be calculated (the density is calculated for a regular point grid). The <code>kernel</code> and <code>bw</code> parameters are used to specify the kernel type and the bandwidth. The <code>density()</code> function returns a <code>density</code> class object whose components store the density values in the specified points. The objects of this class can be visualised with the <code>plot()</code> function.</p>
+<p>The default density estimate value is calculated using a Gaussian kernel. You can browse the help for <code>density()</code> to find out about other kernel types and the differences between them. Many options are possible, for instance square or triangular kernels. See the <code>kernel</code> parameter for more information.</p>
+<p>The bandwidth can be specified manually. Alternatively, you can specify a rule that will automatically set the best bandwidth. The <code>stats</code> package implements five different methods of automatic bandwidth selection.</p>
+<p>The default rule is the “rule of thumb” (used when <code>bw="nrd0"</code>), as suggested by Silverman. According to this rule, the bandwidth h is calculated as follows:</p>
+<p><span class="math display" id="eq:bwnrd0">\[\begin{equation}
+h_{bw.nrd0}=0.9\textrm{min}(\hat{\sigma}, IQR/1.34)n^{-1/5},
+\tag{3.1}
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(\delta\)</span> is the standard deviation estimation , <span class="math inline">\(IQR\)</span> is the interquartile range from the sample, and <span class="math inline">\(n\)</span> is the number of observations. The “magical” constant <span class="math inline">\(1.34\)</span> stems from the fact that <span class="math inline">\(IQR/1.34\approx\sigma\)</span> for a normal distribution. Another popular rule is the Scott’s rule which is used when <code>bw="nrd"</code>. The bandwidth is then calculated as follows:</p>
+<p><span class="math display" id="eq:bwnrd">\[\begin{equation}
+h_{bw.nrd}=1.06\hat{\sigma} n^{-1/5}.
+\tag{3.2}
+\end{equation}\]</span></p>
+<p>You can also choose other rules of bandwidth selection. For instance, you can choose some rules based on cross validation: unbiased - when <code>bw="ucv"</code>, and biased - when <code>bw="bcv"</code>. In most cases, the best bandwidth estimation is obtained with the Sheather-Jones method.</p>
+<p>Below, we present examples of two density estimations calculated for different bandwidth parameters (the former was selected automatically, the latter - manually). You can see the results of those instructions in Figures 2.8 and 2.9.</p>
+<pre><code>plot(density(socData$age), main=&quot;Age distribution&quot;)</code></pre>
+<p>If we consider the smoothing bandwidth too wide, we can adjust it manually. The example below shows how to reduce it to the value of 1.5.</p>
+<pre><code>plot(density(socData$age, bw=1.5), main=&quot;Age distribution&quot;, type=&quot;h&quot;)</code></pre>
+<p>Another statistic which is helpful when we describe the distribution of a observation vector is the empirical distribution function. It can be calculated with the <code>ecdf()</code> function.</p>
+<p>The empirical distribution function is a function which describes what percentage of observations have values which are less than x.</p>
+<p>The <code>ecdf()</code> function returns an object of the <code>ecdf</code> class. An overloaded version of the <code>plot()</code> function is implemented for this class to visualise the empirical distribution (see the example in Figure 2.11).</p>
+<pre><code>plot(ecdf(socData$age), main=&quot;Age distribution function&quot;)</code></pre>
+<p>The distribution function can also be used to compare multiple observation groups. You only need to show distribution functions for different groups in a single plot (the <code>add</code> argument).</p>
+<p>The example below shows two distribution functions in a single plot, one for men, the other for women.</p>
+<pre><code>library(&quot;dplyr&quot;)
+men &lt;- filter(socData, sex == &quot;male&quot;)
+women &lt;- filter(socData, sex == &quot;female&quot;)
+plot(ecdf(men$age), main=&quot;Age / sex&quot;, pch=21)
+plot(ecdf(women$age), add=TRUE, col = &quot;grey&quot;)</code></pre>
+</div>
+<div id="part_245" class="section level3" number="3.4.5">
+<h3><span class="header-section-number">3.4.5</span> Scatter plot, scatterplot() function</h3>
+<p>To show the relation between two numerical variables, scatter plots are frequently used.</p>
+<p>R offers multiple ways of creating scatter plots. The easiest method is to use the <code>plot()</code> function. Below, however, we present the <code>car::scatterplot()</code> function, which provides some additional options. Among those options, there are: data presentation in groups, and the possibility to add a trend line or a curve to the data.</p>
+<p>The first argument can contain either two vectors representing variables to be shown in the diagram, or a formula specifying two variables from a given dataset.</p>
+<p>By default, boxplots are also drawn in the axes. They visualise variable distributions. This behaviour can be changed by modifying the <code>boxplots</code> argument, e.g. <code>boxplots="x"</code> makes the boxplots appear only in the Ox axis. The car library features a copy of scatterplot() which is called <code>sp()</code>. It yields the same results, but is much quicker to type.</p>
+<p>A scatter plot can also feature a linear regression line (the line is drawn based on the reg.line value, which is <code>reg.line=TRUE</code> by default; setting <code>reg.line=FALSE</code> will make the line disappear) and a smooth regression curve (the curve is only drawn when <code>smooth=TRUE</code>, which is the default value). In our example (Figure 2.13), the scatter plot for two variables (systolic and diastolic blood pressure) is presented in two subpopulations specified by the <code>sex</code> variable. The scatter plot allows us to see whether there is a clear relation between the variables studied, and whether that relation remains the same in the subpopulations.</p>
+<p>The results of the instructions presented below are shown in Figures 2.12 and 2.13. The first argument of <code>sp()</code> is a formula which specifies which variable should be shown in the Ox axis, and which one in the Oy axis. The <code>pch</code> argument specifies the shape of the points drawn.</p>
+<pre><code>library(&quot;car&quot;)
+sp(diastolic.pressure~systolic.pressure, data=socData,
+   smooth=FALSE, reg.line=FALSE, pch=19)</code></pre>
+<p>After the | sign in the formula, we can also specify a conditioning variable. In the example below, each sex is drawn in the plot with a different shape and colour. Additionally, a trend line is added to each set of points.</p>
+<pre><code>sp(diastolic.pressure~systolic.pressure|sex, data=socData,
+   smooth=FALSE, lwd=3, pch=c(19,17))</code></pre>
+<p>Scatter plots are a very useful way to detect and describe linear or monotonic relations between pairs of variables.</p>
+<p>When we have more variables, we can use the <code>pairs()</code>, <code>scatterplot.matrix()</code> or <code>YaleToolkit::gpairs()</code> functions. They draw a relation matrix between each pair of the variables analysed.</p>
+</div>
+<div id="part_246" class="section level3" number="3.4.6">
+<h3><span class="header-section-number">3.4.6</span> Mosaic plot, mosaicplot() function</h3>
+<p>How can we show a relation between two or more qualitative variables? One possibility is to use a bar plot (<code>barplot()</code>). Another method is to use a mosaic plot, which is less known, yet very powerful.</p>
+<p>The <code>mosaicplot()</code> function (see Figures 2.14 and 2.15) presents the count of values in a dataset using rectangular areas. Those rectangles are placed in such a way that it is easy to notice (1) whether two variables correlate, and (2) what the frequencies for individual values and pairs of values are.</p>
+<p>Let us present this kind of plot with two examples. The results of the instructions below are shown in Figures 2.14 and 2.15.</p>
+<p>The first plot presents the relative frequency of various education groups. The rectangles have a fixed height, but they differ in width. The wider the rectangle, the more frequent the group.</p>
+<pre><code>mosaicplot(~education, data=socData, main=&quot;&quot;, border=&quot;white&quot;)</code></pre>
+<p>The other plot presents the relation between <code>education</code> and <code>employment</code>. Again, the width of a rectangle corresponds to the relative frequency of the given education group. The height, in turn, signifies the relative frequency of those employed in different education groups.</p>
+<p>Importantly, the mosaic plot resembles a regular squared pattern when two variables are independent. Any kind of correlation is visible at first sight. The plot below shows that highest percentage of people employed is present among those with tertiary education.</p>
+<pre><code>mosaicplot(~education+employment, data=socData, border=&quot;white&quot;,
+           col=c(&quot;grey40&quot;, &quot;grey70&quot;))</code></pre>
+<p>One mosaic plot can show results for two or more enumerated variables. Still, attention should be given when selecting multiple variables - the higher the number of variables or the number of their values, the lower the readability of the plot.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="part-23.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="part-25.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+},
+"search": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

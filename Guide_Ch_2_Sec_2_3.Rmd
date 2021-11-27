@@ -1,0 +1,136 @@
+## Descriptive statistics {#part_23}
+
+R is mainly used for data processing, analysis and visualisation. Subsequent parts of the present work are devoted to these three typical applications.
+
+Before we discuss those complex applications, we will present some basic cases here.
+Variables in data analyses are usually characterised according to the classification by Stanley Stevens:
+
+* Qualitative variables (also referred to as factors or categorical variables) are variables which can take on a limited number of values (usually non-numerical). They can be further divided into the following groups:
+    + Binary variables (also known as dichotomous or binomial variables), such as gender (female/male).
+    + Nominal variables (also known as unordered qualitative variables), such as car make: there is no specific order for car makes.
+    + Ordinal variables (also known as ordered qualitative variables), such as education (primary/secondary/tertiary).
+
+* Quantitative variables, which can be further divided into:
+    + Count variables (count of occurrences of a given phenomenon expressed as a natural number), such as the number of education years.
+    + Interval variables, measured on a scale where values can be subtracted, but not divided by each other, such as temperature in Celsius degrees, or A.D. year.
+    + Ratio variables, measured on a scale where proportions are kept. This means that values can be divided by one another and there is a clear definition of 0.0. Examples include temperature in Kelvin degrees or height in centimetres.
+
+In R, quantitative variables are represented with a numerical type called `numeric`. There are no separate types to describe numbers on a ratio scale or an interval scale.
+
+Qualitative data in R are represented with a type called `factor. factor` variables can be additionally marked as ordered. In such cases, they have an additional class called `ordered`.
+
+Binary variables can be represented with a logical type called `logical`. Table \@ref(tab:tab01) presents some functions which calculate the most popular descriptive statistics. We will practice calculating descriptive statistics on a data set called `socData` from the `Przewodnik` package.
+```
+library("Przewodnik")
+head(socData, 4)
+```
+
+### Quantitative variables {#part_231}
+
+Let us take a look at the values in the `age` column. We can refer to that column with `socData$age`.
+
+Age is a quantitative ratio variable (ratios make sense in this case; for example, we can say that someone is twice as old as someone else).
+
+Our first question is: what are the lowest and greatest values that the `age` variable can take on? It is always a good idea to check boundary values as they may help us identify errors in data.
+```
+range(socData$age)
+```
+
+What is the mean age?
+```
+mean(socData$age)
+```
+
+And what is the trimmed mean calculated for the middle 60% of observations?
+```
+mean(socData$age, trim=0.2)
+```
+
+The median turns out to be close to the mean – that could mean there is no skewness.
+```
+median(socData$age)
+```
+
+We can use the `summary()` function to quickly calculate the most important characteristics. In the case of quantitative variables, the result is given as a vector with the following values: the minimum, maximum, mean, median, first and third quartiles (also called lower and upper quartiles).
+
+All of these values, apart from the mean, are always returned by the `fivenum()` function (the so-called five-number summary that divides the values observed into four equal parts). If there are missing observations in the variable, their count is also given.
+```
+summary(socData$age)
+```
+
+Standard deviation:
+```
+sd(socData$age)
+```
+
+Kurtosis / measure of tailedness:
+```
+kurtosis(socData$age)
+```
+
+Skewness:
+```
+skewness(socData$age)
+```
+
+Selected quantiles of the `age` variable:
+```
+quantile(socData$age, c(0.1, 0.25, 0.5, 0.75, 0.9))
+```
+
+One statistic which is frequently computed for multiple variables is called correlation. We can use the `cor()` function to calculate it. A correlation matrix is given below for three selected columns:
+```
+cor(socData[,c(1,6,7)])
+```
+
+### Qualitative variables {#part_232}
+
+Let us now take a look at the `education` column. We can refer to it by typing `socData$education`.
+
+Education is a qualitative variable. It can take on four different values and there is a natural order for them.
+
+A contingency table is the most frequent statistic for qualitative variables. The example below uses the `table()` function:
+```
+table(socData$education)
+```
+
+This function defines a contingency table for one, two or more count variables. Contingency tables can also be obtained with `xtabs()` and `ftable()`.
+```
+table(socData$education, socData$employment)
+```
+
+In the case of qualitative variables, the `summary()` function has a similar effect to the `table()` function. The only difference is that `table()` ignores `NA` data, whereas `summary()` provides their count.
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+library("dplyr")
+library("kableExtra")
+```
+```{r tab01, echo=FALSE,message=FALSE,warning=FALSE}
+text_tbl <- data.frame(
+  Function = c(".","$\\texttt{max()/min()}$", "$\\texttt{mean()}$", "$\\texttt{length()}$", "$\\texttt{range()}$",
+               ".","$\\texttt{weighted.mean}$","$\\texttt{median()}$","$\\texttt{quantile()}$","$\\texttt{IQR()}$","$\\texttt{var()}$","$\\texttt{sd()}$","$\\texttt{cor()}$, $\\texttt{cov()}$","$\\texttt{mad()}$",".","$\\texttt{kurtosis()}$","$\\texttt{skewness()}$","$\\texttt{geometric.mean()}$","$\\texttt{harmonic.mean()}$","$\\texttt{moda()}$"),
+  Description = c(
+    "$\\texttt{base}$ package",
+    "Maximal/minimal value in the sample. ",
+    "Arithmetic mean,$\\bar{x}=\\sum_{i}x_i/n$ $\\texttt{trim}$ is an optional argument. When it is different than 0, a trimmed mean is calculated. A trimmed mean is calculated just like the arithmetic mean after removing $200\\% * \\texttt{trim}$ of edge observations. ", 
+    "Count of elements in the sample. ",
+    "Variability range of the sample, calculated as $[\\mbox{min}_i x_i,\\mbox{max}_i x_i]$. ",
+    
+    "$\\texttt{stats}$ package","Weighted mean, calculated as $\\frac{1}{n}\\sum_i w_i x_i$. The weight vector $w_i$ is the second argument. ","Median (middle value).","Q-quantile. The second argument of $\\texttt{quantile()}$ is the vector of quantiles to find. This function implements 9 different algorithms to find quantiles, see the description of $\\texttt{type}$ argument for more information. ","Interquartile range, i.e. the difference between the upper and lower quartile, $IQR=q_{0.75}-q_{0.25}$. ","Variation in the sample. The unbiased estimator of variance is calculated as $S^2=\\frac{1}{n-1}\\sum_i (x-\\bar{x})^2$. For two vectors, the covariance of these two vectors will be calculated. For a matrix, the covariance matrix for its columns will be calculated instead. ","Standard deviation, calculated as $\\sqrt{S^2}$, where $S^2$ is the estimator of variance. ","Correlation and covariance matrix. The arguments may be a pair of vectors, or a matrix.","Median absolute deviation, calculated as $1.4826*median(|x_i-median(x_i)|)$. ","other packages","Kurtosis, measure of concentration, $\\frac{n\\sum_i(x_i-\\bar{x})^4}{(\\sum_i(x_i-\\bar{x})^2)^2}-3$. The normal distribution has a kurtosis of 0. This function comes from the $\\texttt{e1071}$ package.","Skewness, measure of asymmetry, $\\frac{\\sqrt{n}\\sum_i(x_i-\\bar{x})^3}{(\\sum_i(x_i-\\bar{x})^2)^{3/2}}$. The symmetric distribution has a skewness of 0. This function comes from the $\\texttt{e1071}$ package. ","Geometric mean, calculated as $(\\prod_ix_i)^{1/n}$. This function comes from the $\\texttt{psych}$ package. ","Harmonic mean, calculated as $n/\\sum_ix_i^{-1}$. This function comes from the $\\texttt{psych}$ package.","Mode, i.e. the most frequent value. This function comes from the $\\texttt{dprep}$ package. In Linux, we can also use the $\\texttt{mod()}$ function from $\\texttt{RVAideMemoire}$."
+  )
+)
+
+knitr::kable(text_tbl, caption="Descriptive statistics for a vector or matrix",escape = F) %>%
+  kable_styling(full_width = F) %>%
+  column_spec(1, bold = F, border_right = T) %>%
+  column_spec(2, width = "35em")
+```
+
+```
+summary(socData$education)
+```
+
+The `summary()` function can also take an argument of `data.frame` type. In this case, summaries are given for each column of the data frame.
+```
+summary(socData[,1:4])
+```

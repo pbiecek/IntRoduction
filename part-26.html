@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.6 How to load and save data in various formats | IntRoduction to R</title>
+  <meta name="description" content="3.6 How to load and save data in various formats | IntRoduction to R" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.6 How to load and save data in various formats | IntRoduction to R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.6 How to load and save data in various formats | IntRoduction to R" />
+  
+  
+  
+
+<meta name="author" content="Translation of the first 80 pages from ,,Przewodnik po pakiecie R’’" />
+
+
+<meta name="date" content="2021-11-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="part-25.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="about.html"><a href="about.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="part-1.html"><a href="part-1.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="part-11.html"><a href="part-11.html"><i class="fa fa-check"></i><b>2.1</b> Data science, or why we should learn R</a></li>
+<li class="chapter" data-level="2.2" data-path="part1-2.html"><a href="part1-2.html"><i class="fa fa-check"></i><b>2.2</b> What working with R looks like</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="part1-2.html"><a href="part1-2.html#part_121"><i class="fa fa-check"></i><b>2.2.1</b> Example: Poland in the FIFA ranking</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="part-13.html"><a href="part-13.html"><i class="fa fa-check"></i><b>2.3</b> Setting up the environment</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="part-13.html"><a href="part-13.html#part_131"><i class="fa fa-check"></i><b>2.3.1</b> Installing basic R environment</a></li>
+<li class="chapter" data-level="2.3.2" data-path="part-13.html"><a href="part-13.html#part_132"><i class="fa fa-check"></i><b>2.3.2</b> Installing RStudio</a></li>
+<li class="chapter" data-level="2.3.3" data-path="part-13.html"><a href="part-13.html#part_133"><i class="fa fa-check"></i><b>2.3.3</b> Installing additional packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="part-14.html"><a href="part-14.html"><i class="fa fa-check"></i><b>2.4</b> Further information</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="part-2.html"><a href="part-2.html"><i class="fa fa-check"></i><b>3</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="part-21.html"><a href="part-21.html"><i class="fa fa-check"></i><b>3.1</b> Loading data</a></li>
+<li class="chapter" data-level="3.2" data-path="part-22.html"><a href="part-22.html"><i class="fa fa-check"></i><b>3.2</b> Data structures</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="part-22.html"><a href="part-22.html#part_221"><i class="fa fa-check"></i><b>3.2.1</b> Vectors</a></li>
+<li class="chapter" data-level="3.2.2" data-path="part-22.html"><a href="part-22.html#part_222"><i class="fa fa-check"></i><b>3.2.2</b> Data frames</a></li>
+<li class="chapter" data-level="3.2.3" data-path="part-22.html"><a href="part-22.html#part_223"><i class="fa fa-check"></i><b>3.2.3</b> Lists</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="part-23.html"><a href="part-23.html"><i class="fa fa-check"></i><b>3.3</b> Descriptive statistics</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="part-23.html"><a href="part-23.html#part_231"><i class="fa fa-check"></i><b>3.3.1</b> Quantitative variables</a></li>
+<li class="chapter" data-level="3.3.2" data-path="part-23.html"><a href="part-23.html#part_232"><i class="fa fa-check"></i><b>3.3.2</b> Qualitative variables</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="part-24.html"><a href="part-24.html"><i class="fa fa-check"></i><b>3.4</b> Visual statistics</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="part-24.html"><a href="part-24.html#part_241"><i class="fa fa-check"></i><b>3.4.1</b> Bar plot, barplot() function</a></li>
+<li class="chapter" data-level="3.4.2" data-path="part-24.html"><a href="part-24.html#part_242"><i class="fa fa-check"></i><b>3.4.2</b> Histogram, hist() function</a></li>
+<li class="chapter" data-level="3.4.3" data-path="part-24.html"><a href="part-24.html#part_243"><i class="fa fa-check"></i><b>3.4.3</b> Box plot: boxplot()</a></li>
+<li class="chapter" data-level="3.4.4" data-path="part-24.html"><a href="part-24.html#part_244"><i class="fa fa-check"></i><b>3.4.4</b> Kernel density estimator, density() function</a></li>
+<li class="chapter" data-level="3.4.5" data-path="part-24.html"><a href="part-24.html#part_245"><i class="fa fa-check"></i><b>3.4.5</b> Scatter plot, scatterplot() function</a></li>
+<li class="chapter" data-level="3.4.6" data-path="part-24.html"><a href="part-24.html#part_246"><i class="fa fa-check"></i><b>3.4.6</b> Mosaic plot, mosaicplot() function</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="part-25.html"><a href="part-25.html"><i class="fa fa-check"></i><b>3.5</b> How to process data with the dplyr package</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="part-25.html"><a href="part-25.html#part_251"><i class="fa fa-check"></i><b>3.5.1</b> How to filter rows</a></li>
+<li class="chapter" data-level="3.5.2" data-path="part-25.html"><a href="part-25.html#part_252"><i class="fa fa-check"></i><b>3.5.2</b> How to choose columns</a></li>
+<li class="chapter" data-level="3.5.3" data-path="part-25.html"><a href="part-25.html#part_253"><i class="fa fa-check"></i><b>3.5.3</b> How to create and transform variables</a></li>
+<li class="chapter" data-level="3.5.4" data-path="part-25.html"><a href="part-25.html#part_254"><i class="fa fa-check"></i><b>3.5.4</b> How to sort rows</a></li>
+<li class="chapter" data-level="3.5.5" data-path="part-25.html"><a href="part-25.html#part_255"><i class="fa fa-check"></i><b>3.5.5</b> How to work with streams</a></li>
+<li class="chapter" data-level="3.5.6" data-path="part-25.html"><a href="part-25.html#part_256"><i class="fa fa-check"></i><b>3.5.6</b> How to compute aggregates/statistics in groups</a></li>
+<li class="chapter" data-level="3.5.7" data-path="part-25.html"><a href="part-25.html#part_257"><i class="fa fa-check"></i><b>3.5.7</b> Wide and long formats</a></li>
+<li class="chapter" data-level="3.5.8" data-path="part-25.html"><a href="part-25.html#part_258"><i class="fa fa-check"></i><b>3.5.8</b> Uniting/separating columns</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="part-26.html"><a href="part-26.html"><i class="fa fa-check"></i><b>3.6</b> How to load and save data in various formats</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="part-26.html"><a href="part-26.html#part_261"><i class="fa fa-check"></i><b>3.6.1</b> Loading data from text files</a></li>
+<li class="chapter" data-level="3.6.2" data-path="part-26.html"><a href="part-26.html#part_262"><i class="fa fa-check"></i><b>3.6.2</b> Loading data from text files</a></li>
+<li class="chapter" data-level="3.6.3" data-path="part-26.html"><a href="part-26.html#part_263"><i class="fa fa-check"></i><b>3.6.3</b> Saving data into text files</a></li>
+<li class="chapter" data-level="3.6.4" data-path="part-26.html"><a href="part-26.html#part_264"><i class="fa fa-check"></i><b>3.6.4</b> Loading and saving JSON data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">IntRoduction to R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="part_26" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> How to load and save data in various formats</h2>
+<p>In this subchapter, we will present how to load tabular data from various sources. We will discuss all kinds of formats, since we understand that people who use R have various needs. For typical cases, you will only need to read the first three sections that explain how to load data from packages, text files and Excel files.</p>
+<p>Generally speaking, data sets can have various structures. They can be expressed as graphs, trees, they may describe photos or multimedia files. All of these structures can be loaded into R and analysed. Most of the time, however, the data sets that we work this have a tabular structure with columns and rows clearly marked. We will put focus on this sort of structure in the following subchapter.</p>
+<div id="part_261" class="section level3" number="3.6.1">
+<h3><span class="header-section-number">3.6.1</span> Loading data from text files</h3>
+<p>Loading data from packages is the easiest case. You only need to turn the given package on using <code>library()</code>, and then use <code>data()</code> to load a given file. A single package can store multiple datasets, which is why packages are often used as storages of useful data.</p>
+<p>One of such packages is the <code>PogromcyDanych</code> package (Polish for Data Busters). It contains various datasets which we use in the present book, such as <code>cats_birds</code>. Once we install the <code>PogromcyDanych</code> package, we only need two lines of code to use this dataset:</p>
+<pre><code>library(&quot;PogromcyDanych&quot;)
+data(&quot;cats_birds&quot;)</code></pre>
+<p>A new symbol for the dataset should appear in the <code>Environment</code> of RStudio. We can see the first few rows using the <code>head()</code> function.</p>
+<pre><code>library(&quot;Przewodnik&quot;)
+head(cats_birds)</code></pre>
+<p>The <code>cats_birds</code> dataset contains 7 columns that describe various parameters of sample animals.
+To show the list of all datasets in a given package, we can also use the <code>data()</code> function:</p>
+<pre><code>data(package=&quot;PogromcyDanych&quot;)</code></pre>
+</div>
+<div id="part_262" class="section level3" number="3.6.2">
+<h3><span class="header-section-number">3.6.2</span> Loading data from text files</h3>
+<p>Text files are a very popular format to store data. Their contents can be displayed in any text file, or in RStudio. They usually have the .txt, .csv (comma separated values) or .tsv (tab separated values) extension. In such files, subsequent column values are separated with some sort of separators, such as tabs, commas, semicolons, or other characters.</p>
+<p>We will now analyse an example data set available on-line at <a href="http://biecek.pl/R/dane/cats_birds.csv">http://biecek.pl/R/dane/cats_birds.csv</a>. The file contents is presented below:</p>
+<pre><code>species;weight;length;velocity;habitat;lifespan;team
+Tiger;300;2,5;60;Asia;25;Cat
+Lion;200;2,0;80;Africa;29;Cat
+Jaguar;100;1,7;90;America;15;Cat
+Puma;80;1,7;70;America;13;Cat
+Panthera;70;1,4;85;Asia;21;Cat
+Cheetah;60;1,4;115;Africa;12;Cat
+Snow leopard;50;1,3;65;Asia;18;Cat
+Swift;0,05;0,2;170;Eurasia;20;Bird
+Ostrich;150;2,5;70;Africa;45;Bird
+Golden eagle;5;0,9;160;North;20;Bird
+Peregrine falcon;0,7;0,5;110;North;15;Bird
+Gerfalcon;2;0,7;100;North;20;Bird
+Albatross;4;0,8;120;South;50;Bird</code></pre>
+<p>We can see that the file contains a table of values separated with semicolons. The first row is the header with column (variable) names:</p>
+<pre><code>species;weight;length;velocity;habitat;lifespan;team</code></pre>
+<p>Further rows contain the values of these variables. A description of the logical structure of this file is presented in Figure 2.16.</p>
+<p>To load data in this format into R, we can use the <code>read.table()</code> function. It has many parameters which are described in detail later. In the example below, the table of values that we loaded is assigned to the <code>cats_birds</code> symbol using the <code>&lt;-</code> symbol.</p>
+<pre><code>cats_birds &lt;- read.table(file=&quot;http://biecek.pl/R/cats_birds.csv&quot;,
+                         sep=&quot;;&quot;, dec=&quot;,&quot;, header=TRUE)</code></pre>
+<p>Data can be loaded from a file located on a hard drive, or downloaded directly from the Internet. In this case, we need to specify the following arguments:</p>
+<ul>
+<li><p><code>file="http://biecek.pl/R/cats_birds.csv"</code>, i.e. text file path,</p></li>
+<li><p><code>sep=";"</code>, which defines the separator character,</p></li>
+<li><p><code>dec=","</code>, which defines the decimal point; usually a dot, but can also be a comma, as shown in this file,</p></li>
+<li><p><code>header=TRUE</code>, which informs that the first row contains headers and not values.</p></li>
+</ul>
+<p>To find out whether data has been loaded correctly, we can again use the <code>head()</code> function. Alternatively, you can also use the <code>Environment</code> tab in RStudio, as shown in Figure 2.18.</p>
+<pre><code>head(cats_birds)</code></pre>
+<blockquote>
+<p>Loading big files with <code>read.table()</code> can take a lot of time. In such cases, you may consider using the <code>data.table::fread()</code> function, which is much faster and has a similar number of parameters.</p>
+</blockquote>
+<div id="part_2621" class="section level4" number="3.6.2.1">
+<h4><span class="header-section-number">3.6.2.1</span> read.table() in detail</h4>
+<p>Unfortunately, there is no single universal format to store data in text files. Separators, decimal points, comment lines or strings can be defined with various characters.</p>
+<p>The <code>read.table()</code> function is able to load data written in virtually any format. It is, however, only possible with a major number of additional options. The declaration of <code>read.table()</code> is as follows:</p>
+<pre><code>read.table(file, header=FALSE, sep=&quot;&quot;, quote=&quot;\&quot;’&quot;, dec=&quot;.&quot;,
+           row.names, col.names, as.is=!stringsAsFactors,
+           na.strings=&quot;NA&quot;, colClasses=NA, nrows=-1, skip=0,
+           check.names=T, fill=!blank.lines.skip, strip.white=F,
+           blank.lines.skip=T, comment.char=&quot;#&quot;, allowEscapes=F,
+           flush=FALSE, stringsAsFactors, encoding = &quot;unknown&quot;)</code></pre>
+<p>In the <code>utils</code> package, there are four other functions that work in the same way, but have other default values.</p>
+<pre><code>read.csv(file, header=TRUE, sep=&quot;,&quot;, quote=&quot;\&quot;&quot;, dec=&quot;.&quot;,
+         fill=TRUE, comment.char=&quot;&quot;, ...)
+read.csv2(file, header=TRUE, sep=&quot;;&quot;, quote=&quot;\&quot;&quot;, dec=&quot;,&quot;,
+          fill=TRUE, comment.char=&quot;&quot;, ...)
+read.delim(file, header=TRUE, sep=&quot;\t&quot;, quote=&quot;\&quot;&quot;, dec=&quot;.&quot;,
+           fill=TRUE, comment.char=&quot;&quot;, ...)
+read.delim2(file, header=TRUE, sep=&quot;\t&quot;, quote=&quot;\&quot;&quot;, dec=&quot;,&quot;,
+            fill=TRUE, comment.char=&quot;&quot;, ...)</code></pre>
+<p>If we saved the data in the CSV format using the Polish version of Excel, semicolons will be used as separators, and commas as decimal points. In such cases, the <code>read.csv2()</code> function is most suitable. If we use the English version of Excel, dots will be used as decimal points, and the <code>read.csv()</code> function will be a better solution.</p>
+<p>Table <a href="part-26.html#tab:tab02">3.2</a> presents the descriptions of <code>read.table()</code> arguments. The English version of these descriptions can be found in the help file: <code>?read.table</code>. As can be seen, there are many arguments, and we suggest you read about each of them at least once.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:tab02">Table 3.2: </span>Arguments of <code>read.table()</code>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Function
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{file}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+String value. It is the only obligatory argument which must be explicitly provided. Its value is the file path where the data is stored. We can provide a local file, or a file from the Internet by providing the URL that specifies the server and directory of the file. This field can also specify a connection or a socket. If we provide “clipboard” instead of a file name, data will be read from the system clipboard, which is a convenient way of loading data from various MS Office programs.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{header}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Logical value. If it is <span class="math inline">\(\texttt{TRUE}\)</span>, the first argument will be treated as a list of columns. If this argument is not provided, and the first line contains one field less than other lines, R will automatically treat this line as the header.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{sep}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+String value. The given string will be treated as the field separator. The default "" value treats each whitespace (single space, multiple spaces, tabulator, new line) as a separator.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{quote}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+String value. It defines the character that represents the decimal point. If data is saved according to Polish standards, the comma sign “,” is the decimal point.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{row.names}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+A vector of strings or a single number. If a vector of strings is provided, it will be treated as the names of subsequent rows. If this argument is a number, it will be treated as the ordinal number of the column in the loaded file that contains row names. If the data contains a header (i.e. <span class="math inline">\(\texttt{header=TRUE}\)</span>) and the first line has one field less than other lines, then the first line is automatically treated as a vector with row names.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{col.names}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Vector of strings. Column names can be specified with this argument. If it is not provided, and the file does not contain a header, then subsequent column names start with the letter “V,” followed by increasing integer numbers.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{nrows}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Numerical field. Specifies the maximal number of rows to be read.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{skip}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Numerical value. Specifies the number of initial lines that should be ignored when reading the file.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{check.names}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Logical value. Specifies whether column names should be checked for correctness (i.e. without illegal characters or repetitions).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{as.is}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Vector of logical or numerical variables. By default, each field which is not converted into a real number or logical value is converted into a <span class="math inline">\(\texttt{factor}\)</span> type variable. If the <span class="math inline">\(\texttt{as.is}\)</span> parameter is a vector of logical values, then it indicates which columns can be converted into the <span class="math inline">\(\texttt{factor}\)</span> type, and which cannot. A vector of numbers, instead, is treated as indexes of columns which should not be converted.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{na.strings}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Vector of strings. Indicates which values should be treated as <span class="math inline">\(\texttt{NA}\)</span>, i.e. which values are used for missing observations. Additionally, empty fields in columns with numerical or logical values are marked as missing observations.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{colClasses}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Vector of characters. Each character specifies the type of a single variable (column). Possible values are: (1) <span class="math inline">\(\texttt{NA}\)</span> - default value, signifies automatic conversion, (2) <span class="math inline">\(\texttt{NULL}\)</span> - a column will be skipped, (3) one of atomic classes (logical, integer, numeric, complex, character, raw, factor, Date or POSIXct).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{fill}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Logical value. If subsequent lines have different numbers of values, and <span class="math inline">\(\texttt{fill=FALSE}\)</span> (default value), then <span class="math inline">\(\texttt{read.table()}\)</span> will throw an error. If <span class="math inline">\(\texttt{fill=TRUE}\)</span>, shorter lines will be complemented with <span class="math inline">\(\texttt{NA}\)</span> values to get the same line length.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{blank.lines.s}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Logical value. When <span class="math inline">\(\texttt{TRUE}\)</span>, empty lines will be skipped while reading the file.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{comment.char}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Character value. This character is treated as a comment character. All remaining characters in a given line after this character will be ignored.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{allowEscapes}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Logical value. When <span class="math inline">\(\texttt{TRUE}\)</span>, special escape characters are recognised. For instance, or
+are changed into tabulators or new line characters, respectively. <span class="math inline">\(\texttt{FALSE}\)</span> (default value) means the text will be read literally, without any escape characters.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{stringsAsFactors}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Logical value. If <span class="math inline">\(\texttt{TRUE}\)</span>, strings will be converted into <span class="math inline">\(\texttt{factor}\)</span> types. If <span class="math inline">\(\texttt{FALSE}\)</span>, they will be represented as strings. The default value is <span class="math inline">\(\texttt{TRUE}\)</span>.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="part_263" class="section level3" number="3.6.3">
+<h3><span class="header-section-number">3.6.3</span> Saving data into text files</h3>
+<div id="part_2631" class="section level4" number="3.6.3.1">
+<h4><span class="header-section-number">3.6.3.1</span> write.table() function</h4>
+<p>The <code>write.table()</code> function saves the values of a variable (atomic variable, vector, matrix or data frame) into a text file with a given formatting style. Below, we present the full declaration of this function:</p>
+<pre><code>write.table(x, file=&quot;&quot;, append=FALSE, quote=TRUE, sep=&quot; &quot;,
+            eol=&quot;\n&quot;, na=&quot;NA&quot;, dec=&quot;.&quot;, row.names=TRUE,
+            col.names=TRUE, qmethod=c(&quot;escape&quot;,&quot;double&quot;))</code></pre>
+<p>Similarly to <code>read.table()</code>, the <code>utils</code> package features two functions that work in the same way as <code>write.table()</code>, but use other parameterisation of default arguments. Both functions are used to save data in the csv format.</p>
+<pre><code>write.csv(x, file = &quot;&quot;, sep = &quot;,&quot;, dec=&quot;.&quot;, ...)
+write.csv2(x, file = &quot;&quot;, sep = &quot;;&quot;, dec=&quot;,&quot;, ...)</code></pre>
+<p>Table <a href="part-26.html#tab:tab03">3.3</a> describes all parameters of <code>write.table()</code> based on the help file: <code>?write.table</code>. Below, we show a few examples of how to save a vector, number or a data frame into a file.</p>
+<p>This instruction prints a vector of numbers onto the screen instead of saving it into a file:</p>
+<pre><code>write.table(runif(100),&quot;&quot;)</code></pre>
+<p>This instruction will write a vector into the clipboard:</p>
+<pre><code>write.table(1:100,&quot;clipboard&quot;,col.names=FALSE, row.names=FALSE)</code></pre>
+<p>This instruction will write a string into a text file:</p>
+<pre><code>write.table(&quot;Monday&quot;,&quot;c:/worstWeekday.txt&quot;)</code></pre>
+<p>This instruction will save data in the CSV format into a file:</p>
+<pre><code>write.csv2(iris, file=&quot;forExcel.csv&quot;)</code></pre>
+<p>Writing big objects of <code>data.frame</code> type into text files may be time-consuming. This happens due to the fact that formatting is switched between various columns that can present data of various types. R checks the type of each column and row, and formats the values based on their types. To speed up the process, it is sometimes better to convert the data into a matrix using <code>as.matrix()</code>.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:tab03">Table 3.3: </span>Arguments of <code>write.table()</code>
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Function
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{x}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Object to save. Obligatory field. This object is usually a matrix or a data frame.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{file}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+String value. Represents the path to the file in which the data should be written. This field can also represent a connection or a socket, just like <span class="math inline">\(\texttt{read.table()}\)</span>. Similarly, if we provide <span class="math inline">\(\texttt{&quot;clipboard&quot;}\)</span> instead, the data will be saved into the clipboard. The " " value will print the object to the console.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{qmethod}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+String value. Indicates how special characters should be marked. <span class="math inline">\(\texttt{&quot;escape&quot;}\)</span> value is a C-style marking (with a backslash sign), while <span class="math inline">\(\texttt{&quot;double&quot;}\)</span> value means a double backslash should be used instead.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{sep}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+String value. This string will be treated as the separator of subsequent fields (the separator does not need to be a single character).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{eol}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+String value. This string will be used as a line ending string. In Windows, the default value is <span class="math inline">\(\texttt{eol=&quot; &quot;}\)</span>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{quote}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Logical value. <span class="math inline">\(\texttt{TRUE}\)</span> means that <span class="math inline">\(\texttt{factor}\)</span> types and strings will be surrounded with quotes ‘".’
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{dec}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+String value. This field defines the decimal point. By default, it is a “.” (dot). If the data is written in accordance with Polish standards, then the decimal point should be a “,” (comma).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{row.names}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Vector of strings or logical value. If a vector of strings is provided, it will be used to name subsequent rows. If a logical value is provided, it will specify whether row names should be written or not.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<span class="math inline">\(\texttt{col.names}\)</span>
+</td>
+<td style="text-align:left;width: 35em; ">
+Vector of strings or logical value. If a vector of strings is provided, it will be used to name subsequent columns. If a logical value is provided, it will specify whether column names should be written or not.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="part_264" class="section level3" number="3.6.4">
+<h3><span class="header-section-number">3.6.4</span> Loading and saving JSON data</h3>
+<p>Previously, we mainly discussed tabular data, but not all data can be saved as tables.</p>
+<p>A universal and very flexible format used to transport various data sets is JSON (<em>JavaScript Object Notation</em>). It is frequently found in solutions that use Internet communication, such as REST services.</p>
+<p>JSON is a text format (which means it is human-readable), describes data with a hierarchical structure (which is a very flexible solution), and is lightweight (does not take much space).</p>
+<p>Below, we present a sample JSON file. It describes a two-element list whose first value is a string, and the second value is a table.</p>
+<pre><code>{ &quot;source&quot;: &quot;Przewodnik&quot;,
+  &quot;indicators&quot;: [
+    {&quot;year&quot;: &quot;2010&quot;, &quot;value&quot;: 15.5},
+    {&quot;year&quot;: &quot;2011&quot;, &quot;value&quot;: 10.1},
+    {&quot;year&quot;: &quot;2012&quot;, &quot;value&quot;: 12.2}
+] }</code></pre>
+<p>In R, there are a few packages to read or write JSON files. The three most popular ones are <code>RJSONIO</code>, <code>rjson</code> and <code>jsonlite</code>. Each of them contains a <code>toJSON()</code> function which converts data into JSON, and a <code>fromJSON()</code> function which loads data from JSON.</p>
+<p>The most stable option is the <code>jsonlite</code> package. Below, we only present some examples for this package.</p>
+<p>From JSON to R: The data we load is initially a list. The structure is simplified into a data frame or a vector, where possible.</p>
+<pre><code>fromJson({&quot;source&quot;: &quot;Przewodnik&quot;,&quot;indicators&quot;: [{&quot;year&quot;: &quot;2010&quot;, &quot;
+  value&quot;: 15.5},{&quot;year&quot;: &quot;2011&quot;, &quot;values&quot;: 10.1},{&quot;year&quot;: &quot;2012&quot;, &quot;
+  value&quot;: 12.2}]})</code></pre>
+<p>From R to JSON: The example below shows how to convert the first two rows of the <code>cats_birds</code> data frame:</p>
+<pre><code>toJSON(cats_birds[1:2,])</code></pre>
+</div>
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="part-25.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+},
+"search": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

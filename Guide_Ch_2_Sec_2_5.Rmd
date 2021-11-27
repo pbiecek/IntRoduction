@@ -1,0 +1,347 @@
+## How to process data with the dplyr package {#part_25}
+
+R has thousands (thousands!) of functions to process data. Fortunately, we only need a few of them to start working with data in a convenient way.
+
+The 80/20 principle (i.e. the Pareto principle, named after Wilfred Pareto) applies to data processing. This means that we only need to know a small portion of all available functions to work with the majority of data sets (i.e. 80% of all possible data).
+
+Hadley Wickham prepared two packages, `dplyr` and `tidyr`, which provide only those really important functions. Each function performs an elementary operation, but various functions can be combined to perform all typical data operations.
+
+Wickham calls functions from those packages verbs, and compares the analysis process to sentence construction. The basic verbs in this data analysis are:
+
+* `filter()` - choose the selected rows from the dataset,
+
+* `select()` - choose only the selected columns from the dataset,
+
+* `arrange()` - sort the selected rows based on the selected columns,
+
+* `mutate()` - add a new column with data or change an existing column,
+
+* `group_by()` / ungroup() - group data based on the selected factor / remove grouping,
+
+* `summarise()` - find specific aggregates in each group,
+
+* `gather() / spread()` - transform data between wide and long formats.
+
+Those basic verbs are described in subsequent sections of this chapter.
+More functions to explore data are presented in a cheat sheet developed by RStudio, available at their website [26] or at [http://bit.ly/1LaYWBd](http://bit.ly/1LaYWBd).
+
+### How to filter rows {#part_251}
+
+Filtering rows that satisfy a given condition or conditions is one of the most frequent data operations.
+
+The `filter()` function from the `dplyr` package performs filtering. Its first argument is the dataset, and further arguments define logical conditions.
+
+The result of this function contains rows the satisfy all of the conditions specified. When specifying the conditions, we can use column names from the dataset without additional links.
+
+We will present that with an example. Below is an instruction that chooses only those offers where `Model == "Corsa"` from the `vehicles` dataset:
+```
+library("dplyr")
+CorsaOnly <- filter(vehicles, Model == "Corsa")
+head(CorsaOnly)
+```
+
+We can specify multiple conditions simultaneously. The example below finds rows with Corsa vehicles and Diesel engines that were manufactured in 2010.
+```
+CorsaOnly <- filter(vehicles, Model == "Corsa", Production == 2010,
+                    Fuel == "diesel")
+head(CorsaOnly)
+```
+
+### How to choose columns {#part_252}
+
+Sometimes, we only need a portion of all columns from a dataset. We can remove the unnecessary columns to make our work quicker.
+
+Another advantage of choosing only those columns that we really need is that it is easier to show data. Instead of showing all columns, even those that are unnecessary, it is better to only show those that are important to us.
+
+The `select()` function from the `dplyr` package allows us to choose one or more variables from the data source. The first argument is the data source, and subsequent arguments define the columns that we want to choose.
+
+The example below selects only three columns: make, model and price.
+
+```
+threeColumns <- select(vehicles, Make, Model, Price)
+head(threeColumns)
+```
+
+We can use names to select columns, but also use the negation operator “-” (minus sign), which selects all columns except those specified, or functions `matches()`, `starts_with()` and `ends_with()`, which choose only those rows that satisfy the respective conditions.
+
+In the example below, we select only those columns that start with an `M`.
+```
+head(select(vehicles, starts_with("M")))
+```
+
+### How to create and transform variables {#part_253}
+
+Data modelling and processing frequently requires creating new variables based on existing ones. Sometimes, based on the price, we create the logarithm of price (a single variable from a single variable). Sometimes, based on the weight and height, we create the BMI (a single variable from multiple variables).
+
+The `mutate()` function from the `dplyr` package is used to conveniently create additional columns in a dataset by transforming existing columns.
+
+We will show this function using the `vehicles` dataset from the `Przewodnik` package. It is a dataset with car offers from the `otomoto.pl` website from 2012.
+
+We will start the example by specifying the age of the cars offered. Since the offers come from 2012, and the manufacture year is placed in the `Production` column, the age of the car can be calculated as `2013 - Production`.
+
+In the next step, we calculate the average mileage in a single year. We will need data from two columns.
+```
+carsWithAge <- mutate(vehicles,
+                      Age = 2013 - Production,
+                      MileagePerYear = round(Mileage/Age))
+head(select(carsWithAge, Make, Model, Price, Fuel, Age,
+            MileagePerYear))
+```
+
+Column processing can be more complex than arithmetic transformations and can involve any variables, not just numerical ones. In further chapters, we will discuss operations on strings, logical values and factors.
+
+### How to sort rows {#part_254}
+
+Sorting data by a given column makes it much easier to analyse values in that column. First of all, we can immediately identify outliers. Sorting rows is therefore useful when exploring data.
+
+We can use the `arrange()` function from the `dplyr` package to sort by one or more variables. When there are equal values in the first criterion, further criteria influence the order.
+
+In the example below, the data is first sorted by the `Model` column. When there are identical values in the `Model` column, the order is decided based on the `Price` variable.
+```
+sortedVehicles <- arrange(vehicles, Model, Price)
+head(sortedVehicles)
+```
+
+To reverse the sorting order, the variable should be surrounded with a `desc()` function execution.
+```
+sortedVehicles <- arrange(vehicles, Model, desc(Price))
+head(sortedVehicles, 2)
+```
+
+### How to work with streams {#part_255}
+
+We usually process data in multiple steps. We perform operation A, then B, then C, etc.
+
+When we look at some R code, we should be able to easily grasp what operations are performed. This makes code analysis quicker - be it when we look for errors, or when we want to show our code to other people.
+
+Streams are a mechanism introduced to R recently, but they are quickly gaining supporters. They have three main advantages: make our code shorter, increase its readability, and make it easy to add further processing steps.
+
+#### Onion problem {-}
+
+To present streams, we will first consider a series of fours instructions:
+```
+KiaOnly <- filter(vehicles, Make == "Kia")
+sorted <- arrange(KiaOnly, Price)
+fourColumns <- select(sorted, Model, Price, Mileage, Production)
+head(fourColumns, 4)
+```
+
+In R, the result of one function can be directly passed as an argument to another function. To make the code shorter, the "big onion" syntax is often introduced.
+```
+head(
+  select(
+    arrange(
+      filter(vehicles,
+             Make == "Kia"),
+      Price),
+    Model, Price, Mileage, Production)
+  , 4)
+```
+
+Such an “onion” should be read from the inside. First, we apply filtering, then sorting, then selecting four columns. Finally, we select the first four rows.
+
+The problem is that this syntax does not read easily, particularly when we look at the outer functions. In the example above, the `head()` function takes two arguments, but the first argument is six lines of code long, and the other one is only mentioned on line seven. With longer "onions", it is even more difficult to find out which arguments belong to which functions.
+
+#### How the stream operator works {-}
+
+To get rid of the "onion", we can use a special operator for stream processing: `%>%`.This operator comes from the `magrittr` package, but is also available when we turn on the `dplyr` package.
+
+To remember what this operator does, we can use a simple example of a function with two arguments. The following code:
+```
+a %>% function(b)
+```
+means:
+```
+function(a,b)
+```
+
+We can also use this operator with functions that take more than two arguments. The `%>%` operator passes the left-hand side as the first operator of the function specified on the right.
+
+If we want to pass a value to the second or a subsequent argument, we can specify this argument with a dot ".", as shown in the example below:
+```
+a %>% function(b, data=.)
+```
+
+#### Streams in action {-}
+
+The "onion" shown above can be rewritten in the following way:
+```
+vehicles %>%
+  filter(Make == "Kia") %>%
+  arrange(Price) %>%
+  select(Model, Price, Mileage,Production) ->
+  sorted
+head(sorted)
+```
+In the example above, we also used the `->` assignment operator. Thanks to this, we can consequently read the elements of the stream from left to right.
+
+The `->` operator works like `<-`, the only difference being that it assigns the result to the variable on the right, not on the left.
+
+The functions from the `dplyr` package are defined in such a way that their first argument is always a dataset. Thanks to this, the default behaviour of the `%>%` operator makes our code much shorter and more understandable even with big sequences of function calls.
+
+In the case of functions that take datasets as the second or even further arguments, we also need to use the "." symbol (dot). This symbol denotes where the left side of the `%>%` operator should be placed.
+Let us take a look at an example with the `lm()` function which builds a linear model. This function expects the data to be passed as the second argument. This means we need to use the "." symbol.
+```
+vehicles %>%
+  lm(Price~Mileage, data = .) %>%
+  summary()
+```
+
+In the example above, we do not need to specify the argument using `data=`, but we did so nevertheless to increase code readability.
+
+Notice that streams are not only easier to read, but they are also easier to comment. A comment line can be placed before each line of a stream to describe what happens in the specific place.
+
+### How to compute aggregates/statistics in groups {#part_256}
+
+A frequent operation on datasets, particularly on the big ones, is the calculation of statistics/summaries/aggregates on subsets of data.
+
+To find such aggregates with the `dplyr` package, we can use the `summarise()` and `group_by()` functions. The first function specifies the statistics that we want to calculate, whereas the second function describes the groups we want to create.
+
+We present those functions below one after another.
+
+#### Aggregates {-}
+
+We can use `summarise()` to find aggregates in datasets.
+
+For instance, the instruction below calculates the mean price, median mileage, and mean age in the `vehicles` dataset.
+```
+vehicles %>%
+  summarise(meanPrice = mean(Price),
+            medianMileage = median(Mileage),
+            meanAge = mean(2013 - Production),
+            numbers = n())
+```
+
+An aggregate is not always related with value transformation in a column. For instance, the count of rows is a useful statistic which does not depend on the values in the dataset. An aggregate like shown above is set with the `n()` function.
+
+#### Grouping {-}
+
+The `group_by()` function is used to define groups for further processing. The function itself does not modify data. It only adds a tag which specifies the grouping variable. Further functions of a stream use this tag to perform processing in groups.
+
+The `group_by` function influences other functions from the `dplyr` package in an intuitive way.
+
+ * The `summarise()` function, which computes statistics, will find statistics for each possible combination of grouping variables.
+
+ * The `arrange()` function, which sorts rows, will first sort rows by the grouping variable.
+
+ * The `sample_n()` functions, which filters rows, will sample data independently in each group.
+
+ * The `mutate()` function finds each aggregate within a group, which makes it easy to normalise variables in groups.
+ 
+The example below calculates four statistics (mean price, median mileage, mean vehicle age, and count of offers) in groups specified by the make.
+```
+vehicles %>%
+  group_by(Make) %>%
+  summarise(meanPrice = mean(Price),
+            medianMileage = median(Mileage),
+            meanAge = mean(2013 - Production),
+            offerCount = n())
+```
+
+Aggregates are an ordinary data frame, which means we can perform subsequent operations on them, such as sorting.
+```
+vehicles %>%
+  group_by(Make) %>%
+  summarise(meanPrice = mean(Price),
+            medianMileage = median(Mileage),
+            meanAge = mean(2013 - Production),
+            offerCount = n()) %>%
+  arrange(meanPrice)
+```
+
+The example below modifies the `Mileage` variable. It divides `Mileage` by the mean mileage for the given make.
+```
+vehicles %>%
+  select(Make, Price, Mileage, Model) %>%
+  group_by(Make) %>%
+  mutate(Mileage = Mileage/mean(Mileage, na.rm=TRUE))
+```
+
+### Wide and long formats {#part_257}
+
+Many functions assume that data is structured as tables in which rows are subsequent observations and columns are variables describing those observations. This data format is expected by packages such as `dplyr`, `ggplot2` and others.
+
+However, data is sometimes given in other formats. Sometimes, the same variable is described by many columns, or multiple variables are provided a single column. Some functions from the `tidyr` package are used to transform various data formats.
+
+We will present those data formats and the functions used to transform them on some sample data from Eurostat. We will get this data using the `eurostat` package. Below, we load data from the `tsdtr210` table in which Eurostat gathers information about the popularity of various means of transport in various countries.
+```
+library("eurostat")
+tsdtr210 <- get_eurostat("tsdtr210", time_format="num")
+head(tsdtr210, 4)
+```
+
+The data is given in the long format. What this means will become clear once we present the wide format. In this example, the `geo` column specifies the country, the `time` column specifies the year, the `vehicle` column specifies the means of transport, and the `values` column specifies the popularity of a given means of transport in the given country and year.
+
+#### Spread onto columns {-}
+
+To transform data from the long format to the wide format, we can use the `spread()` function. The name wide format comes from the fact that it contains more columns. New columns in the wide format correspond to the values of a single column in the long format.
+
+The `spread()` function expects three arguments. The first argument is, naturally, the dataset. The second argument is the key corresponding to column names, and the last argument are the values to be written into the specific columns. Rows in the new table are chosen as unique values in the other columns.
+
+In the example below, the `time` function is changed from the long format to the wide format in which names correspond to subsequent years - values from the `time` column. The values in new columns are copies from the `values` column in the long data format.
+```
+library("tidyr")
+wideFormat <- spread(tsdtr210, time, values)
+wideFormat %>% filter(geo == "PL")
+```
+
+The data in the `tsdtr210` table describes values in intersections through four dimensions (unit, vehicle type, country, year). Each dimension can be used to create new columns in the wide format.
+
+In the example below, subsequent columns are created based on the `geo` column in the long format.
+```
+wideFormat2 <- spread(tsdtr210, geo, values)
+```
+
+We can show the rows for year 2010 (some columns are omitted).
+```
+wideFormat2 %>% filter(time == "2010")
+```
+
+#### Gather into columns {-}
+
+The opposite of spreading a single column into multiple columns is gathering multiple columns into a single column. This can be accomplished with the `gather()` function.
+
+This function takes a dataset as the first argument. Further two arguments specify column names with keys and values, while the other arguments point to those columns from the old dataset that should be gathered together in the new dataset. We can use the minus sign notation "-" which means "everything except...".
+
+In the example below, we transform the `wideFormat` data frame into the long format in such a way that all columns except for `geo` and `vehicle` are transformed into a column called value. This is why the result contains the `geo` and `vehicle` columns (skipped when gathering) as well as `year` and `value` (results of gathering).
+```
+wideFormat %>%
+  gather(year, value, -geo, -vehicle) %>%
+  tail()
+```
+
+To show an example of 4 rows, we used the `tail()` function which shows the last 6 rows, because the first six rows are `NA` values.
+
+### Uniting/separating columns {#part_258}
+
+When we work with data, we often want to unite multiple columns into one, or split a column into multiple columns.
+
+#### Uniting columns {-}
+
+We can use the `unite()` function to merge a few columns into a single column.
+
+The code below unites values from columns `geo` and `time` into a single string column `geo_time`.
+```
+unite(tsdtr210, geo_time, geo, time, sep=":") %>%
+  head(4)
+```
+
+Uniting columns is frequently useful when we want to group rows by multiple variables. We can then unite such columns, and group rows by the new, united column.
+
+#### Separating columns {-}
+
+The opposite of uniting is separating. Here, we can use the `separate()` function.
+
+We will show an example of an artificial dataset with two columns: data and identifier.
+
+In the example below, the `separate()` function creates three new columns based on the `dates` column. The columns are filled with parts of the old column separated with the - sign.
+```
+df <- data.frame(dates = c("2004-01-01", "2012-04-15", "2006-10-29",
+                           "2010-03-03"), id = 1:4)
+df
+```
+```
+separate(df, col=dates, into=c("year", "month", "day"), sep="-")
+```
+
+The length of the `into` vector specifies the number of columns to be created after separation. If the column that is being split contains too few or too many values (e.g. only two elements separated with a separator), then `separate()` will produce warnings by default. Additional `extra` and `fill` arguments can be used to specify what should happen when some data is missing.

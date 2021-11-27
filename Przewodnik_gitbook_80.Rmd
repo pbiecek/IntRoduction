@@ -1,0 +1,86 @@
+---
+title: "IntRoduction to R"
+author: "Translation of the first 80 pages from ,,Przewodnik po pakiecie R''"
+date: "`r Sys.Date()`"
+site: "bookdown::bookdown_site"
+output:
+  bookdown::gitbook:
+    split_by: section
+    fig_caption: yes
+  bookdown::pdf_book:
+    keep_tex: yes
+    citation_package: natbib
+    toc_depth: 3
+    dev: "cairo_pdf"
+  bookdown::epub_book:
+documentclass: book
+fontfamily: mathpazo
+bibliography: ["book.bib"]
+biblio-style: apalike
+urlcolor: blue
+linkcolor: red
+citecolor: red
+link-citations: true
+indent: true
+always_allow_html: yes
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# About
+
+
+Translation of the first 80 pages from [,,Przewodnik po pakiecie R''](http://pbiecek.github.io/Przewodnik/).
+
+by
+
+<b>Krzysztof Trajkowski</b>.
+
+<br/>
+
+<center><img width="400px" style="border: 3px solid #ccc;" src="okladkaWydanie4.png"></center>
+
+<br/>
+
+More information: http://biecek.pl/R/
+
+```{r child = 'Guide_Ch_1_Introduction.Rmd'}
+```
+
+```{r child = 'Guide_Ch_1_Sec_1_1.Rmd'}
+```
+
+```{r child = 'Guide_Ch_1_Sec_1_2.Rmd'}
+```
+
+```{r child = 'Guide_Ch_1_Sec_1_3.Rmd'}
+```
+
+```{r child = 'Guide_Ch_1_Sec_1_4.Rmd'}
+```
+
+```{r child = 'Guide_Ch_2_Basics.Rmd'}
+```
+
+```{r child = 'Guide_Ch_2_Sec_2_1.Rmd'}
+```
+
+```{r child = 'Guide_Ch_2_Sec_2_2.Rmd'}
+```
+
+```{r child = 'Guide_Ch_2_Sec_2_3.Rmd'}
+```
+
+```{r child = 'Guide_Ch_2_Sec_2_4.Rmd'}
+```
+
+```{r child = 'Guide_Ch_2_Sec_2_5.Rmd'}
+```
+
+```{r child = 'Guide_Ch_2_Sec_2_6.Rmd'}
+```
+
+# References {-}
