@@ -8,17 +8,20 @@ The examples below use the `socData` dataset from the `Przewodnik` package.
 
 Bar plots are among the most popular data visualisation forms. When looking at the bars, we usually compare their relative length, which is why this data visualisation form is best suited for ratio variables.
 
-The `barplot()` function (see Figures 2.2 and 2.3) is used to present data as horizontal or vertical bars. We can use a vector of values, or a two-dimensional matrix as its argument.
+The `barplot()` function (see Figures \@ref(fig:wy22) and \@ref(fig:wy23)) is used to present data as horizontal or vertical bars. We can use a vector of values, or a two-dimensional matrix as its argument.
 
 The `horiz` argument specifies whether bars should be drawn horizontally or vertically. The `las` argument denotes the direction in which axes descriptions should be written. The `legend()` function can be used to add a legend – more information can be found in Section 5.5.5.
 
 The `col` argument allows us to pick colours for bars and legends. If `add=TRUE` is selected, bars are added to the existing plot instead of creating a new one.
 
-The code below generates bars shown in Figures 2.2 and 2.3. The `table()` function calculates the frequency matrix, which is then drawn with `barplot()`.
-```
-library("Przewodnik")
-tab <- table( socData$education )
+The code below generates bars shown in Figures \@ref(fig:wy22) and \@ref(fig:wy23). The `table()` function calculates the frequency matrix, which is then drawn with `barplot()`.
+```{r wy22, fig.cap='Horizontal bar graph for a number vector.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=8, fig.height=4,out.width='60%'}
+par(mar=c(4,6,1,1)+0.1,las=1)
+tab <- table(socData$education)
 barplot(tab, horiz = TRUE, las = 1)
+```
+```{r wy23, fig.cap='Vertical bar graph for the matrix of numbers.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=8, fig.height=4,out.width='60%'}
+par(mar=c(4,6,1,1)+0.1,las=1)
 tab2 <- table( socData$sex, socData$education )
 barplot(tab2, las=1, beside = TRUE)
 legend("topright",c("female","male"),fill=c("grey","black"))
@@ -28,20 +31,20 @@ legend("topright",c("female","male"),fill=c("grey","black"))
 
 A histogram is undoubtedly one of the most popular visual statistics which presents the distribution of values for quantitative variables.
 
-The `hist()` function (see Figures 2.4 and 2.5) is used to present the count of observations in certain ranges with bars. The first argument is a vector of numbers.
+The `hist()` function (see Figures \@ref(fig:wy24) and \@ref(fig:wy25)) is used to present the count of observations in certain ranges with bars. The first argument is a vector of numbers.
 
 The `breaks` argument specifies how the data is broken into intervals. It can be a single number that depicts how many intervals should be created, or a string with the name of the algorithm that sets the intervals (as described below). The `freq` and `probability` arguments are used to specify whether representations of frequencies or probability densities should be plotted. The `right` argument specifies whether intervals should be treated as left-open or right-open.
 
 If we do not specify the number of intervals, that number will be calculated based on  the count of observations and the variance of our variable. To describe the number or width of the intervals, we can use the `breaks` argument. If we provide a single number as the argument, it will be treated as a suggestion as to the expected number of automatically created intervals (it is merely a suggestion, because `hist()` may slightly increase or decrease this number). If a vector of numbers is provided, it will be treated as a vector of points that separate the intervals (intervals do not need to be equally wide). If a string is provided as the argument, it will be interpreted as the name of the algorithm that should be used to specify the intervals (possible values are: `"Sturges"`, `"Scott"`, `"FD"` and `"Freedman-Diaconis"`).
-Below, we present two sample `hist()` function calls. You can see the results in Figures 2.4 and 2.5.
+Below, we present two sample `hist()` function calls. You can see the results in Figures \@ref(fig:wy24) and \@ref(fig:wy25).
 We will start by presenting a histogram of the `age` variable. Since we have many rows in the data, we will suggest 15 intervals/boxes with the `breaks` argument. The other arguments in the code below describe the axes and the bar title.
-```
+```{r wy24, fig.cap='Histogram for the age variable.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=8, fig.height=5,out.width='60%'}
 hist(socData$age, breaks = 15, main="Age histogram", las=1,
      ylab="Count", xlab="Age")
 ```
 
 By changing the colours of borders and bars, we can obtain a visually appealing histogram. We can also change the vertical axis to present frequencies instead of counts.
-```
+```{r wy25, fig.cap='Change of fill colors and frame borders.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=8, fig.height=5,out.width='60%'}
 hist(socData$age, breaks = 15, col="grey", border="white", las=1,
      probability = TRUE, ylab="Frequency", xlab="Age")
 ```
@@ -52,7 +55,7 @@ One advantage of histograms is that they make it easy to identify regions of hig
 
 A box plot is a very popular way to compare distributions of values in groups.
 
-The `boxplot()` function (see Figures 2.6 and 2.7) is used to present the distribution of a random variable with boxes. A single plot may be used to present the results for multiple variables (in order to compare their distributions), or to visualise a single variable split into observation groups (to compare its distributions in the groups).
+The `boxplot()` function (see Figures \@ref(fig:wy26) and \@ref(fig:wy27)) is used to present the distribution of a random variable with boxes. A single plot may be used to present the results for multiple variables (in order to compare their distributions), or to visualise a single variable split into observation groups (to compare its distributions in the groups).
 
 The first argument of `boxplot()` denotes a vector, list of vectors, data frame, or formula with the variables that should appear in the box plot. Alternatively, multiple vectors of variables can be provided as subsequent arguments. If a vector of numbers is provided as an argument, a single box will be drawn. If multiple vectors are provided, multiple boxes will be drawn. If a formula that depicts the relation between a quantitative and qualitative variable is provided, a separate box will be created for each level of the qualitative variable.
 
@@ -64,21 +67,43 @@ Other arguments of `boxplot()` are:
 
 * `outline` - specifies whether outliers should be drawn.
 
-Below, we present two examples of `boxplot()`. The results are shown in Figures 2.6 and 2.7.
+Below, we present two examples of `boxplot()`. The results are shown in Figures \@ref(fig:wy26) and \@ref(fig:wy27).
 
 Further vectors of numbers can be provided as subsequent arguments of `boxplot()`. The `names` argument can be used to specify axes labels. The `horizontal` argument is used to rotate the plot.
-```
-boxplot(socData$diastolic.pressure, socData$systolic.pressure,
+```{r wy26, fig.cap='Box charts for two vectors.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=8, fig.height=5,out.width='60%'}
+boxplot(socData$diastolic_pressure, socData$systolic_pressure,
         horizontal = TRUE, names = c("Systolic","Diastolic"))
 ```
 
 The first argument might be a formula. It is a convenient way to specify which groups should be compared. Below, we compare age within education groups. Additionally, with the `vardwith` argument, the box width reflects the count in the group that is compared.
-```
+```{r wy27, fig.cap='Box chart showing variable age.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=8, fig.height=5,out.width='60%'}
 boxplot(age~education, data = socData, varwidth=TRUE,
         col="lightgrey", ylab="Age", las=1)
 ```
 
 Box plots resemble boxes with whiskers, thus they are sometimes referred to as box-and-whisker plots. Almost all observations are located between the whiskers (apart from outliers). Outliers are considered observations that are further away from the quartiles than 1.5 IQR (1.5 is the default value of the `range` argument). The box specified by the quartiles contains 50% of all observations. The diagram below explains the meaning of each element.
+```{r, fig.show='hold', fig.align='center', echo=F,fig.width=10, fig.height=4,out.width='80%'}
+y = unique(sort(socData$diastolic_pressure))
+o1 = y[1]; o2 = y[2]; o3 = y[3]; o4 = rev(y)[1]
+v = boxplot(socData$diastolic_pressure,horizontal = TRUE,notch = TRUE, plot=F)$stats
+omin = v[1]; q1 = v[2]; q2 = v[3]; q3 = v[4]; omax = v[5]
+Eme = 1.253*sd(socData$diastolic_pressure)/sqrt(length(socData$diastolic_pressure))
+me1 = q2-Eme*1.96+0.3
+me2 = q2+Eme*1.96-0.3
+V = c(o1,o2,o3,omin,q1,me1,q2,me2,q3,omax,o4)
+
+par(bty="n",mar=c(4,4,1,1)+0.1, mgp=c(3,0.6,0))
+boxplot(socData$diastolic_pressure,xlim=c(0.5,5),
+xlab = "diastolic pressure", horizontal = TRUE, notch = TRUE)
+arrows(V,1+0.4, x1 = V, y1 = 2, length = 0.15, angle = 15, code = 1)
+text(c(o1,o2,o3,o4)-0.5,2+0.1,"outlier",srt=90,pos=4)
+text(q2-0.5,2+0.1,"median",srt=90,pos=4)
+text(q1-0.5,2+0.1,"1. quantile",srt=90,pos=4)
+text(q3-0.5,2+0.1,"3. quantile",srt=90,pos=4)
+text(omin-0.5,2+0.1,"min. excluding outliers",srt=90,pos=4)
+text(omax-0.5,2+0.1,"max. excluding outliers",srt=90,pos=4)
+text(c(me1,me2)-0.5,2+0.1,"95% c.i. for the median",srt=90,pos=4)
+```
 
 ### Kernel density estimator, density() function {#part_244}
 
@@ -86,7 +111,7 @@ Both histograms and boxplots present value distributions for vectors of numbers.
 
 The concept of kernel density estimation is to find the estimator of density in a given point based on the concentration of observations in its vicinity. The observations that lie closer to the point of interest influence the estimator with greater weights than those located further away. The template of weights is specified by a parameter called the kernel. Bandwidth, in turn, specifies which weights are considered close.
 
-The `density()` function (see Figures 2.8 and 2.9) finds the kernel density estimator for a vector of numbers. The first argument is the vector of values for which we want to calculate the density.
+The `density()` function (see Figures \@ref(fig:wy28) and \@ref(fig:wy29)) finds the kernel density estimator for a vector of numbers. The first argument is the vector of values for which we want to calculate the density.
 
 The `from` and to arguments specify the beginning and end of the range in which the density is calculated. The n argument denotes the number of points in which the density value should be calculated (the density is calculated for a regular point grid). The `kernel` and `bw` parameters are used to specify the kernel type and the bandwidth. The `density()` function returns a `density` class object whose components store the density values in the specified points. The objects of this class can be visualised with the `plot()` function.
 
@@ -110,13 +135,13 @@ h_{bw.nrd}=1.06\hat{\sigma} n^{-1/5}.
 
 You can also choose other rules of bandwidth selection. For instance, you can choose some rules based on cross validation: unbiased - when `bw="ucv"`, and biased - when `bw="bcv"`. In most cases, the best bandwidth estimation is obtained with the Sheather-Jones method.
 
-Below, we present examples of two density estimations calculated for different bandwidth parameters (the former was selected automatically, the latter - manually). You can see the results of those instructions in Figures 2.8 and 2.9.
-```
+Below, we present examples of two density estimations calculated for different bandwidth parameters (the former was selected automatically, the latter - manually). You can see the results of those instructions in Figures \@ref(fig:wy28) and \@ref(fig:wy29).
+```{r wy28, fig.cap='Nuclear density estimator with automatically selected window width.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=8, fig.height=5,out.width='60%'}
 plot(density(socData$age), main="Age distribution")
 ```
 
 If we consider the smoothing bandwidth too wide, we can adjust it manually. The example below shows how to reduce it to the value of 1.5.
-```
+```{r wy29, fig.cap='Nuclear estimator with window width set to 1.5.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=8, fig.height=5,out.width='60%'}
 plot(density(socData$age, bw=1.5), main="Age distribution", type="h")
 ```
 
@@ -124,8 +149,8 @@ Another statistic which is helpful when we describe the distribution of a observ
 
 The empirical distribution function is a function which describes what percentage of observations have values which are less than x.
 
-The `ecdf()` function returns an object of the `ecdf` class. An overloaded version of the `plot()` function is implemented for this class to visualise the empirical distribution (see the example in Figure 2.11).
-```
+The `ecdf()` function returns an object of the `ecdf` class. An overloaded version of the `plot()` function is implemented for this class to visualise the empirical distribution (see the example in Figure \@ref(fig:wy210)).
+```{r wy210, fig.cap='Empirical distribution for age.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=8, fig.height=5,out.width='60%'}
 plot(ecdf(socData$age), main="Age distribution function")
 ```
 
@@ -133,7 +158,7 @@ The distribution function can also be used to compare multiple observation group
 
 The example below shows two distribution functions in a single plot, one for men, the other for women.
 
-```
+```{r wy211, fig.cap='Two empirical distribution allow for population comparisons.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=8, fig.height=5,out.width='60%'}
 library("dplyr")
 men <- filter(socData, sex == "male")
 women <- filter(socData, sex == "female")
@@ -151,18 +176,18 @@ The first argument can contain either two vectors representing variables to be s
 
 By default, boxplots are also drawn in the axes. They visualise variable distributions. This behaviour can be changed by modifying the `boxplots` argument, e.g. `boxplots="x"` makes the boxplots appear only in the Ox axis. The car library features a copy of scatterplot() which is called `sp()`. It yields the same results, but is much quicker to type.
 
-A scatter plot can also feature a linear regression line (the line is drawn based on the reg.line value, which is `reg.line=TRUE` by default; setting `reg.line=FALSE` will make the line disappear) and a smooth regression curve (the curve is only drawn when `smooth=TRUE`, which is the default value). In our example (Figure 2.13), the scatter plot for two variables (systolic and diastolic blood pressure) is presented in two subpopulations specified by the `sex` variable. The scatter plot allows us to see whether there is a clear relation between the variables studied, and whether that relation remains the same in the subpopulations.
+A scatter plot can also feature a linear regression line (the line is drawn based on the reg.line value, which is `reg.line=TRUE` by default; setting `reg.line=FALSE` will make the line disappear) and a smooth regression curve (the curve is only drawn when `smooth=TRUE`, which is the default value). In our example (Figure \@ref(fig:wy213)), the scatter plot for two variables (systolic and diastolic blood pressure) is presented in two subpopulations specified by the `sex` variable. The scatter plot allows us to see whether there is a clear relation between the variables studied, and whether that relation remains the same in the subpopulations.
 
-The results of the instructions presented below are shown in Figures 2.12 and 2.13. The first argument of `sp()` is a formula which specifies which variable should be shown in the Ox axis, and which one in the Oy axis. The `pch` argument specifies the shape of the points drawn.
-```
+The results of the instructions presented below are shown in Figures \@ref(fig:wy212) and \@ref(fig:wy213). The first argument of `sp()` is a formula which specifies which variable should be shown in the Ox axis, and which one in the Oy axis. The `pch` argument specifies the shape of the points drawn.
+```{r wy212, fig.cap='Dot chart for two variables.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=8, fig.height=5,out.width='60%',warning=FALSE,message=FALSE}
 library("car")
-sp(diastolic.pressure~systolic.pressure, data=socData,
+sp(diastolic_pressure~systolic_pressure, data=socData,
    smooth=FALSE, reg.line=FALSE, pch=19)
 ```
 
 After the | sign in the formula, we can also specify a conditioning variable. In the example below, each sex is drawn in the plot with a different shape and colour. Additionally, a trend line is added to each set of points.
-```
-sp(diastolic.pressure~systolic.pressure|sex, data=socData,
+```{r wy213, fig.cap='We add trend lines and mark data for different genders.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=8, fig.height=5,out.width='60%',warning=FALSE,message=FALSE}
+sp(diastolic_pressure~systolic_pressure|sex, data=socData,
    smooth=FALSE, lwd=3, pch=c(19,17))
 ```
 
@@ -174,19 +199,19 @@ When we have more variables, we can use the `pairs()`, `scatterplot.matrix()` or
 
 How can we show a relation between two or more qualitative variables? One possibility is to use a bar plot (`barplot()`). Another method is to use a mosaic plot, which is less known, yet very powerful.
 
-The `mosaicplot()` function (see Figures 2.14 and 2.15) presents the count of values in a dataset using rectangular areas. Those rectangles are placed in such a way that it is easy to notice (1) whether two variables correlate, and (2) what the frequencies for individual values and pairs of values are.
+The `mosaicplot()` function (see Figures \@ref(fig:wy214) and \@ref(fig:wy215)) presents the count of values in a dataset using rectangular areas. Those rectangles are placed in such a way that it is easy to notice (1) whether two variables correlate, and (2) what the frequencies for individual values and pairs of values are.
 
-Let us present this kind of plot with two examples. The results of the instructions below are shown in Figures 2.14 and 2.15.
+Let us present this kind of plot with two examples. The results of the instructions below are shown in Figures \@ref(fig:wy214) and \@ref(fig:wy215).
 
 The first plot presents the relative frequency of various education groups. The rectangles have a fixed height, but they differ in width. The wider the rectangle, the more frequent the group.
-```
+``````{r wy214, fig.cap='Mosaic chart showing the frequency of variable education.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=6, fig.height=4,out.width='80%',warning=FALSE,message=FALSE}
 mosaicplot(~education, data=socData, main="", border="white")
 ```
 
 The other plot presents the relation between `education` and `employment`. Again, the width of a rectangle corresponds to the relative frequency of the given education group. The height, in turn, signifies the relative frequency of those employed in different education groups.
 
 Importantly, the mosaic plot resembles a regular squared pattern when two variables are independent. Any kind of correlation is visible at first sight. The plot below shows that highest percentage of people employed is present among those with tertiary education.
-```
+``````{r wy215, fig.cap='Mosaic chart showing the relationship between employment and education.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=6, fig.height=4,out.width='80%',warning=FALSE,message=FALSE}
 mosaicplot(~education+employment, data=socData, border="white",
            col=c("grey40", "grey70"))
 ```

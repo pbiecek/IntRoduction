@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html >
+
 <head>
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.2 Data structures | IntRoduction to R</title>
-  <meta name="description" content="3.2 Data structures | IntRoduction to R" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>2.2 Data structures | Guide to R package</title>
+  <meta name="description" content="2.2 Data structures | Guide to R package">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="3.2 Data structures | IntRoduction to R" />
+  <meta property="og:title" content="2.2 Data structures | Guide to R package" />
   <meta property="og:type" content="book" />
   
   
@@ -16,24 +17,23 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.2 Data structures | IntRoduction to R" />
+  <meta name="twitter:title" content="2.2 Data structures | Guide to R package" />
   
   
   
 
-<meta name="author" content="Translation of the first 80 pages from ,,Przewodnik po pakiecie R’’" />
+<meta name="author" content="author">
 
 
-<meta name="date" content="2021-11-27" />
+<meta name="date" content="2019-04-25">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="part-21.html"/>
-<link rel="next" href="part-23.html"/>
-<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<link rel="prev" href="part-21.html">
+<link rel="next" href="part-23.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,7 +41,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -49,36 +48,32 @@
 
 
 
-
-
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
 .sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -87,9 +82,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -122,29 +117,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
-
 </head>
 
 <body>
@@ -157,62 +129,52 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="about.html"><a href="about.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
-<li class="chapter" data-level="2" data-path="part-1.html"><a href="part-1.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="part-11.html"><a href="part-11.html"><i class="fa fa-check"></i><b>2.1</b> Data science, or why we should learn R</a></li>
-<li class="chapter" data-level="2.2" data-path="part1-2.html"><a href="part1-2.html"><i class="fa fa-check"></i><b>2.2</b> What working with R looks like</a>
-<ul>
-<li class="chapter" data-level="2.2.1" data-path="part1-2.html"><a href="part1-2.html#part_121"><i class="fa fa-check"></i><b>2.2.1</b> Example: Poland in the FIFA ranking</a></li>
+<li class="chapter" data-level="1" data-path="part-1.html"><a href="part-1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="part-11.html"><a href="part-11.html"><i class="fa fa-check"></i><b>1.1</b> Data science, or why we should learn R</a></li>
+<li class="chapter" data-level="1.2" data-path="part1-2.html"><a href="part1-2.html"><i class="fa fa-check"></i><b>1.2</b> What working with R looks like</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="part1-2.html"><a href="part1-2.html#part_121"><i class="fa fa-check"></i><b>1.2.1</b> Example: Poland in the FIFA ranking</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="part-13.html"><a href="part-13.html"><i class="fa fa-check"></i><b>2.3</b> Setting up the environment</a>
-<ul>
-<li class="chapter" data-level="2.3.1" data-path="part-13.html"><a href="part-13.html#part_131"><i class="fa fa-check"></i><b>2.3.1</b> Installing basic R environment</a></li>
-<li class="chapter" data-level="2.3.2" data-path="part-13.html"><a href="part-13.html#part_132"><i class="fa fa-check"></i><b>2.3.2</b> Installing RStudio</a></li>
-<li class="chapter" data-level="2.3.3" data-path="part-13.html"><a href="part-13.html#part_133"><i class="fa fa-check"></i><b>2.3.3</b> Installing additional packages</a></li>
+<li class="chapter" data-level="1.3" data-path="part-13.html"><a href="part-13.html"><i class="fa fa-check"></i><b>1.3</b> Setting up the environment</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="part-13.html"><a href="part-13.html#part_131"><i class="fa fa-check"></i><b>1.3.1</b> Installing basic R environment</a></li>
+<li class="chapter" data-level="1.3.2" data-path="part-13.html"><a href="part-13.html#part_132"><i class="fa fa-check"></i><b>1.3.2</b> Installing RStudio</a></li>
+<li class="chapter" data-level="1.3.3" data-path="part-13.html"><a href="part-13.html#part_133"><i class="fa fa-check"></i><b>1.3.3</b> Installing additional packages</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="part-14.html"><a href="part-14.html"><i class="fa fa-check"></i><b>2.4</b> Further information</a></li>
+<li class="chapter" data-level="1.4" data-path="part-14.html"><a href="part-14.html"><i class="fa fa-check"></i><b>1.4</b> Further information</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="part-2.html"><a href="part-2.html"><i class="fa fa-check"></i><b>3</b> R Basics</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="part-21.html"><a href="part-21.html"><i class="fa fa-check"></i><b>3.1</b> Loading data</a></li>
-<li class="chapter" data-level="3.2" data-path="part-22.html"><a href="part-22.html"><i class="fa fa-check"></i><b>3.2</b> Data structures</a>
-<ul>
-<li class="chapter" data-level="3.2.1" data-path="part-22.html"><a href="part-22.html#part_221"><i class="fa fa-check"></i><b>3.2.1</b> Vectors</a></li>
-<li class="chapter" data-level="3.2.2" data-path="part-22.html"><a href="part-22.html#part_222"><i class="fa fa-check"></i><b>3.2.2</b> Data frames</a></li>
-<li class="chapter" data-level="3.2.3" data-path="part-22.html"><a href="part-22.html#part_223"><i class="fa fa-check"></i><b>3.2.3</b> Lists</a></li>
+<li class="chapter" data-level="2" data-path="part-2.html"><a href="part-2.html"><i class="fa fa-check"></i><b>2</b> R Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="part-21.html"><a href="part-21.html"><i class="fa fa-check"></i><b>2.1</b> Loading data</a></li>
+<li class="chapter" data-level="2.2" data-path="part-22.html"><a href="part-22.html"><i class="fa fa-check"></i><b>2.2</b> Data structures</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="part-22.html"><a href="part-22.html#part_221"><i class="fa fa-check"></i><b>2.2.1</b> Vectors</a></li>
+<li class="chapter" data-level="2.2.2" data-path="part-22.html"><a href="part-22.html#part_222"><i class="fa fa-check"></i><b>2.2.2</b> Data frames</a></li>
+<li class="chapter" data-level="2.2.3" data-path="part-22.html"><a href="part-22.html#part_223"><i class="fa fa-check"></i><b>2.2.3</b> Lists</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="part-23.html"><a href="part-23.html"><i class="fa fa-check"></i><b>3.3</b> Descriptive statistics</a>
-<ul>
-<li class="chapter" data-level="3.3.1" data-path="part-23.html"><a href="part-23.html#part_231"><i class="fa fa-check"></i><b>3.3.1</b> Quantitative variables</a></li>
-<li class="chapter" data-level="3.3.2" data-path="part-23.html"><a href="part-23.html#part_232"><i class="fa fa-check"></i><b>3.3.2</b> Qualitative variables</a></li>
+<li class="chapter" data-level="2.3" data-path="part-23.html"><a href="part-23.html"><i class="fa fa-check"></i><b>2.3</b> Descriptive statistics</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="part-23.html"><a href="part-23.html#part_231"><i class="fa fa-check"></i><b>2.3.1</b> Quantitative variables</a></li>
+<li class="chapter" data-level="2.3.2" data-path="part-23.html"><a href="part-23.html#part_232"><i class="fa fa-check"></i><b>2.3.2</b> Qualitative variables</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="part-24.html"><a href="part-24.html"><i class="fa fa-check"></i><b>3.4</b> Visual statistics</a>
-<ul>
-<li class="chapter" data-level="3.4.1" data-path="part-24.html"><a href="part-24.html#part_241"><i class="fa fa-check"></i><b>3.4.1</b> Bar plot, barplot() function</a></li>
-<li class="chapter" data-level="3.4.2" data-path="part-24.html"><a href="part-24.html#part_242"><i class="fa fa-check"></i><b>3.4.2</b> Histogram, hist() function</a></li>
-<li class="chapter" data-level="3.4.3" data-path="part-24.html"><a href="part-24.html#part_243"><i class="fa fa-check"></i><b>3.4.3</b> Box plot: boxplot()</a></li>
-<li class="chapter" data-level="3.4.4" data-path="part-24.html"><a href="part-24.html#part_244"><i class="fa fa-check"></i><b>3.4.4</b> Kernel density estimator, density() function</a></li>
-<li class="chapter" data-level="3.4.5" data-path="part-24.html"><a href="part-24.html#part_245"><i class="fa fa-check"></i><b>3.4.5</b> Scatter plot, scatterplot() function</a></li>
-<li class="chapter" data-level="3.4.6" data-path="part-24.html"><a href="part-24.html#part_246"><i class="fa fa-check"></i><b>3.4.6</b> Mosaic plot, mosaicplot() function</a></li>
+<li class="chapter" data-level="2.4" data-path="part-24.html"><a href="part-24.html"><i class="fa fa-check"></i><b>2.4</b> Visual statistics</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="part-24.html"><a href="part-24.html#part_241"><i class="fa fa-check"></i><b>2.4.1</b> Bar plot, barplot() function</a></li>
+<li class="chapter" data-level="2.4.2" data-path="part-24.html"><a href="part-24.html#part_242"><i class="fa fa-check"></i><b>2.4.2</b> Histogram, hist() function</a></li>
+<li class="chapter" data-level="2.4.3" data-path="part-24.html"><a href="part-24.html#part_243"><i class="fa fa-check"></i><b>2.4.3</b> Box plot: boxplot()</a></li>
+<li class="chapter" data-level="2.4.4" data-path="part-24.html"><a href="part-24.html#part_244"><i class="fa fa-check"></i><b>2.4.4</b> Kernel density estimator, density() function</a></li>
+<li class="chapter" data-level="2.4.5" data-path="part-24.html"><a href="part-24.html#part_245"><i class="fa fa-check"></i><b>2.4.5</b> Scatter plot, scatterplot() function</a></li>
+<li class="chapter" data-level="2.4.6" data-path="part-24.html"><a href="part-24.html#part_246"><i class="fa fa-check"></i><b>2.4.6</b> Mosaic plot, mosaicplot() function</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="part-25.html"><a href="part-25.html"><i class="fa fa-check"></i><b>3.5</b> How to process data with the dplyr package</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="part-25.html"><a href="part-25.html#part_251"><i class="fa fa-check"></i><b>3.5.1</b> How to filter rows</a></li>
-<li class="chapter" data-level="3.5.2" data-path="part-25.html"><a href="part-25.html#part_252"><i class="fa fa-check"></i><b>3.5.2</b> How to choose columns</a></li>
-<li class="chapter" data-level="3.5.3" data-path="part-25.html"><a href="part-25.html#part_253"><i class="fa fa-check"></i><b>3.5.3</b> How to create and transform variables</a></li>
-<li class="chapter" data-level="3.5.4" data-path="part-25.html"><a href="part-25.html#part_254"><i class="fa fa-check"></i><b>3.5.4</b> How to sort rows</a></li>
-<li class="chapter" data-level="3.5.5" data-path="part-25.html"><a href="part-25.html#part_255"><i class="fa fa-check"></i><b>3.5.5</b> How to work with streams</a></li>
-<li class="chapter" data-level="3.5.6" data-path="part-25.html"><a href="part-25.html#part_256"><i class="fa fa-check"></i><b>3.5.6</b> How to compute aggregates/statistics in groups</a></li>
-<li class="chapter" data-level="3.5.7" data-path="part-25.html"><a href="part-25.html#part_257"><i class="fa fa-check"></i><b>3.5.7</b> Wide and long formats</a></li>
-<li class="chapter" data-level="3.5.8" data-path="part-25.html"><a href="part-25.html#part_258"><i class="fa fa-check"></i><b>3.5.8</b> Uniting/separating columns</a></li>
+<li class="chapter" data-level="2.5" data-path="part-25.html"><a href="part-25.html"><i class="fa fa-check"></i><b>2.5</b> How to process data with the dplyr package</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="part-25.html"><a href="part-25.html#part_251"><i class="fa fa-check"></i><b>2.5.1</b> How to filter rows</a></li>
+<li class="chapter" data-level="2.5.2" data-path="part-25.html"><a href="part-25.html#part_252"><i class="fa fa-check"></i><b>2.5.2</b> How to choose columns</a></li>
+<li class="chapter" data-level="2.5.3" data-path="part-25.html"><a href="part-25.html#part_253"><i class="fa fa-check"></i><b>2.5.3</b> How to create and transform variables</a></li>
+<li class="chapter" data-level="2.5.4" data-path="part-25.html"><a href="part-25.html#part_254"><i class="fa fa-check"></i><b>2.5.4</b> How to sort rows</a></li>
+<li class="chapter" data-level="2.5.5" data-path="part-25.html"><a href="part-25.html#part_255"><i class="fa fa-check"></i><b>2.5.5</b> How to work with streams</a></li>
+<li class="chapter" data-level="2.5.6" data-path="part-25.html"><a href="part-25.html#part_256"><i class="fa fa-check"></i><b>2.5.6</b> How to compute aggregates/statistics in groups</a></li>
+<li class="chapter" data-level="2.5.7" data-path="part-25.html"><a href="part-25.html#part_257"><i class="fa fa-check"></i><b>2.5.7</b> Wide and long formats</a></li>
+<li class="chapter" data-level="2.5.8" data-path="part-25.html"><a href="part-25.html#part_258"><i class="fa fa-check"></i><b>2.5.8</b> Uniting/separating columns</a></li>
 </ul></li>
-<li class="chapter" data-level="3.6" data-path="part-26.html"><a href="part-26.html"><i class="fa fa-check"></i><b>3.6</b> How to load and save data in various formats</a>
-<ul>
-<li class="chapter" data-level="3.6.1" data-path="part-26.html"><a href="part-26.html#part_261"><i class="fa fa-check"></i><b>3.6.1</b> Loading data from text files</a></li>
-<li class="chapter" data-level="3.6.2" data-path="part-26.html"><a href="part-26.html#part_262"><i class="fa fa-check"></i><b>3.6.2</b> Loading data from text files</a></li>
-<li class="chapter" data-level="3.6.3" data-path="part-26.html"><a href="part-26.html#part_263"><i class="fa fa-check"></i><b>3.6.3</b> Saving data into text files</a></li>
-<li class="chapter" data-level="3.6.4" data-path="part-26.html"><a href="part-26.html#part_264"><i class="fa fa-check"></i><b>3.6.4</b> Loading and saving JSON data</a></li>
+<li class="chapter" data-level="2.6" data-path="part-26.html"><a href="part-26.html"><i class="fa fa-check"></i><b>2.6</b> How to load and save data in various formats</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="part-26.html"><a href="part-26.html#part_261"><i class="fa fa-check"></i><b>2.6.1</b> Loading data from text files</a></li>
+<li class="chapter" data-level="2.6.2" data-path="part-26.html"><a href="part-26.html#part_262"><i class="fa fa-check"></i><b>2.6.2</b> Loading data from text files</a></li>
+<li class="chapter" data-level="2.6.3" data-path="part-26.html"><a href="part-26.html#part_263"><i class="fa fa-check"></i><b>2.6.3</b> Saving data into text files</a></li>
+<li class="chapter" data-level="2.6.4" data-path="part-26.html"><a href="part-26.html#part_264"><i class="fa fa-check"></i><b>2.6.4</b> Loading and saving JSON data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -225,7 +187,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">IntRoduction to R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Guide to R package</a>
           </h1>
         </div>
 
@@ -233,117 +195,152 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="part_22" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Data structures</h2>
-<p>The data we are going to work with is usually stored as a table or a vector of values. One of the basic operations on tables and vectors is selecting a subset of rows, columns or values. More information about various methods of data processing can be found in Section 2.5.</p>
-<div id="part_221" class="section level3" number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> Vectors</h3>
+<div id="part_22" class="section level2">
+<h2><span class="header-section-number">2.2</span> Data structures</h2>
+<p>The data we are going to work with is usually stored as a table or a vector of values. One of the basic operations on tables and vectors is selecting a subset of rows, columns or values. More information about various methods of data processing can be found in Section <a href="part-25.html#part_25">2.5</a>.</p>
+<div id="part_221" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Vectors</h3>
 <p>Vectors, or sequences of values of the same type, are the basic data structure in R. We can create sequences of numbers, strings, or logical values. For R, even a single number is a one-element vector.</p>
 <p>Vectors can be created from smaller vectors using the <code>c()</code> function.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="part-22.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">17</span>)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">17</span>)</code></pre>
 <pre><code>## [1]  2  3  5  7 11 13 17</code></pre>
 <p>One particular group of vectors are sequences of consecutive numbers. The easiest way to create such sequences is by using the <code>:</code> operator.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="part-22.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="dv">3</span><span class="sc">:</span><span class="dv">3</span></span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">-3</span><span class="op">:</span><span class="dv">3</span></code></pre>
 <pre><code>## [1] -3 -2 -1  0  1  2  3</code></pre>
 <p>If we need sequences of numbers with a step value other than 1, we may use the <code>seq()</code> function.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="part-22.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">11</span>)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">100</span>, <span class="dt">by =</span> <span class="dv">11</span>)</code></pre>
 <pre><code>##  [1]  0 11 22 33 44 55 66 77 88 99</code></pre>
 <p>Many useful vectors are available in basic packages. Some examples are month names or subsequent letters.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="part-22.html#cb21-1" aria-hidden="true" tabindex="-1"></a>month.name</span></code></pre></div>
-<pre><code>##  [1] &quot;January&quot;   &quot;February&quot;  &quot;March&quot;     &quot;April&quot;     &quot;May&quot;       &quot;June&quot;     
-##  [7] &quot;July&quot;      &quot;August&quot;    &quot;September&quot; &quot;October&quot;   &quot;November&quot;  &quot;December&quot;</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="part-22.html#cb23-1" aria-hidden="true" tabindex="-1"></a>LETTERS</span></code></pre></div>
-<pre><code>##  [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot; &quot;G&quot; &quot;H&quot; &quot;I&quot; &quot;J&quot; &quot;K&quot; &quot;L&quot; &quot;M&quot; &quot;N&quot; &quot;O&quot; &quot;P&quot; &quot;Q&quot; &quot;R&quot; &quot;S&quot;
-## [20] &quot;T&quot; &quot;U&quot; &quot;V&quot; &quot;W&quot; &quot;X&quot; &quot;Y&quot; &quot;Z&quot;</code></pre>
-<div id="part_2211" class="section level4" number="3.2.1.1">
-<h4><span class="header-section-number">3.2.1.1</span> Indexing vectors</h4>
+<pre class="sourceCode r"><code class="sourceCode r">month.name</code></pre>
+<pre><code>##  [1] &quot;January&quot;   &quot;February&quot;  &quot;March&quot;     &quot;April&quot;     &quot;May&quot;      
+##  [6] &quot;June&quot;      &quot;July&quot;      &quot;August&quot;    &quot;September&quot; &quot;October&quot;  
+## [11] &quot;November&quot;  &quot;December&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">LETTERS</code></pre>
+<pre><code>##  [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot; &quot;G&quot; &quot;H&quot; &quot;I&quot; &quot;J&quot; &quot;K&quot; &quot;L&quot; &quot;M&quot; &quot;N&quot; &quot;O&quot; &quot;P&quot; &quot;Q&quot;
+## [18] &quot;R&quot; &quot;S&quot; &quot;T&quot; &quot;U&quot; &quot;V&quot; &quot;W&quot; &quot;X&quot; &quot;Y&quot; &quot;Z&quot;</code></pre>
+<div id="part_2211" class="section level4">
+<h4><span class="header-section-number">2.2.1.1</span> Indexing vectors</h4>
 <p>You can use the <code>[]</code> operator to refer to the elements of a vector. Inside the square brackets, provide the vector of indices to read. Vector elements are numbered from <code>1</code>. We can easily show indexing by selecting a subset of letters from the <code>LETTERS</code> vector.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="part-22.html#cb25-1" aria-hidden="true" tabindex="-1"></a>LETTERS[ <span class="dv">5</span><span class="sc">:</span><span class="dv">10</span> ]</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">LETTERS[ <span class="dv">5</span><span class="op">:</span><span class="dv">10</span> ]</code></pre>
 <pre><code>## [1] &quot;E&quot; &quot;F&quot; &quot;G&quot; &quot;H&quot; &quot;I&quot; &quot;J&quot;</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="part-22.html#cb27-1" aria-hidden="true" tabindex="-1"></a>LETTERS[ <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">9</span><span class="sc">:</span><span class="dv">14</span>) ]</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">LETTERS[ <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">9</span><span class="op">:</span><span class="dv">14</span>) ]</code></pre>
 <pre><code>## [1] &quot;A&quot; &quot;B&quot; &quot;I&quot; &quot;J&quot; &quot;K&quot; &quot;L&quot; &quot;M&quot; &quot;N&quot;</code></pre>
 <p>The <code>length()</code> function returns the number of elements in a vector. For example, it may prove useful when we want to select every second element from the vector. In the code below, we use <code>seq()</code> to build a sequence of indices made up of every second letter from the <code>LETTERS</code> vector.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="part-22.html#cb29-1" aria-hidden="true" tabindex="-1"></a>every_second <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="fu">length</span>(LETTERS), <span class="at">by =</span> <span class="dv">2</span>)</span>
-<span id="cb29-2"><a href="part-22.html#cb29-2" aria-hidden="true" tabindex="-1"></a>LETTERS[ every_second ]</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">every_second &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">1</span>, <span class="dt">to =</span> <span class="kw">length</span>(LETTERS), <span class="dt">by =</span> <span class="dv">2</span>)
+LETTERS[ every_second ]</code></pre>
 <pre><code>##  [1] &quot;A&quot; &quot;C&quot; &quot;E&quot; &quot;G&quot; &quot;I&quot; &quot;K&quot; &quot;M&quot; &quot;O&quot; &quot;Q&quot; &quot;S&quot; &quot;U&quot; &quot;W&quot; &quot;Y&quot;</code></pre>
 <p>Indices also accept negative numbers. This way, we can select all values except those with the indices provided.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="part-22.html#cb31-1" aria-hidden="true" tabindex="-1"></a>month.name[ <span class="sc">-</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">9</span>) ]</span></code></pre></div>
-<pre><code>## [1] &quot;January&quot;  &quot;February&quot; &quot;March&quot;    &quot;April&quot;    &quot;October&quot;  &quot;November&quot; &quot;December&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">month.name[ <span class="op">-</span>(<span class="dv">5</span><span class="op">:</span><span class="dv">9</span>) ]</code></pre>
+<pre><code>## [1] &quot;January&quot;  &quot;February&quot; &quot;March&quot;    &quot;April&quot;    &quot;October&quot;  &quot;November&quot;
+## [7] &quot;December&quot;</code></pre>
 <p>Vector elements can be assigned names when constructing a vector with the <code>c()</code> function, or at a later time with the <code>names()</code> function. If a given vector has names, then its elements can be referred to with those names instead of the indices.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="part-22.html#cb33-1" aria-hidden="true" tabindex="-1"></a>value <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">pawn =</span> <span class="dv">1</span>, <span class="at">knight =</span> <span class="dv">3</span>, <span class="at">bishop =</span> <span class="dv">3</span>,</span>
-<span id="cb33-2"><a href="part-22.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="at">rook =</span> <span class="dv">5</span>, <span class="at">queen =</span> <span class="dv">9</span>, <span class="at">king =</span> <span class="cn">Inf</span>)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">value &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">pawn =</span> <span class="dv">1</span>, <span class="dt">knight =</span> <span class="dv">3</span>, <span class="dt">bishop =</span> <span class="dv">3</span>,
+<span class="dt">rook =</span> <span class="dv">5</span>, <span class="dt">queen =</span> <span class="dv">9</span>, <span class="dt">king =</span> <span class="ot">Inf</span>)</code></pre>
 <p>Getting a subvector is not the only aim of indexing. Often enough, we want to change the order of elements in a vector. In the sample code below, we reverse the order of elements by providing a new set of indices.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="part-22.html#cb34-1" aria-hidden="true" tabindex="-1"></a>value[ <span class="dv">6</span><span class="sc">:</span><span class="dv">1</span> ]</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">value[ <span class="dv">6</span><span class="op">:</span><span class="dv">1</span> ]</code></pre>
 <pre><code>##   king  queen   rook bishop knight   pawn 
 ##    Inf      9      5      3      3      1</code></pre>
 <p>Logical values are another useful method to select a subsequence of elements from a vector. The code below presents how we can choose all elements of a vector whose values are less than 6.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="part-22.html#cb36-1" aria-hidden="true" tabindex="-1"></a>value[ value <span class="sc">&lt;</span> <span class="dv">6</span> ]</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">value[ value <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span> ]</code></pre>
 <pre><code>##   pawn knight bishop   rook 
 ##      1      3      3      5</code></pre>
 </div>
-<div id="part_2212" class="section level4" number="3.2.1.2">
-<h4><span class="header-section-number">3.2.1.2</span> Changing vector elements</h4>
+<div id="part_2212" class="section level4">
+<h4><span class="header-section-number">2.2.1.2</span> Changing vector elements</h4>
 <p>Vector indices are also useful when we only want to change some of the elements. We can choose a subset of vector elements, and then assign a value to it using the <code>&lt;-</code> operator.
 In the example below, we change the value of the fourth and fifth elements of the <code>value</code> vector.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="part-22.html#cb38-1" aria-hidden="true" tabindex="-1"></a>value[ <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">5</span>) ] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">7</span>)</span>
-<span id="cb38-2"><a href="part-22.html#cb38-2" aria-hidden="true" tabindex="-1"></a>value</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">value[ <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>) ] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">6</span>,<span class="dv">7</span>)
+value</code></pre>
 <pre><code>##   pawn knight bishop   rook  queen   king 
 ##      1      3      3      6      7    Inf</code></pre>
 <p>In order to add new elements to the vector, we can use the <code>c()</code> function.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="part-22.html#cb40-1" aria-hidden="true" tabindex="-1"></a>(value <span class="ot">&lt;-</span> <span class="fu">c</span>(value, <span class="at">new_piece =</span> <span class="dv">5</span>))</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">(value &lt;-<span class="st"> </span><span class="kw">c</span>(value, <span class="dt">new_piece =</span> <span class="dv">5</span>))</code></pre>
 <pre><code>##      pawn    knight    bishop      rook     queen      king new_piece 
 ##         1         3         3         6         7       Inf         5</code></pre>
 </div>
 </div>
-<div id="part_222" class="section level3" number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> Data frames</h3>
+<div id="part_222" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Data frames</h3>
 <p>The most widely used data structure in data analysis is called a data frame. Each data frame is a set of columns (variables), and each column is a vector of equal length. Columns may have values of different types.
 We will show you how to work with data frames using a small dataset called <code>cats_birds</code>. The seven columns represent various traits of selected cats and birds.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="part-22.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;PogromcyDanych&quot;</span>)</span>
-<span id="cb42-2"><a href="part-22.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(koty_ptaki)</span></code></pre></div>
-<pre><code>##   gatunek waga dlugosc predkosc habitat zywotnosc druzyna
-## 1  Tygrys  300     2.5       60    Azja        25     Kot
-## 2     Lew  200     2.0       80  Afryka        29     Kot
-## 3  Jaguar  100     1.7       90 Ameryka        15     Kot
-## 4    Puma   80     1.7       70 Ameryka        13     Kot
-## 5 Leopard   70     1.4       85    Azja        21     Kot
-## 6  Gepard   60     1.4      115  Afryka        12     Kot</code></pre>
-<div id="part_2221" class="section level4" number="3.2.2.1">
-<h4><span class="header-section-number">3.2.2.1</span> Indexing data frames</h4>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;PogromcyDanych&quot;</span>)
+cats_birds &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;/home/krz/cats_birds.csv&quot;</span>,<span class="dt">sep=</span><span class="st">&quot;;&quot;</span>,<span class="dt">dec=</span><span class="st">&quot;,&quot;</span>)
+<span class="kw">head</span>(cats_birds)</code></pre>
+<pre><code>##    species weight length velocity habitat lifespan team
+## 1    Tiger    300    2.5       60    Asia       25  Cat
+## 2     Lion    200    2.0       80  Africa       29  Cat
+## 3   Jaguar    100    1.7       90 America       15  Cat
+## 4     Puma     80    1.7       70 America       13  Cat
+## 5 Panthera     70    1.4       85    Asia       21  Cat
+## 6  Cheetah     60    1.4      115  Africa       12  Cat</code></pre>
+<div id="part_2221" class="section level4">
+<h4><span class="header-section-number">2.2.2.1</span> Indexing data frames</h4>
 <p>Data frames are structured as two-dimensional tables. In order to specify their elements, we must provide both the row and the column. To that end, we can use the <code>[]</code> or <code>$</code> operators. The latter will be discussed at the end of the current section.</p>
-<p>When using the <code>[]</code> operator, we should separately specify the indices of rows and columns, and separate them with <code>","</code> (commas). If indices of rows or columns are not specified, then all rows/columns will be selected.</p>
+<p>When using the <code>[]</code> operator, we should separately specify the indices of rows and columns, and separate them with <code>&quot;,&quot;</code> (commas). If indices of rows or columns are not specified, then all rows/columns will be selected.</p>
 <p>The example below shows how to choose three rows from the <code>cats_birds</code> data frame.</p>
-<pre><code>cats_birds[ c(1, 3 , 5) , ]</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">cats_birds[ <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span> , <span class="dv">5</span>) , ]</code></pre>
+<pre><code>##    species weight length velocity habitat lifespan team
+## 1    Tiger    300    2.5       60    Asia       25  Cat
+## 3   Jaguar    100    1.7       90 America       15  Cat
+## 5 Panthera     70    1.4       85    Asia       21  Cat</code></pre>
 <p>We can use indices for both rows and columns at the same time.</p>
-<pre><code>cats_birds[ c(1, 3, 5) , 2:5]</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">cats_birds[ <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>) , <span class="dv">2</span><span class="op">:</span><span class="dv">5</span>]</code></pre>
+<pre><code>##   weight length velocity habitat
+## 1    300    2.5       60    Asia
+## 3    100    1.7       90 America
+## 5     70    1.4       85    Asia</code></pre>
 <p>Each dimension can be indexed using the same rules that are applied to vectors. This means that (1) logical conditions can be indices, (2) we can refer to names, and (3) we can use negative indices.</p>
 <p>In the example below, we only select animals that develop a velocity greater than 100 km/h. For each row that satisfies this condition, we show the species, velocity and length of the animal.</p>
-<pre><code>cats_birds[ cats_birds[,&quot;velocity&quot;] &gt; 100,
-            c(&quot;species&quot;, &quot;velocity&quot;, &quot;length&quot;)]</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">cats_birds[ cats_birds[,<span class="st">&quot;velocity&quot;</span>] <span class="op">&gt;</span><span class="st"> </span><span class="dv">100</span>,
+            <span class="kw">c</span>(<span class="st">&quot;species&quot;</span>, <span class="st">&quot;velocity&quot;</span>, <span class="st">&quot;length&quot;</span>)]</code></pre>
+<pre><code>##             species velocity length
+## 6           Cheetah      115    1.4
+## 8             Swift      170    0.2
+## 10     Golden eagle      160    0.9
+## 11 Peregrine falcon      110    0.5
+## 13        Albatross      120    0.8</code></pre>
 <p>Individual columns of the data frame are vectors. If we refer to a single column, we will get a vector instead of a data frame. This is a very convenient property which makes the code much shorter on many occasions. However, there are situations where this notation leads to mistakes, which is why we need to be careful when selecting a single column.</p>
 <p>We can choose a column by providing its number or name. The command below has the same meaning as <code>cats_birds[,4]</code>.</p>
-<pre><code>cats_birds[, &quot;velocity&quot;]</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">cats_birds[, <span class="st">&quot;velocity&quot;</span>]</code></pre>
+<pre><code>##  [1]  60  80  90  70  85 115  65 170  70 160 110 100 120</code></pre>
 <p>When we want to select a single column from a data frame, we can also use the <code>$</code> operator. It shortens the code by 4 characters. At the same time, it becomes much clearer that the result is a vector.</p>
 <p>After the <code>$</code> operator, we can provide a full variable name, or just a part of it. If we only provide a part of it, we will get a column whose name starts with the part we provide.</p>
-<pre><code>cats_birds$velocity</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">cats_birds<span class="op">$</span>velocity</code></pre>
+<pre><code>##  [1]  60  80  90  70  85 115  65 170  70 160 110 100 120</code></pre>
 <p>The <code>$</code> operator also comes in handy when we add a new column to our data frame. We can add a new column with the given name at the end of the given data frame. Below, we change the unit, bearing in mind that 1 mile/h = 1.6 km/h.</p>
-<pre><code>cats_birds$velocity_miles &lt;- cats_birds$velocity * 1.6
-head(cats_birds, 2)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">cats_birds<span class="op">$</span>velocity_miles &lt;-<span class="st"> </span>cats_birds<span class="op">$</span>velocity <span class="op">*</span><span class="st"> </span><span class="fl">1.6</span>
+<span class="kw">head</span>(cats_birds, <span class="dv">2</span>)</code></pre>
+<pre><code>##   species weight length velocity habitat lifespan team velocity_miles
+## 1   Tiger    300    2.5       60    Asia       25  Cat             96
+## 2    Lion    200    2.0       80  Africa       29  Cat            128</code></pre>
 <p>Another way to add a column is by using the <code>cbind()</code> or <code>data.frame()</code> function.</p>
 <p>The <code>rbind()</code> function binds two data frames row by row, thus allowing us to add new rows. The <code>dplyr</code> package provides quicker versions of both functions. Their names are <code>bind_cols()</code> and <code>bind_rows()</code>.</p>
 </div>
 </div>
-<div id="part_223" class="section level3" number="3.2.3">
-<h3><span class="header-section-number">3.2.3</span> Lists</h3>
+<div id="part_223" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Lists</h3>
 <p>The third most popular data structure used in R are lists. A list, just like a vector, is a sequence of values. Unlike a vector, however, a list can store elements of multiple types. A list element may be another complex structure, such as a data frame or another list.</p>
 <p>Lists are created with <code>list()</code>. The example below shows how to create a list that contains a vector with numbers, letters and logical values.</p>
-<pre><code>triplet &lt;- list(numbers = 1:5, letters = LETTERS, logic = c(TRUE, TRUE, TRUE, FALSE))
+<pre class="sourceCode r"><code class="sourceCode r">triplet &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">numbers =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">letters =</span> LETTERS, <span class="dt">logic =</span> <span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>))
 triplet</code></pre>
+<pre><code>## $numbers
+## [1] 1 2 3 4 5
+## 
+## $letters
+##  [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot; &quot;G&quot; &quot;H&quot; &quot;I&quot; &quot;J&quot; &quot;K&quot; &quot;L&quot; &quot;M&quot; &quot;N&quot; &quot;O&quot; &quot;P&quot; &quot;Q&quot;
+## [18] &quot;R&quot; &quot;S&quot; &quot;T&quot; &quot;U&quot; &quot;V&quot; &quot;W&quot; &quot;X&quot; &quot;Y&quot; &quot;Z&quot;
+## 
+## $logic
+## [1]  TRUE  TRUE  TRUE FALSE</code></pre>
 <p>You can access list elements with <code>[[]]</code>. You can only select a single element.</p>
 <p>If a list has a name, its elements can be referred to with the <code>$</code> operator in a way similar to data frames. Internally, data frames are represented as lists of equally long vectors.</p>
-<pre><code>triple[[2]]
-triple[[&quot;logic&quot;]]
-triple$numbers</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">triplet[[<span class="dv">2</span>]]</code></pre>
+<pre><code>##  [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot; &quot;G&quot; &quot;H&quot; &quot;I&quot; &quot;J&quot; &quot;K&quot; &quot;L&quot; &quot;M&quot; &quot;N&quot; &quot;O&quot; &quot;P&quot; &quot;Q&quot;
+## [18] &quot;R&quot; &quot;S&quot; &quot;T&quot; &quot;U&quot; &quot;V&quot; &quot;W&quot; &quot;X&quot; &quot;Y&quot; &quot;Z&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">triplet[[<span class="st">&quot;logic&quot;</span>]]</code></pre>
+<pre><code>## [1]  TRUE  TRUE  TRUE FALSE</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">triplet<span class="op">$</span>numbers</code></pre>
+<pre><code>## [1] 1 2 3 4 5</code></pre>
 <p>Lists are very useful when we need to process multiple data sets or when we want to generate multiple models. Both data sets and models can become list elements.</p>
 <p>R contains many useful functions to work with lists. We will discuss them in Section 3.9.1.</p>
 </div>
@@ -359,13 +356,11 @@ triple$numbers</code></pre>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -373,12 +368,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
+"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -390,10 +385,6 @@ gitbook.start({
 "text": null
 },
 "history": {
-"link": null,
-"text": null
-},
-"view": {
 "link": null,
 "text": null
 },
@@ -413,9 +404,8 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

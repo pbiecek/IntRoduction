@@ -22,6 +22,10 @@ If you install R on a less typical platform, you can use the installation manual
 
 > One useful feature of the R environment is that you can run it without installation. This means you can copy your R environment onto a CD, pendrive or external hard drive and run it on any other computer.
 
+```{r CRAN, echo=FALSE, fig.align='center', fig.cap="Website https://cran.r-project.org/. You can download the R program for the most popular operating systems.", fig.pos= 'h', fig.show='hold', out.width = '100%'}
+knitr::include_graphics("cran.png")
+```
+
 It is hard to estimate the minimal system requirements for R. Its basic version runs without problems on older computers with 256 MB of RAM, Pentium processors and a few dozen MB of space on the hard drive. However, even though the basic version is "lightweight", the installation of additional packages may require a few more GBs of RAM or hard drive space. Packages with big genomic data are particularly "heavy-weight".
 
 > Those using R for compute-intensive analyses should rather use the R version for OS X, Linux or Unix. These systems manage memory more efficiently, which means that R works (slightly) faster. Unix-based systems also provide additional tools that allow multiple threads and other system mechanisms (such us `fork()`).
@@ -32,8 +36,11 @@ You can work with the basic R software alone, but working with an editor is much
 
 RStudio is a tool which makes working with R easier. It is an editor, version manager, and debugger that makes creating packages, applications or reports easier. You can live without it, but it certainly helps much. The latest version of RStudio Desktop can be found at [https://www.rstudio.com/](https://www.rstudio.com/).
 
-An example screenshot from the program is shown in Figure 1.5.
+An example screenshot from the program is shown in Figure \@ref(fig:panel).
 
+```{r panel, echo=FALSE, fig.align='center', fig.cap="An example of the appearance of panels of the RStudio editor. The four panels show: window allowing to edit the code, window allowing to view variables loaded into the global R namespace, R program console, in which we can enter commands directly, and a window in which help files and charts are displayed by default.", fig.pos= 'h', fig.show='hold', out.width = '100%'}
+knitr::include_graphics("panel.png")
+```
 RStudio is very intuitive. Some of its interesting functions are:
 
  * Ability to automatically send the whole script or a piece of it to the R console. After selecting a given code snippet and pressing `Ctrl-Enter`, it will be executed in the R console.
@@ -122,7 +129,7 @@ library("devtools")
 
 As we mentioned before, there are over 10,000 packages in the CRAN repository. It is difficult to find the feature we need in such a broad set. This is why we will use the following notation when using new functions: `packageName::functionName()`. `ggplot2::qplot()` means that the `qplot()` function can be found in the `ggplot2` package. The index at the back of the book lists all functions both alphabetically and grouped by packages.
 
-If we know the name of a function and want to find out the package that contains it, given that we do not have this book at hand, we can use the `help.search()` function. It will search through all installed packages and try to find the given name, or a function whose description contains the given search phrase. More information about this function and other means of searching information can be found in Section 1.4.
+If we know the name of a function and want to find out the package that contains it, given that we do not have this book at hand, we can use the `help.search()` function. It will search through all installed packages and try to find the given name, or a function whose description contains the given search phrase. More information about this function and other means of searching information can be found in Section [1.4](#part_14).
 
 Once we have loaded the respective package, we can use its functions by providing their names. We can also explicitly name the package a function should come from. This might be useful when we have multiple functions with the same name in different packages. For example, both `epitools` and `vcd` packages contain an `oddsratio()` function, but each of them works in a different way. In order to specify the package, we can see the `::` or `:::` operators. The `::` operator only allows referring to public functions of a package, whereas the `:::` operator also accepts references to private functions.
 Both lines of code below use the `seq()` function from the `base` package. The second method is useful when there are conflicting names of functions coming from different packages.

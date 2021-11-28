@@ -34,14 +34,14 @@ The `filter()` function from the `dplyr` package performs filtering. Its first a
 The result of this function contains rows the satisfy all of the conditions specified. When specifying the conditions, we can use column names from the dataset without additional links.
 
 We will present that with an example. Below is an instruction that chooses only those offers where `Model == "Corsa"` from the `vehicles` dataset:
-```
+```{r warning=FALSE,message=FALSE}
 library("dplyr")
 CorsaOnly <- filter(vehicles, Model == "Corsa")
 head(CorsaOnly)
 ```
 
 We can specify multiple conditions simultaneously. The example below finds rows with Corsa vehicles and Diesel engines that were manufactured in 2010.
-```
+```{r warning=FALSE,message=FALSE}
 CorsaOnly <- filter(vehicles, Model == "Corsa", Production == 2010,
                     Fuel == "diesel")
 head(CorsaOnly)
@@ -57,7 +57,7 @@ The `select()` function from the `dplyr` package allows us to choose one or more
 
 The example below selects only three columns: make, model and price.
 
-```
+```{r warning=FALSE,message=FALSE}
 threeColumns <- select(vehicles, Make, Model, Price)
 head(threeColumns)
 ```
@@ -65,7 +65,7 @@ head(threeColumns)
 We can use names to select columns, but also use the negation operator “-” (minus sign), which selects all columns except those specified, or functions `matches()`, `starts_with()` and `ends_with()`, which choose only those rows that satisfy the respective conditions.
 
 In the example below, we select only those columns that start with an `M`.
-```
+```{r warning=FALSE,message=FALSE}
 head(select(vehicles, starts_with("M")))
 ```
 
@@ -80,7 +80,7 @@ We will show this function using the `vehicles` dataset from the `Przewodnik` pa
 We will start the example by specifying the age of the cars offered. Since the offers come from 2012, and the manufacture year is placed in the `Production` column, the age of the car can be calculated as `2013 - Production`.
 
 In the next step, we calculate the average mileage in a single year. We will need data from two columns.
-```
+```{r warning=FALSE,message=FALSE}
 carsWithAge <- mutate(vehicles,
                       Age = 2013 - Production,
                       MileagePerYear = round(Mileage/Age))
@@ -97,13 +97,13 @@ Sorting data by a given column makes it much easier to analyse values in that co
 We can use the `arrange()` function from the `dplyr` package to sort by one or more variables. When there are equal values in the first criterion, further criteria influence the order.
 
 In the example below, the data is first sorted by the `Model` column. When there are identical values in the `Model` column, the order is decided based on the `Price` variable.
-```
+```{r warning=FALSE,message=FALSE}
 sortedVehicles <- arrange(vehicles, Model, Price)
 head(sortedVehicles)
 ```
 
 To reverse the sorting order, the variable should be surrounded with a `desc()` function execution.
-```
+```{r warning=FALSE,message=FALSE}
 sortedVehicles <- arrange(vehicles, Model, desc(Price))
 head(sortedVehicles, 2)
 ```
@@ -119,7 +119,7 @@ Streams are a mechanism introduced to R recently, but they are quickly gaining s
 #### Onion problem {-}
 
 To present streams, we will first consider a series of fours instructions:
-```
+```{r warning=FALSE,message=FALSE}
 KiaOnly <- filter(vehicles, Make == "Kia")
 sorted <- arrange(KiaOnly, Price)
 fourColumns <- select(sorted, Model, Price, Mileage, Production)
@@ -127,7 +127,7 @@ head(fourColumns, 4)
 ```
 
 In R, the result of one function can be directly passed as an argument to another function. To make the code shorter, the "big onion" syntax is often introduced.
-```
+```{r warning=FALSE,message=FALSE}
 head(
   select(
     arrange(
@@ -165,7 +165,7 @@ a %>% function(b, data=.)
 #### Streams in action {-}
 
 The "onion" shown above can be rewritten in the following way:
-```
+```{r warning=FALSE,message=FALSE}
 vehicles %>%
   filter(Make == "Kia") %>%
   arrange(Price) %>%
@@ -181,7 +181,7 @@ The functions from the `dplyr` package are defined in such a way that their firs
 
 In the case of functions that take datasets as the second or even further arguments, we also need to use the "." symbol (dot). This symbol denotes where the left side of the `%>%` operator should be placed.
 Let us take a look at an example with the `lm()` function which builds a linear model. This function expects the data to be passed as the second argument. This means we need to use the "." symbol.
-```
+```{r warning=FALSE,message=FALSE}
 vehicles %>%
   lm(Price~Mileage, data = .) %>%
   summary()
@@ -204,7 +204,7 @@ We present those functions below one after another.
 We can use `summarise()` to find aggregates in datasets.
 
 For instance, the instruction below calculates the mean price, median mileage, and mean age in the `vehicles` dataset.
-```
+```{r warning=FALSE,message=FALSE}
 vehicles %>%
   summarise(meanPrice = mean(Price),
             medianMileage = median(Mileage),
@@ -229,7 +229,7 @@ The `group_by` function influences other functions from the `dplyr` package in a
  * The `mutate()` function finds each aggregate within a group, which makes it easy to normalise variables in groups.
  
 The example below calculates four statistics (mean price, median mileage, mean vehicle age, and count of offers) in groups specified by the make.
-```
+```{r warning=FALSE,message=FALSE}
 vehicles %>%
   group_by(Make) %>%
   summarise(meanPrice = mean(Price),
@@ -239,7 +239,7 @@ vehicles %>%
 ```
 
 Aggregates are an ordinary data frame, which means we can perform subsequent operations on them, such as sorting.
-```
+```{r warning=FALSE,message=FALSE}
 vehicles %>%
   group_by(Make) %>%
   summarise(meanPrice = mean(Price),
@@ -250,7 +250,7 @@ vehicles %>%
 ```
 
 The example below modifies the `Mileage` variable. It divides `Mileage` by the mean mileage for the given make.
-```
+```{r warning=FALSE,message=FALSE}
 vehicles %>%
   select(Make, Price, Mileage, Model) %>%
   group_by(Make) %>%
@@ -264,9 +264,10 @@ Many functions assume that data is structured as tables in which rows are subseq
 However, data is sometimes given in other formats. Sometimes, the same variable is described by many columns, or multiple variables are provided a single column. Some functions from the `tidyr` package are used to transform various data formats.
 
 We will present those data formats and the functions used to transform them on some sample data from Eurostat. We will get this data using the `eurostat` package. Below, we load data from the `tsdtr210` table in which Eurostat gathers information about the popularity of various means of transport in various countries.
-```
+```{r warning=FALSE,message=FALSE}
 library("eurostat")
-tsdtr210 <- get_eurostat("tsdtr210", time_format="num")
+id <- search_eurostat("Modal split of passenger transport", type = "table")$code[1]
+tsdtr210 <- get_eurostat(id, time_format = "num") %>% as.data.frame()
 head(tsdtr210, 4)
 ```
 
@@ -279,7 +280,7 @@ To transform data from the long format to the wide format, we can use the `sprea
 The `spread()` function expects three arguments. The first argument is, naturally, the dataset. The second argument is the key corresponding to column names, and the last argument are the values to be written into the specific columns. Rows in the new table are chosen as unique values in the other columns.
 
 In the example below, the `time` function is changed from the long format to the wide format in which names correspond to subsequent years - values from the `time` column. The values in new columns are copies from the `values` column in the long data format.
-```
+```{r warning=FALSE,message=FALSE}
 library("tidyr")
 wideFormat <- spread(tsdtr210, time, values)
 wideFormat %>% filter(geo == "PL")
@@ -288,12 +289,12 @@ wideFormat %>% filter(geo == "PL")
 The data in the `tsdtr210` table describes values in intersections through four dimensions (unit, vehicle type, country, year). Each dimension can be used to create new columns in the wide format.
 
 In the example below, subsequent columns are created based on the `geo` column in the long format.
-```
+```{r warning=FALSE,message=FALSE}
 wideFormat2 <- spread(tsdtr210, geo, values)
 ```
 
 We can show the rows for year 2010 (some columns are omitted).
-```
+```{r warning=FALSE,message=FALSE}
 wideFormat2 %>% filter(time == "2010")
 ```
 
@@ -304,7 +305,7 @@ The opposite of spreading a single column into multiple columns is gathering mul
 This function takes a dataset as the first argument. Further two arguments specify column names with keys and values, while the other arguments point to those columns from the old dataset that should be gathered together in the new dataset. We can use the minus sign notation "-" which means "everything except...".
 
 In the example below, we transform the `wideFormat` data frame into the long format in such a way that all columns except for `geo` and `vehicle` are transformed into a column called value. This is why the result contains the `geo` and `vehicle` columns (skipped when gathering) as well as `year` and `value` (results of gathering).
-```
+```{r warning=FALSE,message=FALSE}
 wideFormat %>%
   gather(year, value, -geo, -vehicle) %>%
   tail()
@@ -321,7 +322,7 @@ When we work with data, we often want to unite multiple columns into one, or spl
 We can use the `unite()` function to merge a few columns into a single column.
 
 The code below unites values from columns `geo` and `time` into a single string column `geo_time`.
-```
+```{r warning=FALSE,message=FALSE}
 unite(tsdtr210, geo_time, geo, time, sep=":") %>%
   head(4)
 ```
@@ -335,12 +336,12 @@ The opposite of uniting is separating. Here, we can use the `separate()` functio
 We will show an example of an artificial dataset with two columns: data and identifier.
 
 In the example below, the `separate()` function creates three new columns based on the `dates` column. The columns are filled with parts of the old column separated with the - sign.
-```
+```{r warning=FALSE,message=FALSE}
 df <- data.frame(dates = c("2004-01-01", "2012-04-15", "2006-10-29",
                            "2010-03-03"), id = 1:4)
 df
 ```
-```
+```{r warning=FALSE,message=FALSE}
 separate(df, col=dates, into=c("year", "month", "day"), sep="-")
 ```
 

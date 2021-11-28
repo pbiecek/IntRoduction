@@ -1,7 +1,9 @@
 ## Loading data {#part_21}
 
-The two most popular formats to store data are text files and Excel/OpenOffice files. Both formats can be loaded into RStudio with just a few mouse clicks. You only need to choose File/Import Dataset, and a graphical interface for data import will appear – see Figure 2.1.
-
+The two most popular formats to store data are text files and Excel/OpenOffice files. Both formats can be loaded into RStudio with just a few mouse clicks. You only need to choose File/Import Dataset, and a graphical interface for data import will appear – see Figure \@ref(fig:gui01).
+```{r gui01, echo=FALSE, fig.align='center', fig.cap="An example of the RStudio program window for importing data using a graphical interface.", out.width = '100%'}
+knitr::include_graphics("gui01.png")
+```
 If we encounter an untypical file formatting, we can use a few control buttons to specify what the separator is, whether the first row contains headers etc.
 
 If we do not use RStudio, we can use function `read.table()` to load data. An example of this function is given below.
@@ -29,13 +31,13 @@ The next two arguments in the function execution below specify that the values i
 The result of function `read.table()` – the table with data – is assigned to the vehicles symbol using the <- operator.
 
 ```{r, warning=FALSE,message=FALSE}
-vehicles <- read.table("http://www.biecek.pl/R/auta.csv",
+vehicles <- read.table("vehicles.csv",
                        sep = ";", header = TRUE)
 head(vehicles)
 ```
 
 The `head()` function shows the first 6 rows from the data set. This function allows us to quickly find out what the table contains.
 
-In Section 2.6 we discuss more methods of data loading using various formats.
+In Section [2.6](#part_26) we discuss more methods of data loading using various formats.
 
 Once we have our data in place, it is time to work with it.

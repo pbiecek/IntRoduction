@@ -35,14 +35,14 @@ The code snippet below loads a data table from the Polish version of *Poland nat
 
 There are multiple tables on the site we are interested in. We get them all, and then choose the one with 14 columns. Having loaded the data, we show the first 6 rows.
 
-```
+```{r,warning=FALSE,message=FALSE}
 library("rvest")
-wikiPL <- "https://pl.wikipedia.org/wiki/Reprezentacja_Polski_w_piłce_nożnej_mężczyzn"
+wikiPL <- "https://pl.wikipedia.org/wiki/Reprezentacja_Polski_w_pi%C5%82ce_no%C5%BCnej_m%C4%99%C5%BCczyzn"
 webpage <- read_html(wikiPL)
-table_links <- html_nodes(webpage, '.wikitable')
-tables <- html_table(table_links, fill=TRUE)
-FIFA_table <- which(sapply(tables, ncol) == 14)
-tab <- tables[[FIFA_table]]
+table_links <- html_nodes(webpage,xpath='//*[@id="mw-content-text"]/div/table[48]')
+tables <- html_table(table_links)
+tab <- as.data.frame(tables)
+tab <- tab[-c(1:3,30),]
 head(tab)
 ```
 
@@ -52,11 +52,12 @@ Another step after loading the data is cleaning and transforming it. To that end
 
 We change the data from the wide format, in which months are stored in different columns, into the narrow format, where all months are stored in a single column. Then, we change Roman numerals used for months into Arabic numerals. At this point, our data is ready to be presented graphically.
 
-```
+```{r,warning=FALSE,message=FALSE}
 library("tidyr")
 library("dplyr")
+colnames(tab)[1] <- "Year"
 colnames(tab)[2:13] <- 1:12
-data_long <- gather(tab[,1:13], Month, Rank, -Year)
+data_long <- gather(tab[,1:13], Month, Position, -Year)
 data_long <- mutate(data_long,
                     Position = as.numeric(Position),
                     Month = as.numeric(Month))
@@ -65,10 +66,12 @@ head(data_long, 3)
 
 #### Graphical data presentation {#part_1213}
 
-Now that we have loaded the data, it is time we looked at it. We can use the `ggplot2` package for graphical presentation purposes. Below, we present instructions that will generate the chart visible in Figure 1.3, which is called a box plot. It presents the minimal, maximal, mid-range and interquartile rank of Poland in each year of the ranking. We can see when the most prominent changes took place and when Poland reached its best ranks.
+Now that we have loaded the data, it is time we looked at it. We can use the `ggplot2` package for graphical presentation purposes. Below, we present instructions that will generate the chart visible in Figure \@ref(fig:w01), which is called a box plot. It presents the minimal, maximal, mid-range and interquartile rank of Poland in each year of the ranking. We can see when the most prominent changes took place and when Poland reached its best ranks.
 
-```
+```{r w01, fig.cap='An example of a graph made using the ggplot2 package.The Polish position in the FIFA ranking is presented in various years.The last two years have seen a significant improvement.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=8, fig.height=5,out.width='100%',message=FALSE,warning=FALSE}
 library("ggplot2")
-ggplot(data_long, aes(factor(Year), Rank)) +
-geom_boxplot() + ggtitle("Rank of Poland in FIFA Ranking")
+ggplot(data_long, aes(factor(Year), Position)) +
+  geom_boxplot() + ggtitle("Polish position in the FIFA ranking") + 
+                   xlab("Date of publication of the ranking") +
+                   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```

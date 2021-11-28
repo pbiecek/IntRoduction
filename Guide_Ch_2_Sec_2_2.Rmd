@@ -1,6 +1,6 @@
 ## Data structures {#part_22}
 
-The data we are going to work with is usually stored as a table or a vector of values. One of the basic operations on tables and vectors is selecting a subset of rows, columns or values. More information about various methods of data processing can be found in Section 2.5.
+The data we are going to work with is usually stored as a table or a vector of values. One of the basic operations on tables and vectors is selecting a subset of rows, columns or values. More information about various methods of data processing can be found in Section [2.5](#part_25).
 
 ### Vectors {#part_221}
 
@@ -85,7 +85,8 @@ The most widely used data structure in data analysis is called a data frame. Eac
 We will show you how to work with data frames using a small dataset called `cats_birds`. The seven columns represent various traits of selected cats and birds.
 ```{r, warning=FALSE, message=FALSE}
 library("PogromcyDanych")
-head(koty_ptaki)
+cats_birds <- read.csv("cats_birds.csv",sep=";",dec=",")
+head(cats_birds)
 ```
 
 #### Indexing data frames {#part_2221}
@@ -95,20 +96,20 @@ Data frames are structured as two-dimensional tables. In order to specify their 
 When using the `[]` operator, we should separately specify the indices of rows and columns, and separate them with `","` (commas). If indices of rows or columns are not specified, then all rows/columns will be selected.
 
 The example below shows how to choose three rows from the `cats_birds` data frame.
-```
+```{r}
 cats_birds[ c(1, 3 , 5) , ]
 ```
 
 We can use indices for both rows and columns at the same time.
 
-```
+```{r}
 cats_birds[ c(1, 3, 5) , 2:5]
 ```
 
 Each dimension can be indexed using the same rules that are applied to vectors. This means that (1) logical conditions can be indices, (2) we can refer to names, and (3) we can use negative indices.
 
 In the example below, we only select animals that develop a velocity greater than 100 km/h. For each row that satisfies this condition, we show the species, velocity and length of the animal.
-```
+```{r}
 cats_birds[ cats_birds[,"velocity"] > 100,
             c("species", "velocity", "length")]
 ```
@@ -116,19 +117,19 @@ cats_birds[ cats_birds[,"velocity"] > 100,
 Individual columns of the data frame are vectors. If we refer to a single column, we will get a vector instead of a data frame. This is a very convenient property which makes the code much shorter on many occasions. However, there are situations where this notation leads to mistakes, which is why we need to be careful when selecting a single column.
 
 We can choose a column by providing its number or name. The command below has the same meaning as `cats_birds[,4]`.
-```
+```{r}
 cats_birds[, "velocity"]
 ```
 
 When we want to select a single column from a data frame, we can also use the `$` operator. It shortens the code by 4 characters. At the same time, it becomes much clearer that the result is a vector.
 
 After the `$` operator, we can provide a full variable name, or just a part of it. If we only provide a part of it, we will get a column whose name starts with the part we provide.
-```
+```{r}
 cats_birds$velocity
 ```
 
 The `$` operator also comes in handy when we add a new column to our data frame. We can add a new column with the given name at the end of the given data frame. Below, we change the unit, bearing in mind that 1 mile/h = 1.6 km/h.
-```
+```{r}
 cats_birds$velocity_miles <- cats_birds$velocity * 1.6
 head(cats_birds, 2)
 ```
@@ -142,7 +143,7 @@ The `rbind()` function binds two data frames row by row, thus allowing us to add
 The third most popular data structure used in R are lists. A list, just like a vector, is a sequence of values. Unlike a vector, however, a list can store elements of multiple types. A list element may be another complex structure, such as a data frame or another list.
 
 Lists are created with `list()`. The example below shows how to create a list that contains a vector with numbers, letters and logical values.
-```
+```{r}
 triplet <- list(numbers = 1:5, letters = LETTERS, logic = c(TRUE, TRUE, TRUE, FALSE))
 triplet
 ```
@@ -150,10 +151,10 @@ triplet
 You can access list elements with `[[]]`. You can only select a single element.
 
 If a list has a name, its elements can be referred to with the `$` operator in a way similar to data frames. Internally, data frames are represented as lists of equally long vectors.
-```
-triple[[2]]
-triple[["logic"]]
-triple$numbers
+```{r}
+triplet[[2]]
+triplet[["logic"]]
+triplet$numbers
 ```
 
 Lists are very useful when we need to process multiple data sets or when we want to generate multiple models. Both data sets and models can become list elements.

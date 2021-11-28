@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 ## Descriptive statistics {#part_23}
 
 R is mainly used for data processing, analysis and visualisation. Subsequent parts of the present work are devoted to these three typical applications.
@@ -19,87 +24,13 @@ In R, quantitative variables are represented with a numerical type called `numer
 
 Qualitative data in R are represented with a type called `factor. factor` variables can be additionally marked as ordered. In such cases, they have an additional class called `ordered`.
 
-Binary variables can be represented with a logical type called `logical`. Table \@ref(tab:tab01) presents some functions which calculate the most popular descriptive statistics. We will practice calculating descriptive statistics on a data set called `socData` from the `Przewodnik` package.
-```
+Binary variables can be represented with a logical type called `logical`. 
+
+Table \@ref(tab:tab01) presents some functions which calculate the most popular descriptive statistics. We will practice calculating descriptive statistics on a data set called `socData` from the `Przewodnik` package.
+```{r message=FALSE,warning=FALSE}
 library("Przewodnik")
-head(socData, 4)
+socData <- read.csv("socData.csv"); head(socData, 3)
 ```
-
-### Quantitative variables {#part_231}
-
-Let us take a look at the values in the `age` column. We can refer to that column with `socData$age`.
-
-Age is a quantitative ratio variable (ratios make sense in this case; for example, we can say that someone is twice as old as someone else).
-
-Our first question is: what are the lowest and greatest values that the `age` variable can take on? It is always a good idea to check boundary values as they may help us identify errors in data.
-```
-range(socData$age)
-```
-
-What is the mean age?
-```
-mean(socData$age)
-```
-
-And what is the trimmed mean calculated for the middle 60% of observations?
-```
-mean(socData$age, trim=0.2)
-```
-
-The median turns out to be close to the mean – that could mean there is no skewness.
-```
-median(socData$age)
-```
-
-We can use the `summary()` function to quickly calculate the most important characteristics. In the case of quantitative variables, the result is given as a vector with the following values: the minimum, maximum, mean, median, first and third quartiles (also called lower and upper quartiles).
-
-All of these values, apart from the mean, are always returned by the `fivenum()` function (the so-called five-number summary that divides the values observed into four equal parts). If there are missing observations in the variable, their count is also given.
-```
-summary(socData$age)
-```
-
-Standard deviation:
-```
-sd(socData$age)
-```
-
-Kurtosis / measure of tailedness:
-```
-kurtosis(socData$age)
-```
-
-Skewness:
-```
-skewness(socData$age)
-```
-
-Selected quantiles of the `age` variable:
-```
-quantile(socData$age, c(0.1, 0.25, 0.5, 0.75, 0.9))
-```
-
-One statistic which is frequently computed for multiple variables is called correlation. We can use the `cor()` function to calculate it. A correlation matrix is given below for three selected columns:
-```
-cor(socData[,c(1,6,7)])
-```
-
-### Qualitative variables {#part_232}
-
-Let us now take a look at the `education` column. We can refer to it by typing `socData$education`.
-
-Education is a qualitative variable. It can take on four different values and there is a natural order for them.
-
-A contingency table is the most frequent statistic for qualitative variables. The example below uses the `table()` function:
-```
-table(socData$education)
-```
-
-This function defines a contingency table for one, two or more count variables. Contingency tables can also be obtained with `xtabs()` and `ftable()`.
-```
-table(socData$education, socData$employment)
-```
-
-In the case of qualitative variables, the `summary()` function has a similar effect to the `table()` function. The only difference is that `table()` ignores `NA` data, whereas `summary()` provides their count.
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 library("dplyr")
@@ -120,17 +51,95 @@ text_tbl <- data.frame(
   )
 )
 
-knitr::kable(text_tbl, caption="Descriptive statistics for a vector or matrix",escape = F) %>%
-  kable_styling(full_width = F) %>%
+knitr::kable(text_tbl,caption="Descriptive statistics for a vector or matrix",escape = F) %>%
+  kable_styling(full_width = F, latex_options = c("HOLD_position")) %>%
   column_spec(1, bold = F, border_right = T) %>%
   column_spec(2, width = "35em")
 ```
 
+### Quantitative variables {#part_231}
+
+Let us take a look at the values in the `age` column. We can refer to that column with `socData$age`.
+
+Age is a quantitative ratio variable (ratios make sense in this case; for example, we can say that someone is twice as old as someone else).
+
+Our first question is: what are the lowest and greatest values that the `age` variable can take on? It is always a good idea to check boundary values as they may help us identify errors in data.
+```{r}
+range(socData$age)
 ```
+
+What is the mean age?
+```{r}
+mean(socData$age)
+```
+
+And what is the trimmed mean calculated for the middle 60% of observations?
+```{r}
+mean(socData$age, trim=0.2)
+```
+
+The median turns out to be close to the mean – that could mean there is no skewness.
+```{r}
+median(socData$age)
+```
+
+We can use the `summary()` function to quickly calculate the most important characteristics. In the case of quantitative variables, the result is given as a vector with the following values: the minimum, maximum, mean, median, first and third quartiles (also called lower and upper quartiles).
+
+All of these values, apart from the mean, are always returned by the `fivenum()` function (the so-called five-number summary that divides the values observed into four equal parts). If there are missing observations in the variable, their count is also given.
+```{r}
+summary(socData$age)
+```
+
+Standard deviation:
+```{r}
+sd(socData$age)
+```
+
+Kurtosis / measure of tailedness:
+```{r}
+e1071::kurtosis(socData$age)
+```
+
+Skewness:
+```{r}
+e1071::skewness(socData$age)
+```
+
+Selected quantiles of the `age` variable:
+```{r}
+quantile(socData$age, c(0.1, 0.25, 0.5, 0.75, 0.9))
+```
+
+One statistic which is frequently computed for multiple variables is called correlation. We can use the `cor()` function to calculate it. A correlation matrix is given below for three selected columns:
+```{r}
+cor(socData[,c(1,6,7)])
+```
+
+### Qualitative variables {#part_232}
+
+Let us now take a look at the `education` column. We can refer to it by typing `socData$education`.
+
+Education is a qualitative variable. It can take on four different values and there is a natural order for them.
+
+A contingency table is the most frequent statistic for qualitative variables. The example below uses the `table()` function:
+```{r}
+table(socData$education)
+```
+
+This function defines a contingency table for one, two or more count variables. Contingency tables can also be obtained with `xtabs()` and `ftable()`.
+```{r}
+table(socData$education, socData$employment)
+```
+
+In the case of qualitative variables, the `summary()` function has a similar effect to the `table()` function. The only difference is that `table()` ignores `NA` data, whereas `summary()` provides their count.
+
+
+
+```{r}
 summary(socData$education)
 ```
 
 The `summary()` function can also take an argument of `data.frame` type. In this case, summaries are given for each column of the data frame.
-```
+```{r}
 summary(socData[,1:4])
 ```
