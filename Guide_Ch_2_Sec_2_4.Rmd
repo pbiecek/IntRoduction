@@ -16,6 +16,7 @@ The `col` argument allows us to pick colours for bars and legends. If `add=TRUE`
 
 The code below generates bars shown in Figures \@ref(fig:wy22) and \@ref(fig:wy23). The `table()` function calculates the frequency matrix, which is then drawn with `barplot()`.
 ```{r wy22, fig.cap='Horizontal bar graph for a number vector.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=8, fig.height=4,out.width='60%'}
+socData <- read.csv("socData.csv", sep=";")
 par(mar=c(4,6,1,1)+0.1,las=1)
 tab <- table(socData$education)
 barplot(tab, horiz = TRUE, las = 1)

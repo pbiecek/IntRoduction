@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>1.3 Setting up the environment | Guide to R package</title>
-  <meta name="description" content="1.3 Setting up the environment | Guide to R package">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.3 Setting up the environment | IntRoduction to R</title>
+  <meta name="description" content="2.3 Setting up the environment | IntRoduction to R" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1.3 Setting up the environment | Guide to R package" />
+  <meta property="og:title" content="2.3 Setting up the environment | IntRoduction to R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,23 +16,24 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1.3 Setting up the environment | Guide to R package" />
+  <meta name="twitter:title" content="2.3 Setting up the environment | IntRoduction to R" />
   
   
   
 
-<meta name="author" content="author">
+<meta name="author" content="Translation of the first 80 pages from ,,Przewodnik po pakiecie R’’" />
 
 
-<meta name="date" content="2019-04-25">
+<meta name="date" content="2021-11-28" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="part1-2.html">
-<link rel="next" href="part-14.html">
+<link rel="prev" href="part1-2.html"/>
+<link rel="next" href="part-14.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,6 +41,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -48,32 +49,36 @@
 
 
 
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -82,9 +87,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -117,6 +122,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 </head>
 
 <body>
@@ -129,52 +135,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="part-1.html"><a href="part-1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="part-11.html"><a href="part-11.html"><i class="fa fa-check"></i><b>1.1</b> Data science, or why we should learn R</a></li>
-<li class="chapter" data-level="1.2" data-path="part1-2.html"><a href="part1-2.html"><i class="fa fa-check"></i><b>1.2</b> What working with R looks like</a><ul>
-<li class="chapter" data-level="1.2.1" data-path="part1-2.html"><a href="part1-2.html#part_121"><i class="fa fa-check"></i><b>1.2.1</b> Example: Poland in the FIFA ranking</a></li>
+<li class="chapter" data-level="1" data-path="about.html"><a href="about.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="part-1.html"><a href="part-1.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="part-11.html"><a href="part-11.html"><i class="fa fa-check"></i><b>2.1</b> Data science, or why we should learn R</a></li>
+<li class="chapter" data-level="2.2" data-path="part1-2.html"><a href="part1-2.html"><i class="fa fa-check"></i><b>2.2</b> What working with R looks like</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="part1-2.html"><a href="part1-2.html#part_121"><i class="fa fa-check"></i><b>2.2.1</b> Example: Poland in the FIFA ranking</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="part-13.html"><a href="part-13.html"><i class="fa fa-check"></i><b>1.3</b> Setting up the environment</a><ul>
-<li class="chapter" data-level="1.3.1" data-path="part-13.html"><a href="part-13.html#part_131"><i class="fa fa-check"></i><b>1.3.1</b> Installing basic R environment</a></li>
-<li class="chapter" data-level="1.3.2" data-path="part-13.html"><a href="part-13.html#part_132"><i class="fa fa-check"></i><b>1.3.2</b> Installing RStudio</a></li>
-<li class="chapter" data-level="1.3.3" data-path="part-13.html"><a href="part-13.html#part_133"><i class="fa fa-check"></i><b>1.3.3</b> Installing additional packages</a></li>
+<li class="chapter" data-level="2.3" data-path="part-13.html"><a href="part-13.html"><i class="fa fa-check"></i><b>2.3</b> Setting up the environment</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="part-13.html"><a href="part-13.html#part_131"><i class="fa fa-check"></i><b>2.3.1</b> Installing basic R environment</a></li>
+<li class="chapter" data-level="2.3.2" data-path="part-13.html"><a href="part-13.html#part_132"><i class="fa fa-check"></i><b>2.3.2</b> Installing RStudio</a></li>
+<li class="chapter" data-level="2.3.3" data-path="part-13.html"><a href="part-13.html#part_133"><i class="fa fa-check"></i><b>2.3.3</b> Installing additional packages</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="part-14.html"><a href="part-14.html"><i class="fa fa-check"></i><b>1.4</b> Further information</a></li>
+<li class="chapter" data-level="2.4" data-path="part-14.html"><a href="part-14.html"><i class="fa fa-check"></i><b>2.4</b> Further information</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="part-2.html"><a href="part-2.html"><i class="fa fa-check"></i><b>2</b> R Basics</a><ul>
-<li class="chapter" data-level="2.1" data-path="part-21.html"><a href="part-21.html"><i class="fa fa-check"></i><b>2.1</b> Loading data</a></li>
-<li class="chapter" data-level="2.2" data-path="part-22.html"><a href="part-22.html"><i class="fa fa-check"></i><b>2.2</b> Data structures</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="part-22.html"><a href="part-22.html#part_221"><i class="fa fa-check"></i><b>2.2.1</b> Vectors</a></li>
-<li class="chapter" data-level="2.2.2" data-path="part-22.html"><a href="part-22.html#part_222"><i class="fa fa-check"></i><b>2.2.2</b> Data frames</a></li>
-<li class="chapter" data-level="2.2.3" data-path="part-22.html"><a href="part-22.html#part_223"><i class="fa fa-check"></i><b>2.2.3</b> Lists</a></li>
+<li class="chapter" data-level="3" data-path="part-2.html"><a href="part-2.html"><i class="fa fa-check"></i><b>3</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="part-21.html"><a href="part-21.html"><i class="fa fa-check"></i><b>3.1</b> Loading data</a></li>
+<li class="chapter" data-level="3.2" data-path="part-22.html"><a href="part-22.html"><i class="fa fa-check"></i><b>3.2</b> Data structures</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="part-22.html"><a href="part-22.html#part_221"><i class="fa fa-check"></i><b>3.2.1</b> Vectors</a></li>
+<li class="chapter" data-level="3.2.2" data-path="part-22.html"><a href="part-22.html#part_222"><i class="fa fa-check"></i><b>3.2.2</b> Data frames</a></li>
+<li class="chapter" data-level="3.2.3" data-path="part-22.html"><a href="part-22.html#part_223"><i class="fa fa-check"></i><b>3.2.3</b> Lists</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="part-23.html"><a href="part-23.html"><i class="fa fa-check"></i><b>2.3</b> Descriptive statistics</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="part-23.html"><a href="part-23.html#part_231"><i class="fa fa-check"></i><b>2.3.1</b> Quantitative variables</a></li>
-<li class="chapter" data-level="2.3.2" data-path="part-23.html"><a href="part-23.html#part_232"><i class="fa fa-check"></i><b>2.3.2</b> Qualitative variables</a></li>
+<li class="chapter" data-level="3.3" data-path="part-23.html"><a href="part-23.html"><i class="fa fa-check"></i><b>3.3</b> Descriptive statistics</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="part-23.html"><a href="part-23.html#part_231"><i class="fa fa-check"></i><b>3.3.1</b> Quantitative variables</a></li>
+<li class="chapter" data-level="3.3.2" data-path="part-23.html"><a href="part-23.html#part_232"><i class="fa fa-check"></i><b>3.3.2</b> Qualitative variables</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="part-24.html"><a href="part-24.html"><i class="fa fa-check"></i><b>2.4</b> Visual statistics</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="part-24.html"><a href="part-24.html#part_241"><i class="fa fa-check"></i><b>2.4.1</b> Bar plot, barplot() function</a></li>
-<li class="chapter" data-level="2.4.2" data-path="part-24.html"><a href="part-24.html#part_242"><i class="fa fa-check"></i><b>2.4.2</b> Histogram, hist() function</a></li>
-<li class="chapter" data-level="2.4.3" data-path="part-24.html"><a href="part-24.html#part_243"><i class="fa fa-check"></i><b>2.4.3</b> Box plot: boxplot()</a></li>
-<li class="chapter" data-level="2.4.4" data-path="part-24.html"><a href="part-24.html#part_244"><i class="fa fa-check"></i><b>2.4.4</b> Kernel density estimator, density() function</a></li>
-<li class="chapter" data-level="2.4.5" data-path="part-24.html"><a href="part-24.html#part_245"><i class="fa fa-check"></i><b>2.4.5</b> Scatter plot, scatterplot() function</a></li>
-<li class="chapter" data-level="2.4.6" data-path="part-24.html"><a href="part-24.html#part_246"><i class="fa fa-check"></i><b>2.4.6</b> Mosaic plot, mosaicplot() function</a></li>
+<li class="chapter" data-level="3.4" data-path="part-24.html"><a href="part-24.html"><i class="fa fa-check"></i><b>3.4</b> Visual statistics</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="part-24.html"><a href="part-24.html#part_241"><i class="fa fa-check"></i><b>3.4.1</b> Bar plot, barplot() function</a></li>
+<li class="chapter" data-level="3.4.2" data-path="part-24.html"><a href="part-24.html#part_242"><i class="fa fa-check"></i><b>3.4.2</b> Histogram, hist() function</a></li>
+<li class="chapter" data-level="3.4.3" data-path="part-24.html"><a href="part-24.html#part_243"><i class="fa fa-check"></i><b>3.4.3</b> Box plot: boxplot()</a></li>
+<li class="chapter" data-level="3.4.4" data-path="part-24.html"><a href="part-24.html#part_244"><i class="fa fa-check"></i><b>3.4.4</b> Kernel density estimator, density() function</a></li>
+<li class="chapter" data-level="3.4.5" data-path="part-24.html"><a href="part-24.html#part_245"><i class="fa fa-check"></i><b>3.4.5</b> Scatter plot, scatterplot() function</a></li>
+<li class="chapter" data-level="3.4.6" data-path="part-24.html"><a href="part-24.html#part_246"><i class="fa fa-check"></i><b>3.4.6</b> Mosaic plot, mosaicplot() function</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="part-25.html"><a href="part-25.html"><i class="fa fa-check"></i><b>2.5</b> How to process data with the dplyr package</a><ul>
-<li class="chapter" data-level="2.5.1" data-path="part-25.html"><a href="part-25.html#part_251"><i class="fa fa-check"></i><b>2.5.1</b> How to filter rows</a></li>
-<li class="chapter" data-level="2.5.2" data-path="part-25.html"><a href="part-25.html#part_252"><i class="fa fa-check"></i><b>2.5.2</b> How to choose columns</a></li>
-<li class="chapter" data-level="2.5.3" data-path="part-25.html"><a href="part-25.html#part_253"><i class="fa fa-check"></i><b>2.5.3</b> How to create and transform variables</a></li>
-<li class="chapter" data-level="2.5.4" data-path="part-25.html"><a href="part-25.html#part_254"><i class="fa fa-check"></i><b>2.5.4</b> How to sort rows</a></li>
-<li class="chapter" data-level="2.5.5" data-path="part-25.html"><a href="part-25.html#part_255"><i class="fa fa-check"></i><b>2.5.5</b> How to work with streams</a></li>
-<li class="chapter" data-level="2.5.6" data-path="part-25.html"><a href="part-25.html#part_256"><i class="fa fa-check"></i><b>2.5.6</b> How to compute aggregates/statistics in groups</a></li>
-<li class="chapter" data-level="2.5.7" data-path="part-25.html"><a href="part-25.html#part_257"><i class="fa fa-check"></i><b>2.5.7</b> Wide and long formats</a></li>
-<li class="chapter" data-level="2.5.8" data-path="part-25.html"><a href="part-25.html#part_258"><i class="fa fa-check"></i><b>2.5.8</b> Uniting/separating columns</a></li>
+<li class="chapter" data-level="3.5" data-path="part-25.html"><a href="part-25.html"><i class="fa fa-check"></i><b>3.5</b> How to process data with the dplyr package</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="part-25.html"><a href="part-25.html#part_251"><i class="fa fa-check"></i><b>3.5.1</b> How to filter rows</a></li>
+<li class="chapter" data-level="3.5.2" data-path="part-25.html"><a href="part-25.html#part_252"><i class="fa fa-check"></i><b>3.5.2</b> How to choose columns</a></li>
+<li class="chapter" data-level="3.5.3" data-path="part-25.html"><a href="part-25.html#part_253"><i class="fa fa-check"></i><b>3.5.3</b> How to create and transform variables</a></li>
+<li class="chapter" data-level="3.5.4" data-path="part-25.html"><a href="part-25.html#part_254"><i class="fa fa-check"></i><b>3.5.4</b> How to sort rows</a></li>
+<li class="chapter" data-level="3.5.5" data-path="part-25.html"><a href="part-25.html#part_255"><i class="fa fa-check"></i><b>3.5.5</b> How to work with streams</a></li>
+<li class="chapter" data-level="3.5.6" data-path="part-25.html"><a href="part-25.html#part_256"><i class="fa fa-check"></i><b>3.5.6</b> How to compute aggregates/statistics in groups</a></li>
+<li class="chapter" data-level="3.5.7" data-path="part-25.html"><a href="part-25.html#part_257"><i class="fa fa-check"></i><b>3.5.7</b> Wide and long formats</a></li>
+<li class="chapter" data-level="3.5.8" data-path="part-25.html"><a href="part-25.html#part_258"><i class="fa fa-check"></i><b>3.5.8</b> Uniting/separating columns</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="part-26.html"><a href="part-26.html"><i class="fa fa-check"></i><b>2.6</b> How to load and save data in various formats</a><ul>
-<li class="chapter" data-level="2.6.1" data-path="part-26.html"><a href="part-26.html#part_261"><i class="fa fa-check"></i><b>2.6.1</b> Loading data from text files</a></li>
-<li class="chapter" data-level="2.6.2" data-path="part-26.html"><a href="part-26.html#part_262"><i class="fa fa-check"></i><b>2.6.2</b> Loading data from text files</a></li>
-<li class="chapter" data-level="2.6.3" data-path="part-26.html"><a href="part-26.html#part_263"><i class="fa fa-check"></i><b>2.6.3</b> Saving data into text files</a></li>
-<li class="chapter" data-level="2.6.4" data-path="part-26.html"><a href="part-26.html#part_264"><i class="fa fa-check"></i><b>2.6.4</b> Loading and saving JSON data</a></li>
+<li class="chapter" data-level="3.6" data-path="part-26.html"><a href="part-26.html"><i class="fa fa-check"></i><b>3.6</b> How to load and save data in various formats</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="part-26.html"><a href="part-26.html#part_261"><i class="fa fa-check"></i><b>3.6.1</b> Loading data from text files</a></li>
+<li class="chapter" data-level="3.6.2" data-path="part-26.html"><a href="part-26.html#part_262"><i class="fa fa-check"></i><b>3.6.2</b> Loading data from text files</a></li>
+<li class="chapter" data-level="3.6.3" data-path="part-26.html"><a href="part-26.html#part_263"><i class="fa fa-check"></i><b>3.6.3</b> Saving data into text files</a></li>
+<li class="chapter" data-level="3.6.4" data-path="part-26.html"><a href="part-26.html#part_264"><i class="fa fa-check"></i><b>3.6.4</b> Loading and saving JSON data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -187,7 +203,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Guide to R package</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">IntRoduction to R</a>
           </h1>
         </div>
 
@@ -195,8 +211,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="part_13" class="section level2">
-<h2><span class="header-section-number">1.3</span> Setting up the environment</h2>
+<div id="part_13" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Setting up the environment</h2>
 <p>To enjoy a convenient R environment, we should follow the three steps below.</p>
 <ul>
 <li><p>Install the basic R environment, which comprises an interpreter and a basic set of packages. This set alone offers enormous capabilities. It will be enough for most users to analyse data, draw plots and perform other typical tasks.</p></li>
@@ -204,11 +220,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Install additional packages with useful functions. There are over 7,000 packages available now! You do not have to install them all at once. You will sometimes need new functions from new packages as you work with R, and it is only then that you should install them.</p></li>
 </ul>
 <p>Below, we present a short summary related to each installation stage.</p>
-<div id="part_131" class="section level3">
-<h3><span class="header-section-number">1.3.1</span> Installing basic R environment</h3>
+<div id="part_131" class="section level3" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Installing basic R environment</h3>
 <p>The source and binary R files are available for most operating systems, including all Linux and Unix distributions, Windows 95 or higher, and Mac OS.</p>
 <p>At the time of this writing, the latest R version is 3.3.2. Each year in April, there is another major 3.x version appearing, which means that we will soon enjoy version 3.4.0. During the year, further subversions are released as need be. R is being developed quickly and we should update it at least once a year to get its latest version.</p>
-<p>In order to install R, go to <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>, choose the operating system and download the binary file. The installation itself is as simple as clicking Next a few times. You can have a few versions of R installed at the same time. Keeping older versions of R may be useful when we want to reproduce the exactly same results in the future.</p>
+<p>In order to install R, go to <a href="https://cran.r-project.org/">https://cran.r-project.org/</a>, choose the operating system and download the binary file. The installation itself is as simple as clicking Next a few times. You can have a few versions of R installed at the same time. Keeping older versions of R may be useful when we want to reproduce the exactly same results in the future.</p>
 <p>If you install R on a less typical platform, you can use the installation manual available at [49].</p>
 <blockquote>
 <p>One useful feature of the R environment is that you can run it without installation. This means you can copy your R environment onto a CD, pendrive or external hard drive and run it on any other computer.</p>
@@ -216,23 +232,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="figure" style="text-align: center"><span id="fig:CRAN"></span>
 <img src="cran.png" alt="Website https://cran.r-project.org/. You can download the R program for the most popular operating systems." width="100%" />
 <p class="caption">
-Figure 1.4: Website <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>. You can download the R program for the most popular operating systems.
+Figure 2.4: Website <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>. You can download the R program for the most popular operating systems.
 </p>
 </div>
-<p>It is hard to estimate the minimal system requirements for R. Its basic version runs without problems on older computers with 256 MB of RAM, Pentium processors and a few dozen MB of space on the hard drive. However, even though the basic version is “lightweight”, the installation of additional packages may require a few more GBs of RAM or hard drive space. Packages with big genomic data are particularly “heavy-weight”.</p>
+<p>It is hard to estimate the minimal system requirements for R. Its basic version runs without problems on older computers with 256 MB of RAM, Pentium processors and a few dozen MB of space on the hard drive. However, even though the basic version is “lightweight,” the installation of additional packages may require a few more GBs of RAM or hard drive space. Packages with big genomic data are particularly “heavy-weight.”</p>
 <blockquote>
 <p>Those using R for compute-intensive analyses should rather use the R version for OS X, Linux or Unix. These systems manage memory more efficiently, which means that R works (slightly) faster. Unix-based systems also provide additional tools that allow multiple threads and other system mechanisms (such us <code>fork()</code>).</p>
 </blockquote>
 </div>
-<div id="part_132" class="section level3">
-<h3><span class="header-section-number">1.3.2</span> Installing RStudio</h3>
+<div id="part_132" class="section level3" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Installing RStudio</h3>
 <p>You can work with the basic R software alone, but working with an editor is much more convenient, especially when R is our main tool at work. Currently, the best editor available free of charge is RStudio – a tool developed by a company under the same name. This editor is available for Windows, Linux and OS X alike, supports many advanced packages and functions of R.</p>
-<p>RStudio is a tool which makes working with R easier. It is an editor, version manager, and debugger that makes creating packages, applications or reports easier. You can live without it, but it certainly helps much. The latest version of RStudio Desktop can be found at <a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a>.</p>
-<p>An example screenshot from the program is shown in Figure <a href="part-13.html#fig:panel">1.5</a>.</p>
+<p>RStudio is a tool which makes working with R easier. It is an editor, version manager, and debugger that makes creating packages, applications or reports easier. You can live without it, but it certainly helps much. The latest version of RStudio Desktop can be found at <a href="https://www.rstudio.com/">https://www.rstudio.com/</a>.</p>
+<p>An example screenshot from the program is shown in Figure <a href="part-13.html#fig:panel">2.5</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:panel"></span>
 <img src="panel.png" alt="An example of the appearance of panels of the RStudio editor. The four panels show: window allowing to edit the code, window allowing to view variables loaded into the global R namespace, R program console, in which we can enter commands directly, and a window in which help files and charts are displayed by default." width="100%" />
 <p class="caption">
-Figure 1.5: An example of the appearance of panels of the RStudio editor. The four panels show: window allowing to edit the code, window allowing to view variables loaded into the global R namespace, R program console, in which we can enter commands directly, and a window in which help files and charts are displayed by default.
+Figure 2.5: An example of the appearance of panels of the RStudio editor. The four panels show: window allowing to edit the code, window allowing to view variables loaded into the global R namespace, R program console, in which we can enter commands directly, and a window in which help files and charts are displayed by default.
 </p>
 </div>
 <p>RStudio is very intuitive. Some of its interesting functions are:</p>
@@ -253,7 +269,7 @@ Figure 1.5: An example of the appearance of panels of the RStudio editor. The fo
 <li><p>Interactive debugger.</p></li>
 </ul>
 <p>RStudio Server is an interesting extension of RStudio Desktop. After installing it on a server, we can use R via our web browser. With the paid version, multiple users may open R at the same time.</p>
-<p>Work in RStudio is much easier when you know some basic shortcuts. Below are those I personally find the most interesting. A very good description of RStudio alongside all keyboard shortcuts can be found at <a href="http://bit.ly/2d4B0Ix" class="uri">http://bit.ly/2d4B0Ix</a> (so-called RStudio IDE cheatsheets). In the description below, <code>Ctrl/Cmd</code> means <code>Ctrl</code> for Windows/Linux and <code>Cmd</code> for OS X.</p>
+<p>Work in RStudio is much easier when you know some basic shortcuts. Below are those I personally find the most interesting. A very good description of RStudio alongside all keyboard shortcuts can be found at <a href="http://bit.ly/2d4B0Ix">http://bit.ly/2d4B0Ix</a> (so-called RStudio IDE cheatsheets). In the description below, <code>Ctrl/Cmd</code> means <code>Ctrl</code> for Windows/Linux and <code>Cmd</code> for OS X.</p>
 <ul>
 <li><p><code>Ctrl/Cmd+Shift+C</code>, comment a line or multiple lines.</p></li>
 <li><p><code>Ctrl/Cmd+Enter</code>, execute the highlighted code in the console.</p></li>
@@ -264,8 +280,8 @@ Figure 1.5: An example of the appearance of panels of the RStudio editor. The fo
 <li><p><code>Ctrl/Cmd+Shift+K</code>, compile the current document.</p></li>
 </ul>
 </div>
-<div id="part_133" class="section level3">
-<h3><span class="header-section-number">1.3.3</span> Installing additional packages</h3>
+<div id="part_133" class="section level3" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Installing additional packages</h3>
 <p>Once we have the basic R environment in place, we already have access to various features. The real power, however, lies in the thousands of additional packages that contain further thousands of functions.</p>
 <p>In order to use additional packages, we should follow these two steps:</p>
 <ol style="list-style-type: decimal">
@@ -279,7 +295,7 @@ Figure 1.5: An example of the appearance of panels of the RStudio editor. The fo
 <p>Some packages are missing from the CRAN repository or are available in some older versions. For example, packages in CRAN are required to be 10 MB in size at most. Because of this limitation, greater packages must be stored elsewhere, typically in GitHub repositories. In order to install packages from GitHub, you can use the <code>devtools:install_github()</code> instruction.</p>
 <p>For example, if you want to install the latest version of our <code>Przewodnik</code> package from the <code>pbiecek</code> Github repository, you can use:</p>
 <pre><code>devtools::install_github(&quot;pbiecek/PrzewodnikPakiet&quot;)</code></pre>
-<p>Apart from these two repositories, there are repositories for special purposes. For instance, many packages used in bioinformatical analyses can be found in the <code>Bioconductor</code> repository available at <a href="https://www.bioconductor.org/" class="uri">https://www.bioconductor.org/</a>.</p>
+<p>Apart from these two repositories, there are repositories for special purposes. For instance, many packages used in bioinformatical analyses can be found in the <code>Bioconductor</code> repository available at <a href="https://www.bioconductor.org/">https://www.bioconductor.org/</a>.</p>
 <p>When we install a new package with data, functions and auxiliary files, they are stored on the hard drive of our computer. Before we can use them, however, we need to turn the package on. Each time we run the R platform, some basic packages such as <code>base</code>, <code>graphics</code> or <code>stats</code> are loaded. In order to use additional functions or datasets, we need to load (turn on) the package which contains them (assuming that the package is already installed). We use the <code>library()</code> instruction to turn packages on.</p>
 <p>The instruction below turns on the <code>devtools</code> package. Once we execute this instruction, we can use the package without the need to add the <code>devtools::</code> prefix.</p>
 <pre><code>library(&quot;devtools&quot;)</code></pre>
@@ -303,11 +319,13 @@ base::seq(10)</code></pre>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -315,12 +333,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -332,6 +350,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -351,8 +373,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

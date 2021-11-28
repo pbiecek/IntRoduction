@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>2.5 How to process data with the dplyr package | Guide to R package</title>
-  <meta name="description" content="2.5 How to process data with the dplyr package | Guide to R package">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.5 How to process data with the dplyr package | IntRoduction to R</title>
+  <meta name="description" content="3.5 How to process data with the dplyr package | IntRoduction to R" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2.5 How to process data with the dplyr package | Guide to R package" />
+  <meta property="og:title" content="3.5 How to process data with the dplyr package | IntRoduction to R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,23 +16,24 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2.5 How to process data with the dplyr package | Guide to R package" />
+  <meta name="twitter:title" content="3.5 How to process data with the dplyr package | IntRoduction to R" />
   
   
   
 
-<meta name="author" content="author">
+<meta name="author" content="Translation of the first 80 pages from ,,Przewodnik po pakiecie R’’" />
 
 
-<meta name="date" content="2019-04-25">
+<meta name="date" content="2021-11-28" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="part-24.html">
-<link rel="next" href="part-26.html">
+<link rel="prev" href="part-24.html"/>
+<link rel="next" href="part-26.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,6 +41,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -48,32 +49,36 @@
 
 
 
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -82,9 +87,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -117,6 +122,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 </head>
 
 <body>
@@ -129,52 +135,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="part-1.html"><a href="part-1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="part-11.html"><a href="part-11.html"><i class="fa fa-check"></i><b>1.1</b> Data science, or why we should learn R</a></li>
-<li class="chapter" data-level="1.2" data-path="part1-2.html"><a href="part1-2.html"><i class="fa fa-check"></i><b>1.2</b> What working with R looks like</a><ul>
-<li class="chapter" data-level="1.2.1" data-path="part1-2.html"><a href="part1-2.html#part_121"><i class="fa fa-check"></i><b>1.2.1</b> Example: Poland in the FIFA ranking</a></li>
+<li class="chapter" data-level="1" data-path="about.html"><a href="about.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="part-1.html"><a href="part-1.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="part-11.html"><a href="part-11.html"><i class="fa fa-check"></i><b>2.1</b> Data science, or why we should learn R</a></li>
+<li class="chapter" data-level="2.2" data-path="part1-2.html"><a href="part1-2.html"><i class="fa fa-check"></i><b>2.2</b> What working with R looks like</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="part1-2.html"><a href="part1-2.html#part_121"><i class="fa fa-check"></i><b>2.2.1</b> Example: Poland in the FIFA ranking</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="part-13.html"><a href="part-13.html"><i class="fa fa-check"></i><b>1.3</b> Setting up the environment</a><ul>
-<li class="chapter" data-level="1.3.1" data-path="part-13.html"><a href="part-13.html#part_131"><i class="fa fa-check"></i><b>1.3.1</b> Installing basic R environment</a></li>
-<li class="chapter" data-level="1.3.2" data-path="part-13.html"><a href="part-13.html#part_132"><i class="fa fa-check"></i><b>1.3.2</b> Installing RStudio</a></li>
-<li class="chapter" data-level="1.3.3" data-path="part-13.html"><a href="part-13.html#part_133"><i class="fa fa-check"></i><b>1.3.3</b> Installing additional packages</a></li>
+<li class="chapter" data-level="2.3" data-path="part-13.html"><a href="part-13.html"><i class="fa fa-check"></i><b>2.3</b> Setting up the environment</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="part-13.html"><a href="part-13.html#part_131"><i class="fa fa-check"></i><b>2.3.1</b> Installing basic R environment</a></li>
+<li class="chapter" data-level="2.3.2" data-path="part-13.html"><a href="part-13.html#part_132"><i class="fa fa-check"></i><b>2.3.2</b> Installing RStudio</a></li>
+<li class="chapter" data-level="2.3.3" data-path="part-13.html"><a href="part-13.html#part_133"><i class="fa fa-check"></i><b>2.3.3</b> Installing additional packages</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="part-14.html"><a href="part-14.html"><i class="fa fa-check"></i><b>1.4</b> Further information</a></li>
+<li class="chapter" data-level="2.4" data-path="part-14.html"><a href="part-14.html"><i class="fa fa-check"></i><b>2.4</b> Further information</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="part-2.html"><a href="part-2.html"><i class="fa fa-check"></i><b>2</b> R Basics</a><ul>
-<li class="chapter" data-level="2.1" data-path="part-21.html"><a href="part-21.html"><i class="fa fa-check"></i><b>2.1</b> Loading data</a></li>
-<li class="chapter" data-level="2.2" data-path="part-22.html"><a href="part-22.html"><i class="fa fa-check"></i><b>2.2</b> Data structures</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="part-22.html"><a href="part-22.html#part_221"><i class="fa fa-check"></i><b>2.2.1</b> Vectors</a></li>
-<li class="chapter" data-level="2.2.2" data-path="part-22.html"><a href="part-22.html#part_222"><i class="fa fa-check"></i><b>2.2.2</b> Data frames</a></li>
-<li class="chapter" data-level="2.2.3" data-path="part-22.html"><a href="part-22.html#part_223"><i class="fa fa-check"></i><b>2.2.3</b> Lists</a></li>
+<li class="chapter" data-level="3" data-path="part-2.html"><a href="part-2.html"><i class="fa fa-check"></i><b>3</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="part-21.html"><a href="part-21.html"><i class="fa fa-check"></i><b>3.1</b> Loading data</a></li>
+<li class="chapter" data-level="3.2" data-path="part-22.html"><a href="part-22.html"><i class="fa fa-check"></i><b>3.2</b> Data structures</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="part-22.html"><a href="part-22.html#part_221"><i class="fa fa-check"></i><b>3.2.1</b> Vectors</a></li>
+<li class="chapter" data-level="3.2.2" data-path="part-22.html"><a href="part-22.html#part_222"><i class="fa fa-check"></i><b>3.2.2</b> Data frames</a></li>
+<li class="chapter" data-level="3.2.3" data-path="part-22.html"><a href="part-22.html#part_223"><i class="fa fa-check"></i><b>3.2.3</b> Lists</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="part-23.html"><a href="part-23.html"><i class="fa fa-check"></i><b>2.3</b> Descriptive statistics</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="part-23.html"><a href="part-23.html#part_231"><i class="fa fa-check"></i><b>2.3.1</b> Quantitative variables</a></li>
-<li class="chapter" data-level="2.3.2" data-path="part-23.html"><a href="part-23.html#part_232"><i class="fa fa-check"></i><b>2.3.2</b> Qualitative variables</a></li>
+<li class="chapter" data-level="3.3" data-path="part-23.html"><a href="part-23.html"><i class="fa fa-check"></i><b>3.3</b> Descriptive statistics</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="part-23.html"><a href="part-23.html#part_231"><i class="fa fa-check"></i><b>3.3.1</b> Quantitative variables</a></li>
+<li class="chapter" data-level="3.3.2" data-path="part-23.html"><a href="part-23.html#part_232"><i class="fa fa-check"></i><b>3.3.2</b> Qualitative variables</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="part-24.html"><a href="part-24.html"><i class="fa fa-check"></i><b>2.4</b> Visual statistics</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="part-24.html"><a href="part-24.html#part_241"><i class="fa fa-check"></i><b>2.4.1</b> Bar plot, barplot() function</a></li>
-<li class="chapter" data-level="2.4.2" data-path="part-24.html"><a href="part-24.html#part_242"><i class="fa fa-check"></i><b>2.4.2</b> Histogram, hist() function</a></li>
-<li class="chapter" data-level="2.4.3" data-path="part-24.html"><a href="part-24.html#part_243"><i class="fa fa-check"></i><b>2.4.3</b> Box plot: boxplot()</a></li>
-<li class="chapter" data-level="2.4.4" data-path="part-24.html"><a href="part-24.html#part_244"><i class="fa fa-check"></i><b>2.4.4</b> Kernel density estimator, density() function</a></li>
-<li class="chapter" data-level="2.4.5" data-path="part-24.html"><a href="part-24.html#part_245"><i class="fa fa-check"></i><b>2.4.5</b> Scatter plot, scatterplot() function</a></li>
-<li class="chapter" data-level="2.4.6" data-path="part-24.html"><a href="part-24.html#part_246"><i class="fa fa-check"></i><b>2.4.6</b> Mosaic plot, mosaicplot() function</a></li>
+<li class="chapter" data-level="3.4" data-path="part-24.html"><a href="part-24.html"><i class="fa fa-check"></i><b>3.4</b> Visual statistics</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="part-24.html"><a href="part-24.html#part_241"><i class="fa fa-check"></i><b>3.4.1</b> Bar plot, barplot() function</a></li>
+<li class="chapter" data-level="3.4.2" data-path="part-24.html"><a href="part-24.html#part_242"><i class="fa fa-check"></i><b>3.4.2</b> Histogram, hist() function</a></li>
+<li class="chapter" data-level="3.4.3" data-path="part-24.html"><a href="part-24.html#part_243"><i class="fa fa-check"></i><b>3.4.3</b> Box plot: boxplot()</a></li>
+<li class="chapter" data-level="3.4.4" data-path="part-24.html"><a href="part-24.html#part_244"><i class="fa fa-check"></i><b>3.4.4</b> Kernel density estimator, density() function</a></li>
+<li class="chapter" data-level="3.4.5" data-path="part-24.html"><a href="part-24.html#part_245"><i class="fa fa-check"></i><b>3.4.5</b> Scatter plot, scatterplot() function</a></li>
+<li class="chapter" data-level="3.4.6" data-path="part-24.html"><a href="part-24.html#part_246"><i class="fa fa-check"></i><b>3.4.6</b> Mosaic plot, mosaicplot() function</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="part-25.html"><a href="part-25.html"><i class="fa fa-check"></i><b>2.5</b> How to process data with the dplyr package</a><ul>
-<li class="chapter" data-level="2.5.1" data-path="part-25.html"><a href="part-25.html#part_251"><i class="fa fa-check"></i><b>2.5.1</b> How to filter rows</a></li>
-<li class="chapter" data-level="2.5.2" data-path="part-25.html"><a href="part-25.html#part_252"><i class="fa fa-check"></i><b>2.5.2</b> How to choose columns</a></li>
-<li class="chapter" data-level="2.5.3" data-path="part-25.html"><a href="part-25.html#part_253"><i class="fa fa-check"></i><b>2.5.3</b> How to create and transform variables</a></li>
-<li class="chapter" data-level="2.5.4" data-path="part-25.html"><a href="part-25.html#part_254"><i class="fa fa-check"></i><b>2.5.4</b> How to sort rows</a></li>
-<li class="chapter" data-level="2.5.5" data-path="part-25.html"><a href="part-25.html#part_255"><i class="fa fa-check"></i><b>2.5.5</b> How to work with streams</a></li>
-<li class="chapter" data-level="2.5.6" data-path="part-25.html"><a href="part-25.html#part_256"><i class="fa fa-check"></i><b>2.5.6</b> How to compute aggregates/statistics in groups</a></li>
-<li class="chapter" data-level="2.5.7" data-path="part-25.html"><a href="part-25.html#part_257"><i class="fa fa-check"></i><b>2.5.7</b> Wide and long formats</a></li>
-<li class="chapter" data-level="2.5.8" data-path="part-25.html"><a href="part-25.html#part_258"><i class="fa fa-check"></i><b>2.5.8</b> Uniting/separating columns</a></li>
+<li class="chapter" data-level="3.5" data-path="part-25.html"><a href="part-25.html"><i class="fa fa-check"></i><b>3.5</b> How to process data with the dplyr package</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="part-25.html"><a href="part-25.html#part_251"><i class="fa fa-check"></i><b>3.5.1</b> How to filter rows</a></li>
+<li class="chapter" data-level="3.5.2" data-path="part-25.html"><a href="part-25.html#part_252"><i class="fa fa-check"></i><b>3.5.2</b> How to choose columns</a></li>
+<li class="chapter" data-level="3.5.3" data-path="part-25.html"><a href="part-25.html#part_253"><i class="fa fa-check"></i><b>3.5.3</b> How to create and transform variables</a></li>
+<li class="chapter" data-level="3.5.4" data-path="part-25.html"><a href="part-25.html#part_254"><i class="fa fa-check"></i><b>3.5.4</b> How to sort rows</a></li>
+<li class="chapter" data-level="3.5.5" data-path="part-25.html"><a href="part-25.html#part_255"><i class="fa fa-check"></i><b>3.5.5</b> How to work with streams</a></li>
+<li class="chapter" data-level="3.5.6" data-path="part-25.html"><a href="part-25.html#part_256"><i class="fa fa-check"></i><b>3.5.6</b> How to compute aggregates/statistics in groups</a></li>
+<li class="chapter" data-level="3.5.7" data-path="part-25.html"><a href="part-25.html#part_257"><i class="fa fa-check"></i><b>3.5.7</b> Wide and long formats</a></li>
+<li class="chapter" data-level="3.5.8" data-path="part-25.html"><a href="part-25.html#part_258"><i class="fa fa-check"></i><b>3.5.8</b> Uniting/separating columns</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="part-26.html"><a href="part-26.html"><i class="fa fa-check"></i><b>2.6</b> How to load and save data in various formats</a><ul>
-<li class="chapter" data-level="2.6.1" data-path="part-26.html"><a href="part-26.html#part_261"><i class="fa fa-check"></i><b>2.6.1</b> Loading data from text files</a></li>
-<li class="chapter" data-level="2.6.2" data-path="part-26.html"><a href="part-26.html#part_262"><i class="fa fa-check"></i><b>2.6.2</b> Loading data from text files</a></li>
-<li class="chapter" data-level="2.6.3" data-path="part-26.html"><a href="part-26.html#part_263"><i class="fa fa-check"></i><b>2.6.3</b> Saving data into text files</a></li>
-<li class="chapter" data-level="2.6.4" data-path="part-26.html"><a href="part-26.html#part_264"><i class="fa fa-check"></i><b>2.6.4</b> Loading and saving JSON data</a></li>
+<li class="chapter" data-level="3.6" data-path="part-26.html"><a href="part-26.html"><i class="fa fa-check"></i><b>3.6</b> How to load and save data in various formats</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="part-26.html"><a href="part-26.html#part_261"><i class="fa fa-check"></i><b>3.6.1</b> Loading data from text files</a></li>
+<li class="chapter" data-level="3.6.2" data-path="part-26.html"><a href="part-26.html#part_262"><i class="fa fa-check"></i><b>3.6.2</b> Loading data from text files</a></li>
+<li class="chapter" data-level="3.6.3" data-path="part-26.html"><a href="part-26.html#part_263"><i class="fa fa-check"></i><b>3.6.3</b> Saving data into text files</a></li>
+<li class="chapter" data-level="3.6.4" data-path="part-26.html"><a href="part-26.html#part_264"><i class="fa fa-check"></i><b>3.6.4</b> Loading and saving JSON data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -187,7 +203,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Guide to R package</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">IntRoduction to R</a>
           </h1>
         </div>
 
@@ -195,8 +211,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="part_25" class="section level2">
-<h2><span class="header-section-number">2.5</span> How to process data with the dplyr package</h2>
+<div id="part_25" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> How to process data with the dplyr package</h2>
 <p>R has thousands (thousands!) of functions to process data. Fortunately, we only need a few of them to start working with data in a convenient way.</p>
 <p>The 80/20 principle (i.e. the Pareto principle, named after Wilfred Pareto) applies to data processing. This means that we only need to know a small portion of all available functions to work with the majority of data sets (i.e. 80% of all possible data).</p>
 <p>Hadley Wickham prepared two packages, <code>dplyr</code> and <code>tidyr</code>, which provide only those really important functions. Each function performs an elementary operation, but various functions can be combined to perform all typical data operations.</p>
@@ -211,16 +227,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>gather() / spread()</code> - transform data between wide and long formats.</p></li>
 </ul>
 <p>Those basic verbs are described in subsequent sections of this chapter.
-More functions to explore data are presented in a cheat sheet developed by RStudio, available at their website [26] or at <a href="http://bit.ly/1LaYWBd" class="uri">http://bit.ly/1LaYWBd</a>.</p>
-<div id="part_251" class="section level3">
-<h3><span class="header-section-number">2.5.1</span> How to filter rows</h3>
+More functions to explore data are presented in a cheat sheet developed by RStudio, available at their website [26] or at <a href="http://bit.ly/1LaYWBd">http://bit.ly/1LaYWBd</a>.</p>
+<div id="part_251" class="section level3" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> How to filter rows</h3>
 <p>Filtering rows that satisfy a given condition or conditions is one of the most frequent data operations.</p>
 <p>The <code>filter()</code> function from the <code>dplyr</code> package performs filtering. Its first argument is the dataset, and further arguments define logical conditions.</p>
 <p>The result of this function contains rows the satisfy all of the conditions specified. When specifying the conditions, we can use column names from the dataset without additional links.</p>
-<p>We will present that with an example. Below is an instruction that chooses only those offers where <code>Model == &quot;Corsa&quot;</code> from the <code>vehicles</code> dataset:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;dplyr&quot;</span>)
-CorsaOnly &lt;-<span class="st"> </span><span class="kw">filter</span>(vehicles, Model <span class="op">==</span><span class="st"> &quot;Corsa&quot;</span>)
-<span class="kw">head</span>(CorsaOnly)</code></pre>
+<p>We will present that with an example. Below is an instruction that chooses only those offers where <code>Model == "Corsa"</code> from the <code>vehicles</code> dataset:</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="part-25.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
+<span id="cb109-2"><a href="part-25.html#cb109-2" aria-hidden="true" tabindex="-1"></a>CorsaOnly <span class="ot">&lt;-</span> <span class="fu">filter</span>(vehicles, Model <span class="sc">==</span> <span class="st">&quot;Corsa&quot;</span>)</span>
+<span id="cb109-3"><a href="part-25.html#cb109-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(CorsaOnly)</span></code></pre></div>
 <pre><code>##   Make Model Price  HP Capacity Mileage     Fuel Production
 ## 1 Opel Corsa 13450  70     1248  190000   diesel       2004
 ## 2 Opel Corsa 25990  75     1300   84000   diesel       2008
@@ -229,9 +245,9 @@ CorsaOnly &lt;-<span class="st"> </span><span class="kw">filter</span>(vehicles,
 ## 5 Opel Corsa 16500 101     1700  118000   diesel       2006
 ## 6 Opel Corsa 27900  80     1229   73500 gasoline       2007</code></pre>
 <p>We can specify multiple conditions simultaneously. The example below finds rows with Corsa vehicles and Diesel engines that were manufactured in 2010.</p>
-<pre class="sourceCode r"><code class="sourceCode r">CorsaOnly &lt;-<span class="st"> </span><span class="kw">filter</span>(vehicles, Model <span class="op">==</span><span class="st"> &quot;Corsa&quot;</span>, Production <span class="op">==</span><span class="st"> </span><span class="dv">2010</span>,
-                    Fuel <span class="op">==</span><span class="st"> &quot;diesel&quot;</span>)
-<span class="kw">head</span>(CorsaOnly)</code></pre>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="part-25.html#cb111-1" aria-hidden="true" tabindex="-1"></a>CorsaOnly <span class="ot">&lt;-</span> <span class="fu">filter</span>(vehicles, Model <span class="sc">==</span> <span class="st">&quot;Corsa&quot;</span>, Production <span class="sc">==</span> <span class="dv">2010</span>,</span>
+<span id="cb111-2"><a href="part-25.html#cb111-2" aria-hidden="true" tabindex="-1"></a>                    Fuel <span class="sc">==</span> <span class="st">&quot;diesel&quot;</span>)</span>
+<span id="cb111-3"><a href="part-25.html#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(CorsaOnly)</span></code></pre></div>
 <pre><code>##   Make Model    Price HP Capacity Mileage   Fuel Production
 ## 1 Opel Corsa 49050.00 75     1300     100 diesel       2010
 ## 2 Opel Corsa 47202.34 76     1300   53000 diesel       2010
@@ -240,14 +256,14 @@ CorsaOnly &lt;-<span class="st"> </span><span class="kw">filter</span>(vehicles,
 ## 5 Opel Corsa 34900.00 95     1300   24000 diesel       2010
 ## 6 Opel Corsa 37900.00 75     1248   18500 diesel       2010</code></pre>
 </div>
-<div id="part_252" class="section level3">
-<h3><span class="header-section-number">2.5.2</span> How to choose columns</h3>
+<div id="part_252" class="section level3" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> How to choose columns</h3>
 <p>Sometimes, we only need a portion of all columns from a dataset. We can remove the unnecessary columns to make our work quicker.</p>
 <p>Another advantage of choosing only those columns that we really need is that it is easier to show data. Instead of showing all columns, even those that are unnecessary, it is better to only show those that are important to us.</p>
 <p>The <code>select()</code> function from the <code>dplyr</code> package allows us to choose one or more variables from the data source. The first argument is the data source, and subsequent arguments define the columns that we want to choose.</p>
 <p>The example below selects only three columns: make, model and price.</p>
-<pre class="sourceCode r"><code class="sourceCode r">threeColumns &lt;-<span class="st"> </span><span class="kw">select</span>(vehicles, Make, Model, Price)
-<span class="kw">head</span>(threeColumns)</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="part-25.html#cb113-1" aria-hidden="true" tabindex="-1"></a>threeColumns <span class="ot">&lt;-</span> <span class="fu">select</span>(vehicles, Make, Model, Price)</span>
+<span id="cb113-2"><a href="part-25.html#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(threeColumns)</span></code></pre></div>
 <pre><code>##      Make Model Price
 ## 1 Peugeot   206  8799
 ## 2 Peugeot   206 15500
@@ -257,7 +273,7 @@ CorsaOnly &lt;-<span class="st"> </span><span class="kw">filter</span>(vehicles,
 ## 6 Peugeot   206 19900</code></pre>
 <p>We can use names to select columns, but also use the negation operator “-” (minus sign), which selects all columns except those specified, or functions <code>matches()</code>, <code>starts_with()</code> and <code>ends_with()</code>, which choose only those rows that satisfy the respective conditions.</p>
 <p>In the example below, we select only those columns that start with an <code>M</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">select</span>(vehicles, <span class="kw">starts_with</span>(<span class="st">&quot;M&quot;</span>)))</code></pre>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="part-25.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">select</span>(vehicles, <span class="fu">starts_with</span>(<span class="st">&quot;M&quot;</span>)))</span></code></pre></div>
 <pre><code>##      Make Model Mileage
 ## 1 Peugeot   206   85000
 ## 2 Peugeot   206  114000
@@ -266,18 +282,18 @@ CorsaOnly &lt;-<span class="st"> </span><span class="kw">filter</span>(vehicles,
 ## 5 Peugeot   206  146000
 ## 6 Peugeot   206   86400</code></pre>
 </div>
-<div id="part_253" class="section level3">
-<h3><span class="header-section-number">2.5.3</span> How to create and transform variables</h3>
+<div id="part_253" class="section level3" number="3.5.3">
+<h3><span class="header-section-number">3.5.3</span> How to create and transform variables</h3>
 <p>Data modelling and processing frequently requires creating new variables based on existing ones. Sometimes, based on the price, we create the logarithm of price (a single variable from a single variable). Sometimes, based on the weight and height, we create the BMI (a single variable from multiple variables).</p>
 <p>The <code>mutate()</code> function from the <code>dplyr</code> package is used to conveniently create additional columns in a dataset by transforming existing columns.</p>
 <p>We will show this function using the <code>vehicles</code> dataset from the <code>Przewodnik</code> package. It is a dataset with car offers from the <code>otomoto.pl</code> website from 2012.</p>
 <p>We will start the example by specifying the age of the cars offered. Since the offers come from 2012, and the manufacture year is placed in the <code>Production</code> column, the age of the car can be calculated as <code>2013 - Production</code>.</p>
 <p>In the next step, we calculate the average mileage in a single year. We will need data from two columns.</p>
-<pre class="sourceCode r"><code class="sourceCode r">carsWithAge &lt;-<span class="st"> </span><span class="kw">mutate</span>(vehicles,
-                      <span class="dt">Age =</span> <span class="dv">2013</span> <span class="op">-</span><span class="st"> </span>Production,
-                      <span class="dt">MileagePerYear =</span> <span class="kw">round</span>(Mileage<span class="op">/</span>Age))
-<span class="kw">head</span>(<span class="kw">select</span>(carsWithAge, Make, Model, Price, Fuel, Age,
-            MileagePerYear))</code></pre>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="part-25.html#cb117-1" aria-hidden="true" tabindex="-1"></a>carsWithAge <span class="ot">&lt;-</span> <span class="fu">mutate</span>(vehicles,</span>
+<span id="cb117-2"><a href="part-25.html#cb117-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">Age =</span> <span class="dv">2013</span> <span class="sc">-</span> Production,</span>
+<span id="cb117-3"><a href="part-25.html#cb117-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">MileagePerYear =</span> <span class="fu">round</span>(Mileage<span class="sc">/</span>Age))</span>
+<span id="cb117-4"><a href="part-25.html#cb117-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">select</span>(carsWithAge, Make, Model, Price, Fuel, Age,</span>
+<span id="cb117-5"><a href="part-25.html#cb117-5" aria-hidden="true" tabindex="-1"></a>            MileagePerYear))</span></code></pre></div>
 <pre><code>##      Make Model Price     Fuel Age MileagePerYear
 ## 1 Peugeot   206  8799 gasoline  10           8500
 ## 2 Peugeot   206 15500 gasoline   8          14250
@@ -287,13 +303,13 @@ CorsaOnly &lt;-<span class="st"> </span><span class="kw">filter</span>(vehicles,
 ## 6 Peugeot   206 19900   diesel   7          12343</code></pre>
 <p>Column processing can be more complex than arithmetic transformations and can involve any variables, not just numerical ones. In further chapters, we will discuss operations on strings, logical values and factors.</p>
 </div>
-<div id="part_254" class="section level3">
-<h3><span class="header-section-number">2.5.4</span> How to sort rows</h3>
+<div id="part_254" class="section level3" number="3.5.4">
+<h3><span class="header-section-number">3.5.4</span> How to sort rows</h3>
 <p>Sorting data by a given column makes it much easier to analyse values in that column. First of all, we can immediately identify outliers. Sorting rows is therefore useful when exploring data.</p>
 <p>We can use the <code>arrange()</code> function from the <code>dplyr</code> package to sort by one or more variables. When there are equal values in the first criterion, further criteria influence the order.</p>
 <p>In the example below, the data is first sorted by the <code>Model</code> column. When there are identical values in the <code>Model</code> column, the order is decided based on the <code>Price</code> variable.</p>
-<pre class="sourceCode r"><code class="sourceCode r">sortedVehicles &lt;-<span class="st"> </span><span class="kw">arrange</span>(vehicles, Model, Price)
-<span class="kw">head</span>(sortedVehicles)</code></pre>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="part-25.html#cb119-1" aria-hidden="true" tabindex="-1"></a>sortedVehicles <span class="ot">&lt;-</span> <span class="fu">arrange</span>(vehicles, Model, Price)</span>
+<span id="cb119-2"><a href="part-25.html#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sortedVehicles)</span></code></pre></div>
 <pre><code>##      Make Model   Price HP Capacity Mileage         Fuel Production
 ## 1 Peugeot   206 6330.70 90     1997   90000       diesel       2004
 ## 2 Peugeot   206 6599.00 70     1398  277000       diesel       2004
@@ -302,66 +318,66 @@ CorsaOnly &lt;-<span class="st"> </span><span class="kw">filter</span>(vehicles,
 ## 5 Peugeot   206 8469.45 60     1124   77800     gasoline       2005
 ## 6 Peugeot   206 8500.00 60     1124  117000 gasoline+LPG       2004</code></pre>
 <p>To reverse the sorting order, the variable should be surrounded with a <code>desc()</code> function execution.</p>
-<pre class="sourceCode r"><code class="sourceCode r">sortedVehicles &lt;-<span class="st"> </span><span class="kw">arrange</span>(vehicles, Model, <span class="kw">desc</span>(Price))
-<span class="kw">head</span>(sortedVehicles, <span class="dv">2</span>)</code></pre>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="part-25.html#cb121-1" aria-hidden="true" tabindex="-1"></a>sortedVehicles <span class="ot">&lt;-</span> <span class="fu">arrange</span>(vehicles, Model, <span class="fu">desc</span>(Price))</span>
+<span id="cb121-2"><a href="part-25.html#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sortedVehicles, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##      Make Model Price HP Capacity Mileage     Fuel Production
 ## 1 Peugeot   206 36115 60     1100     100 gasoline       2010
 ## 2 Peugeot   206 33600 65     1100     380 gasoline       2011</code></pre>
 </div>
-<div id="part_255" class="section level3">
-<h3><span class="header-section-number">2.5.5</span> How to work with streams</h3>
+<div id="part_255" class="section level3" number="3.5.5">
+<h3><span class="header-section-number">3.5.5</span> How to work with streams</h3>
 <p>We usually process data in multiple steps. We perform operation A, then B, then C, etc.</p>
 <p>When we look at some R code, we should be able to easily grasp what operations are performed. This makes code analysis quicker - be it when we look for errors, or when we want to show our code to other people.</p>
 <p>Streams are a mechanism introduced to R recently, but they are quickly gaining supporters. They have three main advantages: make our code shorter, increase its readability, and make it easy to add further processing steps.</p>
 <div id="onion-problem" class="section level4 unnumbered">
 <h4>Onion problem</h4>
 <p>To present streams, we will first consider a series of fours instructions:</p>
-<pre class="sourceCode r"><code class="sourceCode r">KiaOnly &lt;-<span class="st"> </span><span class="kw">filter</span>(vehicles, Make <span class="op">==</span><span class="st"> &quot;Kia&quot;</span>)
-sorted &lt;-<span class="st"> </span><span class="kw">arrange</span>(KiaOnly, Price)
-fourColumns &lt;-<span class="st"> </span><span class="kw">select</span>(sorted, Model, Price, Mileage, Production)
-<span class="kw">head</span>(fourColumns, <span class="dv">4</span>)</code></pre>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="part-25.html#cb123-1" aria-hidden="true" tabindex="-1"></a>KiaOnly <span class="ot">&lt;-</span> <span class="fu">filter</span>(vehicles, Make <span class="sc">==</span> <span class="st">&quot;Kia&quot;</span>)</span>
+<span id="cb123-2"><a href="part-25.html#cb123-2" aria-hidden="true" tabindex="-1"></a>sorted <span class="ot">&lt;-</span> <span class="fu">arrange</span>(KiaOnly, Price)</span>
+<span id="cb123-3"><a href="part-25.html#cb123-3" aria-hidden="true" tabindex="-1"></a>fourColumns <span class="ot">&lt;-</span> <span class="fu">select</span>(sorted, Model, Price, Mileage, Production)</span>
+<span id="cb123-4"><a href="part-25.html#cb123-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(fourColumns, <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##   Model   Price Mileage Production
 ## 1 Cee&#39;d  1026.6   28000       2008
 ## 2 Cee&#39;d 13900.0  129000       2009
 ## 3 Cee&#39;d 14700.0   34000       2009
 ## 4 Cee&#39;d 14900.0  158500       2005</code></pre>
 <p>In R, the result of one function can be directly passed as an argument to another function. To make the code shorter, the “big onion” syntax is often introduced.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(
-  <span class="kw">select</span>(
-    <span class="kw">arrange</span>(
-      <span class="kw">filter</span>(vehicles,
-             Make <span class="op">==</span><span class="st"> &quot;Kia&quot;</span>),
-      Price),
-    Model, Price, Mileage, Production)
-  , <span class="dv">4</span>)</code></pre>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="part-25.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(</span>
+<span id="cb125-2"><a href="part-25.html#cb125-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb125-3"><a href="part-25.html#cb125-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(</span>
+<span id="cb125-4"><a href="part-25.html#cb125-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(vehicles,</span>
+<span id="cb125-5"><a href="part-25.html#cb125-5" aria-hidden="true" tabindex="-1"></a>             Make <span class="sc">==</span> <span class="st">&quot;Kia&quot;</span>),</span>
+<span id="cb125-6"><a href="part-25.html#cb125-6" aria-hidden="true" tabindex="-1"></a>      Price),</span>
+<span id="cb125-7"><a href="part-25.html#cb125-7" aria-hidden="true" tabindex="-1"></a>    Model, Price, Mileage, Production)</span>
+<span id="cb125-8"><a href="part-25.html#cb125-8" aria-hidden="true" tabindex="-1"></a>  , <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##   Model   Price Mileage Production
 ## 1 Cee&#39;d  1026.6   28000       2008
 ## 2 Cee&#39;d 13900.0  129000       2009
 ## 3 Cee&#39;d 14700.0   34000       2009
 ## 4 Cee&#39;d 14900.0  158500       2005</code></pre>
 <p>Such an “onion” should be read from the inside. First, we apply filtering, then sorting, then selecting four columns. Finally, we select the first four rows.</p>
-<p>The problem is that this syntax does not read easily, particularly when we look at the outer functions. In the example above, the <code>head()</code> function takes two arguments, but the first argument is six lines of code long, and the other one is only mentioned on line seven. With longer “onions”, it is even more difficult to find out which arguments belong to which functions.</p>
+<p>The problem is that this syntax does not read easily, particularly when we look at the outer functions. In the example above, the <code>head()</code> function takes two arguments, but the first argument is six lines of code long, and the other one is only mentioned on line seven. With longer “onions,” it is even more difficult to find out which arguments belong to which functions.</p>
 </div>
 <div id="how-the-stream-operator-works" class="section level4 unnumbered">
 <h4>How the stream operator works</h4>
-<p>To get rid of the “onion”, we can use a special operator for stream processing: <code>%&gt;%</code>.This operator comes from the <code>magrittr</code> package, but is also available when we turn on the <code>dplyr</code> package.</p>
+<p>To get rid of the “onion,” we can use a special operator for stream processing: <code>%&gt;%</code>.This operator comes from the <code>magrittr</code> package, but is also available when we turn on the <code>dplyr</code> package.</p>
 <p>To remember what this operator does, we can use a simple example of a function with two arguments. The following code:</p>
 <pre><code>a %&gt;% function(b)</code></pre>
 <p>means:</p>
 <pre><code>function(a,b)</code></pre>
 <p>We can also use this operator with functions that take more than two arguments. The <code>%&gt;%</code> operator passes the left-hand side as the first operator of the function specified on the right.</p>
-<p>If we want to pass a value to the second or a subsequent argument, we can specify this argument with a dot “.”, as shown in the example below:</p>
+<p>If we want to pass a value to the second or a subsequent argument, we can specify this argument with a dot “.” as shown in the example below:</p>
 <pre><code>a %&gt;% function(b, data=.)</code></pre>
 </div>
 <div id="streams-in-action" class="section level4 unnumbered">
 <h4>Streams in action</h4>
 <p>The “onion” shown above can be rewritten in the following way:</p>
-<pre class="sourceCode r"><code class="sourceCode r">vehicles <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(Make <span class="op">==</span><span class="st"> &quot;Kia&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(Price) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(Model, Price, Mileage,Production) -&gt;
-<span class="st">  </span>sorted
-<span class="kw">head</span>(sorted)</code></pre>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="part-25.html#cb130-1" aria-hidden="true" tabindex="-1"></a>vehicles <span class="sc">%&gt;%</span></span>
+<span id="cb130-2"><a href="part-25.html#cb130-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Make <span class="sc">==</span> <span class="st">&quot;Kia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb130-3"><a href="part-25.html#cb130-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Price) <span class="sc">%&gt;%</span></span>
+<span id="cb130-4"><a href="part-25.html#cb130-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Model, Price, Mileage,Production) <span class="ot">-&gt;</span></span>
+<span id="cb130-5"><a href="part-25.html#cb130-5" aria-hidden="true" tabindex="-1"></a>  sorted</span>
+<span id="cb130-6"><a href="part-25.html#cb130-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sorted)</span></code></pre></div>
 <pre><code>##   Model    Price Mileage Production
 ## 1 Cee&#39;d  1026.60   28000       2008
 ## 2 Cee&#39;d 13900.00  129000       2009
@@ -374,9 +390,9 @@ fourColumns &lt;-<span class="st"> </span><span class="kw">select</span>(sorted,
 <p>The functions from the <code>dplyr</code> package are defined in such a way that their first argument is always a dataset. Thanks to this, the default behaviour of the <code>%&gt;%</code> operator makes our code much shorter and more understandable even with big sequences of function calls.</p>
 <p>In the case of functions that take datasets as the second or even further arguments, we also need to use the “.” symbol (dot). This symbol denotes where the left side of the <code>%&gt;%</code> operator should be placed.
 Let us take a look at an example with the <code>lm()</code> function which builds a linear model. This function expects the data to be passed as the second argument. This means we need to use the “.” symbol.</p>
-<pre class="sourceCode r"><code class="sourceCode r">vehicles <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">lm</span>(Price<span class="op">~</span>Mileage, <span class="dt">data =</span> .) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summary</span>()</code></pre>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="part-25.html#cb132-1" aria-hidden="true" tabindex="-1"></a>vehicles <span class="sc">%&gt;%</span></span>
+<span id="cb132-2"><a href="part-25.html#cb132-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(Price<span class="sc">~</span>Mileage, <span class="at">data =</span> .) <span class="sc">%&gt;%</span></span>
+<span id="cb132-3"><a href="part-25.html#cb132-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Price ~ Mileage, data = .)
@@ -399,8 +415,8 @@ Let us take a look at an example with the <code>lm()</code> function which build
 <p>Notice that streams are not only easier to read, but they are also easier to comment. A comment line can be placed before each line of a stream to describe what happens in the specific place.</p>
 </div>
 </div>
-<div id="part_256" class="section level3">
-<h3><span class="header-section-number">2.5.6</span> How to compute aggregates/statistics in groups</h3>
+<div id="part_256" class="section level3" number="3.5.6">
+<h3><span class="header-section-number">3.5.6</span> How to compute aggregates/statistics in groups</h3>
 <p>A frequent operation on datasets, particularly on the big ones, is the calculation of statistics/summaries/aggregates on subsets of data.</p>
 <p>To find such aggregates with the <code>dplyr</code> package, we can use the <code>summarise()</code> and <code>group_by()</code> functions. The first function specifies the statistics that we want to calculate, whereas the second function describes the groups we want to create.</p>
 <p>We present those functions below one after another.</p>
@@ -408,11 +424,11 @@ Let us take a look at an example with the <code>lm()</code> function which build
 <h4>Aggregates</h4>
 <p>We can use <code>summarise()</code> to find aggregates in datasets.</p>
 <p>For instance, the instruction below calculates the mean price, median mileage, and mean age in the <code>vehicles</code> dataset.</p>
-<pre class="sourceCode r"><code class="sourceCode r">vehicles <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">meanPrice =</span> <span class="kw">mean</span>(Price),
-            <span class="dt">medianMileage =</span> <span class="kw">median</span>(Mileage),
-            <span class="dt">meanAge =</span> <span class="kw">mean</span>(<span class="dv">2013</span> <span class="op">-</span><span class="st"> </span>Production),
-            <span class="dt">numbers =</span> <span class="kw">n</span>())</code></pre>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="part-25.html#cb134-1" aria-hidden="true" tabindex="-1"></a>vehicles <span class="sc">%&gt;%</span></span>
+<span id="cb134-2"><a href="part-25.html#cb134-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanPrice =</span> <span class="fu">mean</span>(Price),</span>
+<span id="cb134-3"><a href="part-25.html#cb134-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">medianMileage =</span> <span class="fu">median</span>(Mileage),</span>
+<span id="cb134-4"><a href="part-25.html#cb134-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">meanAge =</span> <span class="fu">mean</span>(<span class="dv">2013</span> <span class="sc">-</span> Production),</span>
+<span id="cb134-5"><a href="part-25.html#cb134-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">numbers =</span> <span class="fu">n</span>())</span></code></pre></div>
 <pre><code>##   meanPrice medianMileage  meanAge numbers
 ## 1  33340.38        122000 6.638333    2400</code></pre>
 <p>An aggregate is not always related with value transformation in a column. For instance, the count of rows is a useful statistic which does not depend on the values in the dataset. An aggregate like shown above is set with the <code>n()</code> function.</p>
@@ -428,15 +444,15 @@ Let us take a look at an example with the <code>lm()</code> function which build
 <li><p>The <code>mutate()</code> function finds each aggregate within a group, which makes it easy to normalise variables in groups.</p></li>
 </ul>
 <p>The example below calculates four statistics (mean price, median mileage, mean vehicle age, and count of offers) in groups specified by the make.</p>
-<pre class="sourceCode r"><code class="sourceCode r">vehicles <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(Make) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">meanPrice =</span> <span class="kw">mean</span>(Price),
-            <span class="dt">medianMileage =</span> <span class="kw">median</span>(Mileage),
-            <span class="dt">meanAge =</span> <span class="kw">mean</span>(<span class="dv">2013</span> <span class="op">-</span><span class="st"> </span>Production),
-            <span class="dt">offerCount =</span> <span class="kw">n</span>())</code></pre>
-<pre><code>## # A tibble: 6 x 5
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="part-25.html#cb136-1" aria-hidden="true" tabindex="-1"></a>vehicles <span class="sc">%&gt;%</span></span>
+<span id="cb136-2"><a href="part-25.html#cb136-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Make) <span class="sc">%&gt;%</span></span>
+<span id="cb136-3"><a href="part-25.html#cb136-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanPrice =</span> <span class="fu">mean</span>(Price),</span>
+<span id="cb136-4"><a href="part-25.html#cb136-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">medianMileage =</span> <span class="fu">median</span>(Mileage),</span>
+<span id="cb136-5"><a href="part-25.html#cb136-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">meanAge =</span> <span class="fu">mean</span>(<span class="dv">2013</span> <span class="sc">-</span> Production),</span>
+<span id="cb136-6"><a href="part-25.html#cb136-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">offerCount =</span> <span class="fu">n</span>())</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 5
 ##   Make       meanPrice medianMileage meanAge offerCount
-##   &lt;fct&gt;          &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;      &lt;int&gt;
+##   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;      &lt;int&gt;
 ## 1 Audi          59892.       150452.    6.55        200
 ## 2 Fiat          15772.        75000     6.33        200
 ## 3 Kia           36983.        42850     3.98        200
@@ -444,16 +460,16 @@ Let us take a look at an example with the <code>lm()</code> function which build
 ## 5 Peugeot       17389.       127750     8.16        400
 ## 6 Volkswagen    39433.       146448     6.67        600</code></pre>
 <p>Aggregates are an ordinary data frame, which means we can perform subsequent operations on them, such as sorting.</p>
-<pre class="sourceCode r"><code class="sourceCode r">vehicles <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(Make) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">meanPrice =</span> <span class="kw">mean</span>(Price),
-            <span class="dt">medianMileage =</span> <span class="kw">median</span>(Mileage),
-            <span class="dt">meanAge =</span> <span class="kw">mean</span>(<span class="dv">2013</span> <span class="op">-</span><span class="st"> </span>Production),
-            <span class="dt">offerCount =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(meanPrice)</code></pre>
-<pre><code>## # A tibble: 6 x 5
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="part-25.html#cb138-1" aria-hidden="true" tabindex="-1"></a>vehicles <span class="sc">%&gt;%</span></span>
+<span id="cb138-2"><a href="part-25.html#cb138-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Make) <span class="sc">%&gt;%</span></span>
+<span id="cb138-3"><a href="part-25.html#cb138-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanPrice =</span> <span class="fu">mean</span>(Price),</span>
+<span id="cb138-4"><a href="part-25.html#cb138-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">medianMileage =</span> <span class="fu">median</span>(Mileage),</span>
+<span id="cb138-5"><a href="part-25.html#cb138-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">meanAge =</span> <span class="fu">mean</span>(<span class="dv">2013</span> <span class="sc">-</span> Production),</span>
+<span id="cb138-6"><a href="part-25.html#cb138-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">offerCount =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb138-7"><a href="part-25.html#cb138-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(meanPrice)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 5
 ##   Make       meanPrice medianMileage meanAge offerCount
-##   &lt;fct&gt;          &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;      &lt;int&gt;
+##   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;      &lt;int&gt;
 ## 1 Fiat          15772.        75000     6.33        200
 ## 2 Peugeot       17389.       127750     8.16        400
 ## 3 Opel          33591.       120550     6.62        800
@@ -461,14 +477,14 @@ Let us take a look at an example with the <code>lm()</code> function which build
 ## 5 Volkswagen    39433.       146448     6.67        600
 ## 6 Audi          59892.       150452.    6.55        200</code></pre>
 <p>The example below modifies the <code>Mileage</code> variable. It divides <code>Mileage</code> by the mean mileage for the given make.</p>
-<pre class="sourceCode r"><code class="sourceCode r">vehicles <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(Make, Price, Mileage, Model) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(Make) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Mileage =</span> Mileage<span class="op">/</span><span class="kw">mean</span>(Mileage, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))</code></pre>
-<pre><code>## # A tibble: 2,400 x 4
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="part-25.html#cb140-1" aria-hidden="true" tabindex="-1"></a>vehicles <span class="sc">%&gt;%</span></span>
+<span id="cb140-2"><a href="part-25.html#cb140-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Make, Price, Mileage, Model) <span class="sc">%&gt;%</span></span>
+<span id="cb140-3"><a href="part-25.html#cb140-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Make) <span class="sc">%&gt;%</span></span>
+<span id="cb140-4"><a href="part-25.html#cb140-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Mileage =</span> Mileage<span class="sc">/</span><span class="fu">mean</span>(Mileage, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 2,400 × 4
 ## # Groups:   Make [6]
 ##    Make    Price Mileage Model
-##    &lt;fct&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;
+##    &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;
 ##  1 Peugeot  8799   0.671 206  
 ##  2 Peugeot 15500   0.900 206  
 ##  3 Peugeot 11900   1.70  206  
@@ -482,17 +498,17 @@ Let us take a look at an example with the <code>lm()</code> function which build
 ## # … with 2,390 more rows</code></pre>
 </div>
 </div>
-<div id="part_257" class="section level3">
-<h3><span class="header-section-number">2.5.7</span> Wide and long formats</h3>
+<div id="part_257" class="section level3" number="3.5.7">
+<h3><span class="header-section-number">3.5.7</span> Wide and long formats</h3>
 <p>Many functions assume that data is structured as tables in which rows are subsequent observations and columns are variables describing those observations. This data format is expected by packages such as <code>dplyr</code>, <code>ggplot2</code> and others.</p>
 <p>However, data is sometimes given in other formats. Sometimes, the same variable is described by many columns, or multiple variables are provided a single column. Some functions from the <code>tidyr</code> package are used to transform various data formats.</p>
 <p>We will present those data formats and the functions used to transform them on some sample data from Eurostat. We will get this data using the <code>eurostat</code> package. Below, we load data from the <code>tsdtr210</code> table in which Eurostat gathers information about the popularity of various means of transport in various countries.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;eurostat&quot;</span>)
-id &lt;-<span class="st"> </span><span class="kw">search_eurostat</span>(<span class="st">&quot;Modal split of passenger transport&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;table&quot;</span>)<span class="op">$</span>code[<span class="dv">1</span>]
-tsdtr210 &lt;-<span class="st"> </span><span class="kw">get_eurostat</span>(id, <span class="dt">time_format =</span> <span class="st">&quot;num&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()
-<span class="kw">head</span>(tsdtr210, <span class="dv">4</span>)</code></pre>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="part-25.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;eurostat&quot;</span>)</span>
+<span id="cb142-2"><a href="part-25.html#cb142-2" aria-hidden="true" tabindex="-1"></a>id <span class="ot">&lt;-</span> <span class="fu">search_eurostat</span>(<span class="st">&quot;Modal split of passenger transport&quot;</span>, <span class="at">type =</span> <span class="st">&quot;table&quot;</span>)<span class="sc">$</span>code[<span class="dv">1</span>]</span>
+<span id="cb142-3"><a href="part-25.html#cb142-3" aria-hidden="true" tabindex="-1"></a>tsdtr210 <span class="ot">&lt;-</span> <span class="fu">get_eurostat</span>(id, <span class="at">time_format =</span> <span class="st">&quot;num&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
+<span id="cb142-4"><a href="part-25.html#cb142-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tsdtr210, <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##   unit vehicle geo time values
-## 1   PC BUS_TOT  AT 1990   11.0
+## 1   PC BUS_TOT  AT 1990    8.2
 ## 2   PC BUS_TOT  BE 1990   10.6
 ## 3   PC BUS_TOT  CH 1990    3.7
 ## 4   PC BUS_TOT  DE 1990    9.1</code></pre>
@@ -502,68 +518,68 @@ tsdtr210 &lt;-<span class="st"> </span><span class="kw">get_eurostat</span>(id, 
 <p>To transform data from the long format to the wide format, we can use the <code>spread()</code> function. The name wide format comes from the fact that it contains more columns. New columns in the wide format correspond to the values of a single column in the long format.</p>
 <p>The <code>spread()</code> function expects three arguments. The first argument is, naturally, the dataset. The second argument is the key corresponding to column names, and the last argument are the values to be written into the specific columns. Rows in the new table are chosen as unique values in the other columns.</p>
 <p>In the example below, the <code>time</code> function is changed from the long format to the wide format in which names correspond to subsequent years - values from the <code>time</code> column. The values in new columns are copies from the <code>values</code> column in the long data format.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyr&quot;</span>)
-wideFormat &lt;-<span class="st"> </span><span class="kw">spread</span>(tsdtr210, time, values)
-wideFormat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(geo <span class="op">==</span><span class="st"> &quot;PL&quot;</span>)</code></pre>
-<pre><code>##   unit vehicle geo 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000
-## 1   PC BUS_TOT  PL 28.1 25.6 24.4 23.2 20.9 19.9 19.4 17.9 17.4 16.8 27.7
-## 2   PC     CAR  PL 41.3 49.8 55.3 57.9 62.3 64.6 69.3 71.3 72.1 72.3 61.0
-## 3   PC     TRN  PL 30.6 24.6 20.3 18.9 16.8 15.5 11.3 10.8 10.5 10.9 11.3
-##   2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014
-## 1 26.4 24.9 24.3 23.6 22.4 21.8 20.8 19.9 17.9 16.8 15.7 16.0 15.3 15.5
-## 2 62.9 65.1 66.5 67.9 69.4 70.1 70.7 71.9 74.7 76.1 77.4 76.8 78.0 78.2
-## 3 10.7  9.9  9.2  8.5  8.2  8.2  8.5  8.2  7.4  7.1  6.9  7.2  6.7  6.3
-##   2015 2016
-## 1 14.7 14.2
-## 2 78.5 78.5
-## 3  6.8  7.3</code></pre>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="part-25.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;tidyr&quot;</span>)</span>
+<span id="cb144-2"><a href="part-25.html#cb144-2" aria-hidden="true" tabindex="-1"></a>wideFormat <span class="ot">&lt;-</span> <span class="fu">spread</span>(tsdtr210, time, values)</span>
+<span id="cb144-3"><a href="part-25.html#cb144-3" aria-hidden="true" tabindex="-1"></a>wideFormat <span class="sc">%&gt;%</span> <span class="fu">filter</span>(geo <span class="sc">==</span> <span class="st">&quot;PL&quot;</span>)</span></code></pre></div>
+<pre><code>##   unit vehicle geo 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001
+## 1   PC BUS_TOT  PL 28.1 25.6 24.4 23.2 20.9 19.9 19.4 17.9 17.4 16.8 25.4 23.5
+## 2   PC     CAR  PL 41.3 49.8 55.3 57.9 62.3 64.6 69.3 71.3 72.1 72.3 64.3 66.9
+## 3   PC     TRN  PL 30.6 24.6 20.3 18.9 16.8 15.5 11.3 10.8 10.5 10.9 10.3  9.5
+##   2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016
+## 1 21.7 21.2 20.4 18.6 17.0 20.8 19.9 17.9 16.8 15.7 16.0 15.2 15.5 14.7 14.2
+## 2 69.7 70.8 72.3 74.6 76.6 70.7 71.9 74.7 76.1 77.4 76.8 78.0 78.2 78.5 78.5
+## 3  8.6  8.1  7.3  6.8  6.4  8.5  8.2  7.4  7.1  6.9  7.2  6.7  6.3  6.8  7.3
+##   2017 2018 2019
+## 1 13.8 12.9 12.0
+## 2 78.5 79.3 80.7
+## 3  7.7  7.9  7.3</code></pre>
 <p>The data in the <code>tsdtr210</code> table describes values in intersections through four dimensions (unit, vehicle type, country, year). Each dimension can be used to create new columns in the wide format.</p>
 <p>In the example below, subsequent columns are created based on the <code>geo</code> column in the long format.</p>
-<pre class="sourceCode r"><code class="sourceCode r">wideFormat2 &lt;-<span class="st"> </span><span class="kw">spread</span>(tsdtr210, geo, values)</code></pre>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="part-25.html#cb146-1" aria-hidden="true" tabindex="-1"></a>wideFormat2 <span class="ot">&lt;-</span> <span class="fu">spread</span>(tsdtr210, geo, values)</span></code></pre></div>
 <p>We can show the rows for year 2010 (some columns are omitted).</p>
-<pre class="sourceCode r"><code class="sourceCode r">wideFormat2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(time <span class="op">==</span><span class="st"> &quot;2010&quot;</span>)</code></pre>
-<pre><code>##   unit vehicle time   AT   BE   CH DE   DK   EL   ES   FI   FR   HU   IE
-## 1   PC BUS_TOT 2010 10.6 12.7  5.1  6 10.5 17.3 12.3  9.9  5.3 21.5 14.5
-## 2   PC     CAR 2010 78.4 79.7 77.3 86 79.7 81.6 82.3 84.9 85.5 68.6 82.6
-## 3   PC     TRN 2010 11.0  7.7 17.6  8  9.8  1.1  5.4  5.2  9.3 10.0  2.9
-##     IT   LU   PL   SE   SI   TR   UK   CY   IS   MT   PT   CZ   SK   BG
-## 1 12.8 12.1 16.8  7.3 10.8 38.3  6.2 18.1 11.4 18.5  6.5 19.5 15.3 16.4
-## 2 81.7 83.5 76.1 84.0 86.8 59.3 86.3 81.9 88.6 81.5 89.1 73.0 78.0 80.0
-## 3  5.5  4.5  7.1  8.7  2.5  2.4  7.5   NA   NA   NA  4.4  7.5  6.7  3.6
-##     HR   LV   NO   RO   EE   MK EU28   LT   NL
-## 1 10.7 17.1  6.9 16.3 16.6 22.9  9.4  7.6  2.9
-## 2 83.7 78.2 88.3 78.0 81.4 74.6 83.5 91.7 86.9
-## 3  5.6  4.7  4.8  5.6  2.0  2.5  7.2  0.7 10.2</code></pre>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="part-25.html#cb147-1" aria-hidden="true" tabindex="-1"></a>wideFormat2 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(time <span class="sc">==</span> <span class="st">&quot;2010&quot;</span>)</span></code></pre></div>
+<pre><code>##   unit vehicle time   AT   BE   BG   CH   CY   CZ DE   DK   EE   EL   ES
+## 1   PC BUS_TOT 2010  9.3 12.7 16.4  5.1 18.1 19.5  6 10.5 16.6 17.3 12.3
+## 2   PC     CAR 2010 79.6 79.7 80.0 77.3 81.9 73.0 86 79.7 81.4 81.6 82.3
+## 3   PC     TRN 2010 11.1  7.6  3.6 17.6   NA  7.5  8  9.8  2.0  1.1  5.4
+##   EU27_2020 EU28   FI   FR   HR   HU   IE   IS   IT   LT   LU   LV   ME   MK
+## 1       9.8  9.3  9.9  5.3 10.7 21.5 14.5 11.4 12.8  7.6 12.1 17.1  1.9 22.9
+## 2      83.0 83.5 84.9 85.5 83.7 68.6 82.6 88.6 81.7 91.7 83.5 78.2 96.0 74.6
+## 3       7.1  7.2  5.2  9.3  5.6 10.0  2.9   NA  5.5  0.7  4.5  4.7  2.1  2.5
+##     MT   NL   NO   PL   PT   RO   RS   SE   SI   SK   TR   UK
+## 1 18.5  2.9  6.9 16.8  6.5 16.3 13.0  7.3 10.8 15.3 38.3  6.2
+## 2 81.5 86.9 88.3 76.1 89.1 78.0 85.5 84.0 86.8 78.0 59.3 86.3
+## 3   NA 10.2  4.8  7.1  4.4  5.6  1.5  8.7  2.5  6.7  2.4  7.5</code></pre>
 </div>
 <div id="gather-into-columns" class="section level4 unnumbered">
 <h4>Gather into columns</h4>
 <p>The opposite of spreading a single column into multiple columns is gathering multiple columns into a single column. This can be accomplished with the <code>gather()</code> function.</p>
-<p>This function takes a dataset as the first argument. Further two arguments specify column names with keys and values, while the other arguments point to those columns from the old dataset that should be gathered together in the new dataset. We can use the minus sign notation “-” which means “everything except…”.</p>
+<p>This function takes a dataset as the first argument. Further two arguments specify column names with keys and values, while the other arguments point to those columns from the old dataset that should be gathered together in the new dataset. We can use the minus sign notation “-” which means “everything except….”</p>
 <p>In the example below, we transform the <code>wideFormat</code> data frame into the long format in such a way that all columns except for <code>geo</code> and <code>vehicle</code> are transformed into a column called value. This is why the result contains the <code>geo</code> and <code>vehicle</code> columns (skipped when gathering) as well as <code>year</code> and <code>value</code> (results of gathering).</p>
-<pre class="sourceCode r"><code class="sourceCode r">wideFormat <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">gather</span>(year, value, <span class="op">-</span>geo, <span class="op">-</span>vehicle) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">tail</span>()</code></pre>
-<pre><code>##      vehicle  geo year value
-## 2851     TRN   RO 2016   4.2
-## 2852     TRN   EE 2016     2
-## 2853     TRN   MK 2016     1
-## 2854     TRN EU28 2016   7.7
-## 2855     TRN   LT 2016     1
-## 2856     TRN   NL 2016    11</code></pre>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="part-25.html#cb149-1" aria-hidden="true" tabindex="-1"></a>wideFormat <span class="sc">%&gt;%</span></span>
+<span id="cb149-2"><a href="part-25.html#cb149-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(year, value, <span class="sc">-</span>geo, <span class="sc">-</span>vehicle) <span class="sc">%&gt;%</span></span>
+<span id="cb149-3"><a href="part-25.html#cb149-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tail</span>()</span></code></pre></div>
+<pre><code>##      vehicle geo year value
+## 3436     TRN  RS 2019   0.7
+## 3437     TRN  SE 2019  10.5
+## 3438     TRN  SI 2019   1.8
+## 3439     TRN  SK 2019  10.2
+## 3440     TRN  TR 2019   3.3
+## 3441     TRN  UK 2019   8.5</code></pre>
 <p>To show an example of 4 rows, we used the <code>tail()</code> function which shows the last 6 rows, because the first six rows are <code>NA</code> values.</p>
 </div>
 </div>
-<div id="part_258" class="section level3">
-<h3><span class="header-section-number">2.5.8</span> Uniting/separating columns</h3>
+<div id="part_258" class="section level3" number="3.5.8">
+<h3><span class="header-section-number">3.5.8</span> Uniting/separating columns</h3>
 <p>When we work with data, we often want to unite multiple columns into one, or split a column into multiple columns.</p>
 <div id="uniting-columns" class="section level4 unnumbered">
 <h4>Uniting columns</h4>
 <p>We can use the <code>unite()</code> function to merge a few columns into a single column.</p>
 <p>The code below unites values from columns <code>geo</code> and <code>time</code> into a single string column <code>geo_time</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unite</span>(tsdtr210, geo_time, geo, time, <span class="dt">sep=</span><span class="st">&quot;:&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">head</span>(<span class="dv">4</span>)</code></pre>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="part-25.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unite</span>(tsdtr210, geo_time, geo, time, <span class="at">sep=</span><span class="st">&quot;:&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb151-2"><a href="part-25.html#cb151-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##   unit vehicle geo_time values
-## 1   PC BUS_TOT  AT:1990   11.0
+## 1   PC BUS_TOT  AT:1990    8.2
 ## 2   PC BUS_TOT  BE:1990   10.6
 ## 3   PC BUS_TOT  CH:1990    3.7
 ## 4   PC BUS_TOT  DE:1990    9.1</code></pre>
@@ -574,15 +590,15 @@ wideFormat <span class="op">%&gt;%</span><span class="st"> </span><span class="k
 <p>The opposite of uniting is separating. Here, we can use the <code>separate()</code> function.</p>
 <p>We will show an example of an artificial dataset with two columns: data and identifier.</p>
 <p>In the example below, the <code>separate()</code> function creates three new columns based on the <code>dates</code> column. The columns are filled with parts of the old column separated with the - sign.</p>
-<pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">dates =</span> <span class="kw">c</span>(<span class="st">&quot;2004-01-01&quot;</span>, <span class="st">&quot;2012-04-15&quot;</span>, <span class="st">&quot;2006-10-29&quot;</span>,
-                           <span class="st">&quot;2010-03-03&quot;</span>), <span class="dt">id =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)
-df</code></pre>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="part-25.html#cb153-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">dates =</span> <span class="fu">c</span>(<span class="st">&quot;2004-01-01&quot;</span>, <span class="st">&quot;2012-04-15&quot;</span>, <span class="st">&quot;2006-10-29&quot;</span>,</span>
+<span id="cb153-2"><a href="part-25.html#cb153-2" aria-hidden="true" tabindex="-1"></a>                           <span class="st">&quot;2010-03-03&quot;</span>), <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb153-3"><a href="part-25.html#cb153-3" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>##        dates id
 ## 1 2004-01-01  1
 ## 2 2012-04-15  2
 ## 3 2006-10-29  3
 ## 4 2010-03-03  4</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">separate</span>(df, <span class="dt">col=</span>dates, <span class="dt">into=</span><span class="kw">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;month&quot;</span>, <span class="st">&quot;day&quot;</span>), <span class="dt">sep=</span><span class="st">&quot;-&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="part-25.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">separate</span>(df, <span class="at">col=</span>dates, <span class="at">into=</span><span class="fu">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;month&quot;</span>, <span class="st">&quot;day&quot;</span>), <span class="at">sep=</span><span class="st">&quot;-&quot;</span>)</span></code></pre></div>
 <pre><code>##   year month day id
 ## 1 2004    01  01  1
 ## 2 2012    04  15  2
@@ -603,11 +619,13 @@ df</code></pre>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -615,12 +633,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -632,6 +650,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -651,8 +673,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

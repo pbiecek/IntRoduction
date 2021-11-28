@@ -29,7 +29,7 @@ Binary variables can be represented with a logical type called `logical`.
 Table \@ref(tab:tab01) presents some functions which calculate the most popular descriptive statistics. We will practice calculating descriptive statistics on a data set called `socData` from the `Przewodnik` package.
 ```{r message=FALSE,warning=FALSE}
 library("Przewodnik")
-socData <- read.csv("socData.csv"); head(socData, 3)
+socData <- read.csv("socData.csv", sep=";"); head(socData, 3)
 ```
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
