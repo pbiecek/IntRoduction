@@ -205,14 +205,16 @@ The `mosaicplot()` function (see Figures \@ref(fig:wy214) and \@ref(fig:wy215)) 
 Let us present this kind of plot with two examples. The results of the instructions below are shown in Figures \@ref(fig:wy214) and \@ref(fig:wy215).
 
 The first plot presents the relative frequency of various education groups. The rectangles have a fixed height, but they differ in width. The wider the rectangle, the more frequent the group.
-``````{r wy214, fig.cap='Mosaic chart showing the frequency of variable education.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=6, fig.height=4,out.width='80%',warning=FALSE,message=FALSE}
+
+```{r wy214, fig.cap='Mosaic chart showing the frequency of variable education.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=6, fig.height=4,out.width='80%',warning=FALSE,message=FALSE}
 mosaicplot(~education, data=socData, main="", border="white")
 ```
 
 The other plot presents the relation between `education` and `employment`. Again, the width of a rectangle corresponds to the relative frequency of the given education group. The height, in turn, signifies the relative frequency of those employed in different education groups.
 
 Importantly, the mosaic plot resembles a regular squared pattern when two variables are independent. Any kind of correlation is visible at first sight. The plot below shows that highest percentage of people employed is present among those with tertiary education.
-``````{r wy215, fig.cap='Mosaic chart showing the relationship between employment and education.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=6, fig.height=4,out.width='80%',warning=FALSE,message=FALSE}
+
+```{r wy215, fig.cap='Mosaic chart showing the relationship between employment and education.',fig.pos= 'h', fig.show='hold', fig.align='center', fig.width=6, fig.height=4,out.width='80%',warning=FALSE,message=FALSE}
 mosaicplot(~education+employment, data=socData, border="white",
            col=c("grey40", "grey70"))
 ```

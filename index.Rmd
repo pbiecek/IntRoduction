@@ -30,7 +30,7 @@ always_allow_html: yes
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# About
+# About {-}
 
 
 Translation of the first 80 pages from [,,Przewodnik po pakiecie R''](http://pbiecek.github.io/Przewodnik/).
