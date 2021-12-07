@@ -24,7 +24,7 @@
 <meta name="author" content="Translation of the first 80 pages from ,,Przewodnik po pakiecie R’’" />
 
 
-<meta name="date" content="2021-12-04" />
+<meta name="date" content="2021-12-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -502,7 +502,7 @@ Let us take a look at an example with the <code>lm()</code> function which build
 <h3><span class="header-section-number">2.5.7</span> Wide and long formats</h3>
 <p>Many functions assume that data is structured as tables in which rows are subsequent observations and columns are variables describing those observations. This data format is expected by packages such as <code>dplyr</code>, <code>ggplot2</code> and others.</p>
 <p>However, data is sometimes given in other formats. Sometimes, the same variable is described by many columns, or multiple variables are provided a single column. Some functions from the <code>tidyr</code> package are used to transform various data formats.</p>
-<p>We will present those data formats and the functions used to transform them on some sample data from Eurostat. We will get this data using the <code>eurostat</code> package. Below, we load data from the <code>tsdtr210</code> table in which Eurostat gathers information about the popularity of various means of transport in various countries.</p>
+<p>We will present those data formats and the functions used to transform them on some sample data from Eurostat. We will get this data using the <code>eurostat</code> package. Below, we load data from the <code>t2020_rk310</code> table in which Eurostat gathers information about the popularity of various means of transport in various countries.</p>
 <div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="part-25.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;eurostat&quot;</span>)</span>
 <span id="cb142-2"><a href="part-25.html#cb142-2" aria-hidden="true" tabindex="-1"></a>id <span class="ot">&lt;-</span> <span class="fu">search_eurostat</span>(<span class="st">&quot;Modal split of passenger transport&quot;</span>, <span class="at">type =</span> <span class="st">&quot;table&quot;</span>)<span class="sc">$</span>code[<span class="dv">1</span>]</span>
 <span id="cb142-3"><a href="part-25.html#cb142-3" aria-hidden="true" tabindex="-1"></a>tsdtr210 <span class="ot">&lt;-</span> <span class="fu">get_eurostat</span>(id, <span class="at">time_format =</span> <span class="st">&quot;num&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>

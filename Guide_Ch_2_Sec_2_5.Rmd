@@ -263,7 +263,7 @@ Many functions assume that data is structured as tables in which rows are subseq
 
 However, data is sometimes given in other formats. Sometimes, the same variable is described by many columns, or multiple variables are provided a single column. Some functions from the `tidyr` package are used to transform various data formats.
 
-We will present those data formats and the functions used to transform them on some sample data from Eurostat. We will get this data using the `eurostat` package. Below, we load data from the `tsdtr210` table in which Eurostat gathers information about the popularity of various means of transport in various countries.
+We will present those data formats and the functions used to transform them on some sample data from Eurostat. We will get this data using the `eurostat` package. Below, we load data from the `t2020_rk310` table in which Eurostat gathers information about the popularity of various means of transport in various countries.
 ```{r warning=FALSE,message=FALSE}
 library("eurostat")
 id <- search_eurostat("Modal split of passenger transport", type = "table")$code[1]
